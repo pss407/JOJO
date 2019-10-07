@@ -5,9 +5,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -16,20 +13,17 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
+
 
 
 public class MainActivity extends AppCompatActivity {
@@ -38,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private static String TAG = "phptest";
 
     private EditText mEditTextName;
-    private EditText mEditTextCountry;
+    private EditText mEditTextPassword;
     private TextView mTextViewResult;
 
 
@@ -50,17 +44,16 @@ public class MainActivity extends AppCompatActivity {
     EditText editText2;
 
 
+
+
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-
-
-
-
-
 
 
         editText=(EditText)findViewById(R.id.editText);
@@ -86,7 +79,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
 
 
 
@@ -129,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
         protected String doInBackground(String... params) {
 
             String serverURL = params[0];
-            String postParameters = "country=" + params[1];
+            String postParameters = "password=" + params[1];
 
 
             try {
@@ -195,7 +187,9 @@ public class MainActivity extends AppCompatActivity {
         String TAG_JSON="webnautes";
         String TAG_ID = "id";
         String TAG_NAME = "name";
-        String TAG_COUNTRY ="country";
+        String TAG_PASSWORD ="password";
+        String TAG_LEVEL ="level";
+        String TAG_TIER ="tier";
 
 
         try {
@@ -208,9 +202,26 @@ public class MainActivity extends AppCompatActivity {
                 JSONObject item = jsonArray.getJSONObject(i);
 
                 String name = item.getString(TAG_NAME);
-                String country = item.getString(TAG_COUNTRY);
-                if(rid.equals(name)&&rpassword.equals(country))
+                String password = item.getString(TAG_PASSWORD);
+                String level = item.getString(TAG_LEVEL);
+                String tier = item.getString(TAG_TIER);
+
+
+
+
+
+
+
+
+                if(rid.equals(name)&&rpassword.equals(password))
                 {
+
+                    // 전역변수 설정 (로그인한 유저 정보들)
+                    MyApplication myApp = (MyApplication)getApplicationContext();
+                    myApp.setlevel(level);
+                    myApp.settier(tier);
+                    myApp.setname(name);
+
                     Intent intent = new Intent(getApplicationContext(),Main3Activity.class);
                     startActivity(intent);
                     check=true;
