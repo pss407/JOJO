@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),Main2Activity.class);
+                Intent intent = new Intent(getApplicationContext(), SignIn.class);
                 startActivity(intent);
             }
         });
@@ -192,55 +192,49 @@ public class MainActivity extends AppCompatActivity {
         String TAG_TIER ="tier";
 
 
-        try {
-            JSONObject jsonObject = new JSONObject(mJsonString);
-            JSONArray jsonArray = jsonObject.getJSONArray(TAG_JSON);
-            boolean check = false;
 
-            for(int i=0;i<jsonArray.length();i++){
+            try {
+                JSONObject jsonObject = new JSONObject(mJsonString); //JSONArray
 
-                JSONObject item = jsonArray.getJSONObject(i);
+                JSONArray jsonArray = jsonObject.getJSONArray(TAG_JSON);
 
-                String name = item.getString(TAG_NAME);
-                String password = item.getString(TAG_PASSWORD);
-                String level = item.getString(TAG_LEVEL);
-                String tier = item.getString(TAG_TIER);
+                boolean check = false;
 
+                for (int i = 0; i < jsonArray.length(); i++) {
 
+                    JSONObject item = jsonArray.getJSONObject(i);
 
-
-
+                    String name = item.getString(TAG_NAME);
+                    String password = item.getString(TAG_PASSWORD);
+                    String level = item.getString(TAG_LEVEL);
+                    String tier = item.getString(TAG_TIER);
 
 
+                    if (rid.equals(name) && rpassword.equals(password)) {
 
-                if(rid.equals(name)&&rpassword.equals(password))
-                {
+                        // 전역변수 설정 (로그인한 유저 정보들)
+                        MyApplication myApp = (MyApplication) getApplicationContext();
+                        myApp.setlevel(level);
+                        myApp.settier(tier);
+                        myApp.setname(name);
 
-                    // 전역변수 설정 (로그인한 유저 정보들)
-                    MyApplication myApp = (MyApplication)getApplicationContext();
-                    myApp.setlevel(level);
-                    myApp.settier(tier);
-                    myApp.setname(name);
+                        Intent intent = new Intent(getApplicationContext(), SelectMode.class);
+                        startActivity(intent);
+                        check = true;
+                    }
 
-                    Intent intent = new Intent(getApplicationContext(),Main3Activity.class);
-                    startActivity(intent);
-                    check=true;
+
+                }
+                if (check == false) {
+                    Toast toast = Toast.makeText(getApplicationContext(), "틀렸습니다", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.TOP | Gravity.LEFT, 350, 200);
+                    toast.show();
                 }
 
+            } catch (JSONException e) {
 
-
+                Log.d(TAG, "showResult : ", e);
             }
-            if(check==false)
-            {
-                Toast toast=Toast.makeText(getApplicationContext(),"틀렸습니다",Toast.LENGTH_LONG);
-                toast.setGravity(Gravity.TOP|Gravity.LEFT,350,200);
-                toast.show();
-            }
-
-        } catch (JSONException e) {
-
-            Log.d(TAG, "showResult : ", e);
-        }
 
     }
 

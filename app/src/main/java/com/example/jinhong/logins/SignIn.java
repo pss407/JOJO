@@ -27,7 +27,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 
-public class Main2Activity extends AppCompatActivity {
+public class SignIn extends AppCompatActivity {
 
     private static String IP_ADDRESS = "wlshddlek.cafe24.com";
     private static String TAG = "phptest";
@@ -193,7 +193,7 @@ public class Main2Activity extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
 
-            progressDialog = ProgressDialog.show(Main2Activity.this,
+            progressDialog = ProgressDialog.show(SignIn.this,
                     "Please Wait", null, true, true);
         }
 
@@ -547,7 +547,7 @@ public class Main2Activity extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
 
-            progressDialog = ProgressDialog.show(Main2Activity.this,
+            progressDialog = ProgressDialog.show(SignIn.this,
                     "Please Wait", null, true, true);
         }
 

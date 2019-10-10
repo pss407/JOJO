@@ -2,9 +2,10 @@ package com.example.jinhong.logins;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.TextView;
 
-public class Main3Activity extends AppCompatActivity {
+public class SelectMode extends AppCompatActivity {
 
 
     private String level;
@@ -34,4 +35,18 @@ public class Main3Activity extends AppCompatActivity {
 
 
     }
+
+    public void onButton5Clicked(View v)
+    {
+
+
+
+
+
+    }
+
+
+
+
+
 }

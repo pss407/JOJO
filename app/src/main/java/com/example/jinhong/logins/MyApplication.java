@@ -7,11 +7,12 @@ public class MyApplication extends Application {
 
     //전역 변수 설정
 
+
         private String name;
         private String level;
         private String tier;
 
-
+//
         @Override
         public void onCreate() {
             //전역 변수 초기화
