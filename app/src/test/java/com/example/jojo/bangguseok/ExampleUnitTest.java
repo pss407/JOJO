@@ -1,4 +1,4 @@
-package com.example.jinhong.logins;
+package com.example.jojo.bangguseok;
 
 import org.junit.Test;
 

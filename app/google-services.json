@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "486777466438",
+    "firebase_url": "https://chatting-570cd.firebaseio.com",
+    "project_id": "chatting-570cd",
+    "storage_bucket": "chatting-570cd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:486777466438:android:2ce0f3183a754a73d36447",
+        "android_client_info": {
+          "package_name": "com.example.jojo.bangguseok"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "486777466438-77f862anpvolkporc3qqn42crivtesm7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBx-RKb2GIOWGZcgLNW35jFadhaCPI3vN0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "486777466438-77f862anpvolkporc3qqn42crivtesm7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

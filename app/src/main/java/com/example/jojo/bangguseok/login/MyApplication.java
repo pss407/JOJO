@@ -1,4 +1,4 @@
-package com.example.jinhong.logins;
+package com.example.jojo.bangguseok.login;
 
 import android.app.Application;
 
@@ -46,13 +46,9 @@ public class MyApplication extends Application {
         public String gettier(){
             return tier;
         }
-
-
-       public String getname(){
+        public String getname(){
             return name;
         }
-
-
 
 }
 

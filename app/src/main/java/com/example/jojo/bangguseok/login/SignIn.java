@@ -1,11 +1,10 @@
-package com.example.jinhong.logins;
+package com.example.jojo.bangguseok.login;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
@@ -14,6 +13,10 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.jojo.bangguseok.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -105,13 +108,8 @@ public class SignIn extends AppCompatActivity {
                     finish();
 
                 }
-
-
             }
         });
-
-
-
     }
 
     private void showResult(){
@@ -138,9 +136,6 @@ public class SignIn extends AppCompatActivity {
                 String level = item.getString(TAG_LEVEL);
                 String tier = item.getString(TAG_TIER);
 
-
-
-
                 if(rid.equals(name))
                 {
 
@@ -151,10 +146,7 @@ public class SignIn extends AppCompatActivity {
                     toast.show();
                     check=true;
                     break;
-
                 }
-
-
 
             }
             if(check==false)
@@ -206,9 +198,6 @@ public class SignIn extends AppCompatActivity {
 
             Log.d(TAG, "response - " + result);
 
-
-
-
             mJsonString = result;
             showResult();
 
@@ -220,7 +209,6 @@ public class SignIn extends AppCompatActivity {
 
             String serverURL = params[0];
             String postParameters = "password=" + params[1];
-
 
             try {
 
@@ -528,14 +516,10 @@ public class SignIn extends AppCompatActivity {
 
         AlertDialog dialog = builder.create();
         dialog.show();
-
-
     }
 
     public void showMessage()
     {
-
-
     }
 
 

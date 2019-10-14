@@ -1,10 +1,9 @@
-package com.example.jinhong.logins;
+package com.example.jojo.bangguseok.login;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -12,6 +11,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.jojo.bangguseok.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -43,13 +46,6 @@ public class MainActivity extends AppCompatActivity {
     EditText editText;
     EditText editText2;
 
-
-
-
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,13 +71,10 @@ public class MainActivity extends AppCompatActivity {
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), SignIn.class);
+                Intent intent = new Intent(getApplicationContext(), com.example.jojo.bangguseok.login.SignIn.class);
                 startActivity(intent);
             }
         });
-
-
-
     }
 
 
@@ -108,11 +101,8 @@ public class MainActivity extends AppCompatActivity {
 
             Log.d(TAG, "response - " + result);
 
-
-
-
-                mJsonString = result;
-                showResult();
+            mJsonString = result;
+            showResult();
 
         }
 
@@ -213,16 +203,15 @@ public class MainActivity extends AppCompatActivity {
                     if (rid.equals(name) && rpassword.equals(password)) {
 
                         // 전역변수 설정 (로그인한 유저 정보들)
-                        MyApplication myApp = (MyApplication) getApplicationContext();
+                        com.example.jojo.bangguseok.login.MyApplication myApp = (com.example.jojo.bangguseok.login.MyApplication) getApplicationContext();
                         myApp.setlevel(level);
                         myApp.settier(tier);
                         myApp.setname(name);
 
-                        Intent intent = new Intent(getApplicationContext(), SelectMode.class);
+                        Intent intent = new Intent(getApplicationContext(), com.example.jojo.bangguseok.login.SelectMode.class);
                         startActivity(intent);
                         check = true;
                     }
-
 
                 }
                 if (check == false) {

@@ -1,25 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.jinhong.logins">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.jojo.bangguseok">
 
     <application
-        android:name=".MyApplication"
+        android:appComponentFactory="bangguseok"
+        android:name="com.example.jojo.bangguseok.login.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="bangguseok"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true">
-        <activity android:name=".MainActivity">
+        android:usesCleartextTraffic="true"
+        tools:replace="android:appComponentFactory">
+        <activity android:name="com.example.jojo.bangguseok.login.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SelectMode" />
-        <activity android:name=".SignIn" />
+        <activity android:name="com.example.jojo.bangguseok.login.SelectMode" />
+        <activity android:name="com.example.jojo.bangguseok.login.SignIn" />
+        <activity android:name="com.example.jojo.bangguseok.chatting.ChatActivity"/>
     </application>
     <uses-permission android:name="android.permission.INTERNET" />
 

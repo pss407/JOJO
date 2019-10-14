@@ -1,12 +1,16 @@
-package com.example.jinhong.logins;
+package com.example.jojo.bangguseok.login;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
-public class SelectMode extends AppCompatActivity {
+import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.jojo.bangguseok.R;
+import com.example.jojo.bangguseok.chatting.ChatActivity;
+
+public class SelectMode extends AppCompatActivity {
 
     private String level;
     private String tier;
@@ -31,22 +35,14 @@ public class SelectMode extends AppCompatActivity {
         textView3.setText("레벨:"+level);
         textView10.setText("티어:"+tier);
         textView.setText("아이디:"+name);
-
-
-
     }
 
     public void onButton5Clicked(View v)
     {
-
-
-
-
-
+        MyApplication myApp = (MyApplication)getApplicationContext();
+        Intent intent = new Intent(SelectMode.this, ChatActivity.class);
+        intent.putExtra("id", myApp.getname());
+        startActivity(intent);
+        finish();
     }
-
-
-
-
-
 }
