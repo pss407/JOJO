@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.jojo.bangguseok">
+
+    <application
+        android:appComponentFactory="bangguseok"
+        android:name="com.example.jojo.bangguseok.login.MyApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="bangguseok"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true"
+        android:screenOrientation="portrait"
+        tools:replace="android:appComponentFactory">
+        <activity android:name="com.example.jojo.bangguseok.login.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.example.jojo.bangguseok.login.SelectMode" />
+        <activity android:name="com.example.jojo.bangguseok.login.SignIn" />
+        <activity android:name="com.example.jojo.bangguseok.chatting.ChatActivity"/>
+        <activity android:name="com.example.jojo.bangguseok.broadcast.BroadcastActivity" />
+        <activity android:name="com.example.jojo.bangguseok.broadcast.liveVideoBroadcaster.LiveVideoBroadcasterActivity"
+            android:theme="@style/AppThemeDark"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            />
+        <activity android:name="com.example.jojo.bangguseok.broadcast.liveVideoPlayer.LiveVideoPlayerActivity"
+            android:theme="@style/AppThemeDark"
+            />
+        <service android:name="com.example.jojo.bangguseok.broadcast.broadcaster.LiveVideoBroadcaster" />
+
+    </application>
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+</manifest>
