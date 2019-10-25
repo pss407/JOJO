@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.jinhong.bangguseok.login.SelectMode">
+    tools:context="com.example.jojo.bangguseok.login.SelectMode">
 
     <TextView
         android:id="@+id/textView3"
@@ -61,6 +61,7 @@
         android:layout_marginStart="136dp"
         android:layout_marginLeft="136dp"
         android:layout_marginTop="364dp"
+        android:onClick="onButton7Clicked"
         android:text="시청하기"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

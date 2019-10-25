@@ -49,7 +49,6 @@ public class MyApplication extends Application {
         public String getname(){
             return name;
         }
-
 }
 
 

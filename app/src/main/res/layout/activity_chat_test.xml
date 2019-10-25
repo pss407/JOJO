@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.jinhong.bangguseok.chatting.ChatActivity">
+    tools:context="com.example.jojo.bangguseok.chatting.ChatActivity">
 
 
     <android.widget.ListView

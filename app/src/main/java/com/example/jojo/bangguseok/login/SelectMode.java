@@ -8,6 +8,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.jojo.bangguseok.R;
+import com.example.jojo.bangguseok.broadcast.BroadcastActivity;
 import com.example.jojo.bangguseok.chatting.ChatActivity;
 
 public class SelectMode extends AppCompatActivity {
@@ -35,14 +36,19 @@ public class SelectMode extends AppCompatActivity {
         textView3.setText("레벨:"+level);
         textView10.setText("티어:"+tier);
         textView.setText("아이디:"+name);
+
     }
 
-    public void onButton5Clicked(View v)
+    public void onButton5Clicked(View view)
     {
+        Intent intent = new Intent(SelectMode.this, BroadcastActivity.class);
+        startActivity(intent);
+    }
+
+    public void onButton7Clicked(View view) {
         MyApplication myApp = (MyApplication)getApplicationContext();
         Intent intent = new Intent(SelectMode.this, ChatActivity.class);
         intent.putExtra("id", myApp.getname());
         startActivity(intent);
-        finish();
     }
 }

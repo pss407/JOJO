@@ -30,6 +30,8 @@ public class ChatActivity extends AppCompatActivity {
     int imageID = R.drawable.profile;//int[] imageID = {R.drawable.profile1, R.drawable.profile2, R.drawable.profile3};
 
     String id = "";
+    String message = "message";
+    int chatId = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,9 +46,10 @@ ArrayAdapter<ChatVO> adapter = new ArrayAdapter<ChatVO>(getApplicationContext(),
         btn = findViewById(R.id.bnt_send);
 
 // Write a message to the database
+        chatId = getIntent().getIntExtra("chatId",0);
+        message = message.concat(Integer.toString(chatId));
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        final DatabaseReference myRef = database.getReference("message");
-
+        final DatabaseReference myRef = database.getReference(message);
 
 //로그인한 아이디
         id = getIntent().getStringExtra("id");
