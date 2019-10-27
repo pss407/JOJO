@@ -141,6 +141,12 @@ public class LiveVideoPlayerActivity extends AppCompatActivity implements OnClic
     simpleExoPlayerView.setControllerVisibilityListener(this);
     simpleExoPlayerView.requestFocus();
 
+    String URL = "https://gkbjsozvwply2376889.cdn.ntruss.com/video/ls-20190919204002-vFu5I_270p_a_l.m3u8";
+    //String URL = "http://192.168.1.34:5080/vod/streams/test_adaptive.m3u8";
+    initializePlayer(URL);
+    //videoStartControlLayout.setVisibility(View.GONE);
+
+
   }
 
   @Override

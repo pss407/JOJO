@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.jojo.bangguseok.R;
 import com.example.jojo.bangguseok.broadcast.BroadcastActivity;
+import com.example.jojo.bangguseok.broadcast.liveVideoBroadcaster.LiveVideoBroadcasterActivity;
 import com.example.jojo.bangguseok.chatting.ChatActivity;
 
 public class SelectMode extends AppCompatActivity {
@@ -41,8 +42,10 @@ public class SelectMode extends AppCompatActivity {
 
     public void onButton5Clicked(View view)
     {
-        Intent intent = new Intent(SelectMode.this, BroadcastActivity.class);
-        startActivity(intent);
+        //Intent intent = new Intent(SelectMode.this, BroadcastActivity.class);
+        //startActivity(intent);
+        Intent i = new Intent(this, LiveVideoBroadcasterActivity.class);
+        startActivity(i);
     }
 
     public void onButton7Clicked(View view) {

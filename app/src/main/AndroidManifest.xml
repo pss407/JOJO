@@ -13,6 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
+        android:screenOrientation="portrait"
         tools:replace="android:appComponentFactory">
         <activity android:name="com.example.jojo.bangguseok.login.MainActivity">
             <intent-filter>
@@ -26,6 +27,7 @@
         <activity android:name="com.example.jojo.bangguseok.broadcast.BroadcastActivity" />
         <activity android:name="com.example.jojo.bangguseok.broadcast.liveVideoBroadcaster.LiveVideoBroadcasterActivity"
             android:theme="@style/AppThemeDark"
+            android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden|screenSize"
             />
         <activity android:name="com.example.jojo.bangguseok.broadcast.liveVideoPlayer.LiveVideoPlayerActivity"

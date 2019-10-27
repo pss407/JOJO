@@ -15,6 +15,7 @@
  */
 package com.example.jojo.bangguseok.broadcast.liveVideoPlayer;
 
+
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.Surface;
@@ -61,9 +62,9 @@ import java.util.Locale;
     ExtractorMediaSource.EventListener, DefaultDrmSessionManager.EventListener,
     MetadataRenderer.Output {
 
-  private static final String TAG = "EventLogger";
-  private static final int MAX_TIMELINE_ITEM_LINES = 3;
-  private static final NumberFormat TIME_FORMAT;
+  public static final String TAG = "EventLogger";
+  public static final int MAX_TIMELINE_ITEM_LINES = 3;
+  public static final NumberFormat TIME_FORMAT;
   static {
     TIME_FORMAT = NumberFormat.getInstance(Locale.US);
     TIME_FORMAT.setMinimumFractionDigits(2);
@@ -71,10 +72,10 @@ import java.util.Locale;
     TIME_FORMAT.setGroupingUsed(false);
   }
 
-  private final MappingTrackSelector trackSelector;
-  private final Timeline.Window window;
-  private final Timeline.Period period;
-  private final long startTimeMs;
+  public final MappingTrackSelector trackSelector;
+  public final Timeline.Window window;
+  public final Timeline.Period period;
+  public final long startTimeMs;
 
   public EventLogger(MappingTrackSelector trackSelector) {
     this.trackSelector = trackSelector;
@@ -352,11 +353,11 @@ import java.util.Locale;
 
   // Internal methods
 
-  private void printInternalError(String type, Exception e) {
+  public void printInternalError(String type, Exception e) {
     Log.e(TAG, "internalError [" + getSessionTimeString() + ", " + type + "]", e);
   }
 
-  private void printMetadata(Metadata metadata, String prefix) {
+  public void printMetadata(Metadata metadata, String prefix) {
     for (int i = 0; i < metadata.length(); i++) {
       Metadata.Entry entry = metadata.get(i);
       if (entry instanceof TextInformationFrame) {
@@ -392,15 +393,15 @@ import java.util.Locale;
     }
   }
 
-  private String getSessionTimeString() {
+  public String getSessionTimeString() {
     return getTimeString(SystemClock.elapsedRealtime() - startTimeMs);
   }
 
-  private static String getTimeString(long timeMs) {
+  public static String getTimeString(long timeMs) {
     return timeMs == C.TIME_UNSET ? "?" : TIME_FORMAT.format((timeMs) / 1000f);
   }
 
-  private static String getStateString(int state) {
+  public static String getStateString(int state) {
     switch (state) {
       case ExoPlayer.STATE_BUFFERING:
         return "B";
@@ -415,7 +416,7 @@ import java.util.Locale;
     }
   }
 
-  private static String getFormatSupportString(int formatSupport) {
+  public static String getFormatSupportString(int formatSupport) {
     switch (formatSupport) {
       case RendererCapabilities.FORMAT_HANDLED:
         return "YES";
@@ -430,7 +431,7 @@ import java.util.Locale;
     }
   }
 
-  private static String getAdaptiveSupportString(int trackCount, int adaptiveSupport) {
+  public static String getAdaptiveSupportString(int trackCount, int adaptiveSupport) {
     if (trackCount < 2) {
       return "N/A";
     }
@@ -446,13 +447,13 @@ import java.util.Locale;
     }
   }
 
-  private static String getTrackStatusString(TrackSelection selection, TrackGroup group,
+  public static String getTrackStatusString(TrackSelection selection, TrackGroup group,
                                              int trackIndex) {
     return getTrackStatusString(selection != null && selection.getTrackGroup() == group
         && selection.indexOf(trackIndex) != C.INDEX_UNSET);
   }
 
-  private static String getTrackStatusString(boolean enabled) {
+  public static String getTrackStatusString(boolean enabled) {
     return enabled ? "[X]" : "[ ]";
   }
 
