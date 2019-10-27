@@ -153,7 +153,7 @@ public class LiveVideoPlayerActivity extends AppCompatActivity implements OnClic
   public void onNewIntent(Intent intent) {
     releasePlayer();
     shouldAutoPlay = true;
-    clearResumePosition();
+    clearResumePosition();2
     setIntent(intent);
   }
 
