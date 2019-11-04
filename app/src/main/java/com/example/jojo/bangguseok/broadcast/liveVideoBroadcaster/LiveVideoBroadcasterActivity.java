@@ -1,5 +1,7 @@
 package com.example.jojo.bangguseok.broadcast.liveVideoBroadcaster;
 
+//test
+
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
