@@ -151,6 +151,7 @@ public class LiveVideoBroadcaster extends Service implements com.example.jojo.ba
         super.onCreate();
 
 
+
     }
 
     @Override
@@ -328,6 +329,8 @@ public class LiveVideoBroadcaster extends Service implements com.example.jojo.ba
         catch (Exception e) {
             e.printStackTrace();
         }
+
+
         return isRecording;
     }
 

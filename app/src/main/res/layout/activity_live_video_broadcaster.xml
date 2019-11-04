@@ -170,13 +170,6 @@
             android:inputType="textPersonName"
             android:textColor="#fff" />
 
-        <EditText
-            android:id="@+id/video_name_edit_text2"
-            android:layout_width="match_parent"
-            android:layout_height="12dp"
-            android:hint="stream name (add live=1 if it is live e.g. test live=1)"
-            android:textAppearance="?android:textAppearanceMedium" />
-
         <Button
             android:id="@+id/toggle_broadcasting"
             style="@style/Base.Widget.AppCompat.Button.Colored"

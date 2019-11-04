@@ -310,7 +310,7 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
         retryButton = (Button) findViewById(R.id.retry_button);
         retryButton.setOnClickListener(this);
 
-        videoNameEditText = (EditText) findViewById(R.id.video_name_edit_text2);
+        //videoNameEditText = (EditText) findViewById(R.id.video_name_edit_text2);
         //videoStartControlLayout = findViewById(R.id.video_start_control_layout);
 
         simpleExoPlayerView = (SimpleExoPlayerView) findViewById(R.id.player_view);
@@ -1076,7 +1076,7 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
     }
 
     public void play(View view) {
-        String URL = RTMP_BASE_URL + videoNameEditText.getText().toString();
+        String URL = RTMP_BASE_URL + "";
         //String URL = "http://192.168.1.34:5080/vod/streams/test_adaptive.m3u8";
         initializePlayer(URL);
         videoStartControlLayout.setVisibility(View.GONE);
