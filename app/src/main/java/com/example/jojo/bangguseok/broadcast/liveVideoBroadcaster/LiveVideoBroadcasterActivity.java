@@ -12,6 +12,7 @@ import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.hardware.Camera;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.opengl.GLSurfaceView;
 import android.os.AsyncTask;
@@ -79,6 +80,9 @@ import com.google.android.exoplayer2.upstream.HttpDataSource;
 import com.google.android.exoplayer2.util.Util;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
 import java.util.ArrayList;
@@ -112,6 +116,10 @@ import java.util.Date;
 
 public class LiveVideoBroadcasterActivity extends AppCompatActivity implements View.OnClickListener, ExoPlayer.EventListener,
         PlaybackControlView.VisibilityListener{
+
+    //노래
+
+    MediaPlayer m;
 
     //채팅 변수
 
@@ -266,7 +274,22 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
 
 
 
-        //////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /////////송출
 
         Handler delayHandler = new Handler();
         delayHandler.postDelayed(new Runnable() {
@@ -341,11 +364,11 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
             @Override
             public void run() {
                 //여기에 딜레이 후 시작할 작업들을 입력
-                String URL = "https://gkbjsozvwply2376889.cdn.ntruss.com/video/253_270p_s_l.m3u8";
+                String URL =  "https://orrkzjbnurrk2465864.cdn.ntruss.com/video/235_360p_s_l.m3u8";   //진홍//"https://gkbjsozvwply2376889.cdn.ntruss.com/video/253_270p_s_l.m3u8";
 
                 initializePlayer(URL);
             }
-        }, 3000); // 0.3초 지연을 준 후 시작
+        }, 2000); // 0.3초 지연을 준 후 시작
 
 
         mBroadcastControlButton.setVisibility(View.VISIBLE);
@@ -353,9 +376,18 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
         /////
 
         simpleExoPlayerView.bringToFront();
+/////////////////////sdfsdfsdfsdf
+        // music.mp3 파일 역시 getResources().openRawResource()로
+        //가져올 수 있다.
+        // 여기서는 MediaPlayer로도 음악 파일을 가져오고
+        // start()로 실행할 수 있다.
 
 
 
+
+        music_play();
+
+////sdfsdf
         //채팅 추가
 
 
@@ -532,6 +564,10 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
         if (Util.SDK_INT > 23) {
             releasePlayer();
         }
+
+        music_stop();
+
+
     }
 
     @Override
@@ -726,6 +762,32 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
         }
 
         return String.valueOf(number);
+    }
+
+    public void music_play(){
+
+        try {
+            music_stop();
+            m = MediaPlayer.create(this, R.raw.mymusic);
+            m.setLooping(true);
+            m.start();
+        }catch (IllegalStateException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void music_stop()
+    {
+        try {
+            if(m != null)
+            {
+                m.stop();
+                m.release();
+                m = null;
+            }
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
+        }
     }
 
 
