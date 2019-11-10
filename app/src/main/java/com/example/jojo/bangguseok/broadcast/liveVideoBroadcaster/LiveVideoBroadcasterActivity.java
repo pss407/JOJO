@@ -45,7 +45,6 @@ import com.example.jojo.bangguseok.broadcast.broadcaster.ILiveVideoBroadcaster;
 import com.example.jojo.bangguseok.broadcast.broadcaster.LiveVideoBroadcaster;
 import com.example.jojo.bangguseok.broadcast.broadcaster.utils.Resolution;
 import com.example.jojo.bangguseok.broadcast.liveVideoPlayer.DefaultExtractorsFactoryForFLV;
-import com.example.jojo.bangguseok.broadcast.liveVideoBroadcaster.EventLogger;
 import com.google.android.exoplayer2.BuildConfig;
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.DefaultLoadControl;
@@ -93,74 +92,15 @@ import static com.example.jojo.bangguseok.broadcast.BroadcastActivity.RTMP_BASE_
 
 /////////////////
 
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.net.Uri;
-import android.os.Bundle;
-import android.os.Handler;
-import androidx.appcompat.app.AppCompatActivity;
-import android.text.TextUtils;
-import android.view.KeyEvent;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.example.jojo.bangguseok.R;
-import com.google.android.exoplayer2.BuildConfig;
-import com.google.android.exoplayer2.C;
-import com.google.android.exoplayer2.DefaultLoadControl;
-import com.google.android.exoplayer2.ExoPlaybackException;
-import com.google.android.exoplayer2.ExoPlayer;
-import com.google.android.exoplayer2.ExoPlayerFactory;
-import com.google.android.exoplayer2.SimpleExoPlayer;
-import com.google.android.exoplayer2.Timeline;
-import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
 import com.google.android.exoplayer2.mediacodec.MediaCodecRenderer.DecoderInitializationException;
 import com.google.android.exoplayer2.mediacodec.MediaCodecUtil.DecoderQueryException;
-import com.google.android.exoplayer2.source.BehindLiveWindowException;
-import com.google.android.exoplayer2.source.ConcatenatingMediaSource;
-import com.google.android.exoplayer2.source.ExtractorMediaSource;
-import com.google.android.exoplayer2.source.MediaSource;
-import com.google.android.exoplayer2.source.TrackGroupArray;
-import com.google.android.exoplayer2.source.dash.DashMediaSource;
-import com.google.android.exoplayer2.source.dash.DefaultDashChunkSource;
-import com.google.android.exoplayer2.source.hls.HlsMediaSource;
-import com.google.android.exoplayer2.source.smoothstreaming.DefaultSsChunkSource;
-import com.google.android.exoplayer2.source.smoothstreaming.SsMediaSource;
-import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection;
-import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.trackselection.MappingTrackSelector.MappedTrackInfo;
-import com.google.android.exoplayer2.trackselection.TrackSelection;
-import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
-import com.google.android.exoplayer2.ui.DebugTextViewHelper;
-import com.google.android.exoplayer2.ui.PlaybackControlView;
-import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
-import com.google.android.exoplayer2.upstream.DataSource;
-import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
-import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
-import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
-import com.google.android.exoplayer2.upstream.HttpDataSource;
-import com.google.android.exoplayer2.util.Util;
 
 import java.net.CookieHandler;
-import java.net.CookieManager;
-import java.net.CookiePolicy;
 
 //채팅 추가
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.jojo.bangguseok.R;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -168,7 +108,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
 public class LiveVideoBroadcasterActivity extends AppCompatActivity implements View.OnClickListener, ExoPlayer.EventListener,
@@ -320,9 +259,9 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
         simpleExoPlayerView.requestFocus();
         simpleExoPlayerView.setUseController(false);
 
-        String URL = "https://gkbjsozvwply2376889.cdn.ntruss.com/video/253_270p_s_l.m3u8";//"https://gkbjsozvwply2376889.cdn.ntruss.com/video/ls-20190919204002-vFu5I_270p_a_l.m3u8";
+        //"https://gkbjsozvwply2376889.cdn.ntruss.com/video/ls-20190919204002-vFu5I_270p_a_l.m3u8";
         //String URL = "http://192.168.1.34:5080/vod/streams/test_adaptive.m3u8";
-        initializePlayer(URL);
+
         //videoStartControlLayout.setVisibility(View.GONE);
 
 
@@ -396,6 +335,19 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
             }
         }, 300); // 0.3초 지연을 준 후 시작
 
+
+        Handler delayHandler2 = new Handler();
+        delayHandler2.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //여기에 딜레이 후 시작할 작업들을 입력
+                String URL = "https://gkbjsozvwply2376889.cdn.ntruss.com/video/253_270p_s_l.m3u8";
+
+                initializePlayer(URL);
+            }
+        }, 3000); // 0.3초 지연을 준 후 시작
+
+
         mBroadcastControlButton.setVisibility(View.VISIBLE);
 
         /////
@@ -408,7 +360,7 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
 
 
         lv = findViewById(R.id.listView);
-        edt = findViewById(R.id.editText);
+        edt = findViewById(R.id.chat_message);
         btn = findViewById(R.id.bnt_send);
 
 // Write a message to the database

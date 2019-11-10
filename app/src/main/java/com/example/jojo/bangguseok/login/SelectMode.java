@@ -42,16 +42,13 @@ public class SelectMode extends AppCompatActivity {
 
     public void onButton5Clicked(View view)
     {
-        //Intent intent = new Intent(SelectMode.this, BroadcastActivity.class);
-        //startActivity(intent);
+        MyApplication myApp = (MyApplication)getApplicationContext();
         Intent i = new Intent(this, LiveVideoBroadcasterActivity.class);
+        i.putExtra("id", myApp.getname());
         startActivity(i);
     }
 
     public void onButton7Clicked(View view) {
-        MyApplication myApp = (MyApplication)getApplicationContext();
-        Intent intent = new Intent(SelectMode.this, ChatActivity.class);
-        intent.putExtra("id", myApp.getname());
-        startActivity(intent);
+
     }
 }
