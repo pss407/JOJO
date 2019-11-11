@@ -29,7 +29,7 @@ public class SelectMode extends AppCompatActivity {
         level = myApp.getlevel();
         tier = myApp.gettier();
         name = myApp.getname();
-
+///
         TextView textView3 = (TextView)findViewById(R.id.textView3);
         TextView textView10 = (TextView)findViewById(R.id.textView10);
         TextView textView = (TextView)findViewById(R.id.textView);
