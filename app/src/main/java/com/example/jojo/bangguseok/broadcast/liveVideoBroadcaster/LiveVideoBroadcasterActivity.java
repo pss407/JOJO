@@ -86,6 +86,8 @@ import java.io.InputStreamReader;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -130,9 +132,8 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
     int imageID = R.drawable.profile;
 
     String id = "";
-    String message = "message";
-    int chatId = 0;
-    //
+    String message = "chat";
+    //int chatId = 0;
 
     public static final String PREFER_EXTENSION_DECODERS = "prefer_extension_decoders";
 
@@ -274,21 +275,6 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         /////////송출
 
         Handler delayHandler = new Handler();
@@ -368,7 +354,9 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
 
                 initializePlayer(URL);
             }
-        }, 2000); // 0.3초 지연을 준 후 시작
+        }, 2000);
+
+
 
 
         mBroadcastControlButton.setVisibility(View.VISIBLE);
@@ -383,9 +371,21 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
         // start()로 실행할 수 있다.
 
 
+        Handler delayHandler3 = new Handler();
+        delayHandler2.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                music_play();
+            }
+        }, 4000);
 
 
-        music_play();
+
+
+
+
+
 
 ////sdfsdf
         //채팅 추가
@@ -396,8 +396,8 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
         btn = findViewById(R.id.bnt_send);
 
 // Write a message to the database
-        chatId = getIntent().getIntExtra("chatId",0);
-        message = message.concat(Integer.toString(chatId));
+        //chatId = getIntent().getIntExtra("chatId",0);
+        //message = message.concat(Integer.toString(chatId));
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference myRef = database.getReference(message);
 
@@ -429,13 +429,13 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
 //list.add(new ChatVO(R.drawable.profile1, id, sb.toString(), timeNow.format(today)));
 //adapter.notifyDataSetChanged();
 
-                    myRef.push().setValue(new com.example.jojo.bangguseok.chatting.ChatVO(R.drawable.profile, id, sb.toString(), timeNow.format(today)));
+                    myRef.child("room1").push().setValue(new com.example.jojo.bangguseok.chatting.ChatVO(R.drawable.profile, id, sb.toString(), timeNow.format(today)));
                     edt.setText("");
                 }
             }
         });
 
-        myRef.addChildEventListener(new ChildEventListener() {
+        myRef.child("room1").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 com.example.jojo.bangguseok.chatting.ChatVO value = dataSnapshot.getValue(com.example.jojo.bangguseok.chatting.ChatVO.class); // 괄호 안 : 꺼낼 자료 형태
@@ -471,7 +471,7 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
 
     public void changeCamera(View v) {
         if (mLiveVideoBroadcaster != null) {
-            mLiveVideoBroadcaster.changeCamera();
+          //  mLiveVideoBroadcaster.changeCamera();
         }
     }
 
@@ -665,6 +665,11 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
 
 
     public void triggerStopRecording() {
+        Map<String, Object> childUpdates = new HashMap<>();
+        Map<String, Object> postValues = null;
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final DatabaseReference myRef = database.getReference();
+
         if (mIsRecording) {
            // mBroadcastControlButton.setText("방나가기");
 
@@ -676,6 +681,8 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
             mLiveVideoBroadcaster.stopBroadcasting();
         }
 
+        childUpdates.put("/room1/", postValues);
+        myRef.child("chat").updateChildren(childUpdates);
 
         mIsRecording = false;
         finish();
@@ -795,6 +802,7 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
     @Override
     public void onNewIntent(Intent intent) {
         //super.onNewIntent(intent);//
+        super.onNewIntent(intent);
         releasePlayer();
         shouldAutoPlay = true;
         clearResumePosition();
