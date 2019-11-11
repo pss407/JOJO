@@ -30,7 +30,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 
-public class SignIn extends AppCompatActivity {
+public class  SignIn extends AppCompatActivity {
 
     private static String IP_ADDRESS = "wlshddlek.cafe24.com";
     private static String TAG = "phptest";
