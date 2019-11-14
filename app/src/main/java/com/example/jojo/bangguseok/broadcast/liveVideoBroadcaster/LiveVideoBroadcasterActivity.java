@@ -46,6 +46,8 @@ import com.example.jojo.bangguseok.broadcast.broadcaster.ILiveVideoBroadcaster;
 import com.example.jojo.bangguseok.broadcast.broadcaster.LiveVideoBroadcaster;
 import com.example.jojo.bangguseok.broadcast.broadcaster.utils.Resolution;
 import com.example.jojo.bangguseok.broadcast.liveVideoPlayer.DefaultExtractorsFactoryForFLV;
+import com.example.jojo.bangguseok.chatting.ChatAdapter;
+import com.example.jojo.bangguseok.chatting.ChatVO;
 import com.google.android.exoplayer2.BuildConfig;
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.DefaultLoadControl;
@@ -381,16 +383,8 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
         }, 4000);
 
 
-
-
-
-
-
-
 ////sdfsdf
         //채팅 추가
-
-
         lv = findViewById(R.id.listView);
         edt = findViewById(R.id.chat_message);
         btn = findViewById(R.id.bnt_send);
@@ -406,7 +400,7 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
 
 //list.add(new ChatVO(R.drawable.profile3, "찡찡이", "안녕", "오후 4:42"));
 
-        final com.example.jojo.bangguseok.chatting.ChatAdapter adapter = new com.example.jojo.bangguseok.chatting.ChatAdapter(getApplicationContext(), R.layout.talklist, list, id);
+        final ChatAdapter adapter = new ChatAdapter(getApplicationContext(), R.layout.talklist, list, id);
         ((ListView) findViewById(R.id.listView)).setAdapter(adapter);
 
         btn.setOnClickListener(new View.OnClickListener() {
@@ -429,7 +423,7 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
 //list.add(new ChatVO(R.drawable.profile1, id, sb.toString(), timeNow.format(today)));
 //adapter.notifyDataSetChanged();
 
-                    myRef.child("room1").push().setValue(new com.example.jojo.bangguseok.chatting.ChatVO(R.drawable.profile, id, sb.toString(), timeNow.format(today)));
+                    myRef.child("room1").push().setValue(new ChatVO(R.drawable.profile, id, sb.toString(), timeNow.format(today)));
                     edt.setText("");
                 }
             }
@@ -438,7 +432,7 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
         myRef.child("room1").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                com.example.jojo.bangguseok.chatting.ChatVO value = dataSnapshot.getValue(com.example.jojo.bangguseok.chatting.ChatVO.class); // 괄호 안 : 꺼낼 자료 형태
+                ChatVO value = dataSnapshot.getValue(ChatVO.class); // 괄호 안 : 꺼낼 자료 형태
                 list.add(value);
                 adapter.notifyDataSetChanged();
                 lv.setSelection(adapter.getCount() - 1);

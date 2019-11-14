@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -17,6 +18,12 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.jojo.bangguseok.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,12 +35,13 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class  SignIn extends AppCompatActivity {
 
-    private static String IP_ADDRESS = "wlshddlek.cafe24.com";
-    private static String TAG = "phptest";
 
     private EditText mEditTextName;
     private EditText mEditTextPassword;
@@ -53,7 +61,14 @@ public class  SignIn extends AppCompatActivity {
 
     String cid="";
 
+    public DatabaseReference mPostReference;
 
+    public String ID;
+    public String password;
+    public ArrayAdapter<String> arrayAdapter;
+
+    static ArrayList<String> arrayIndex =  new ArrayList<String>();
+    static ArrayList<String> arrayData = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,12 +111,15 @@ public class  SignIn extends AppCompatActivity {
                 }
                 else
                 {
-                    String name = mEditTextName.getText().toString();
-                    String password = mEditTextPassword.getText().toString();
+                    ID = mEditTextName.getText().toString();
+                    password = mEditTextPassword.getText().toString();
 
+                    postFirebaseDatabase(true);
+
+                    /*
                     InsertData task = new InsertData();
                     task.execute("http://" + IP_ADDRESS + "/insert.php", name,password,"1","bronze");
-
+                    */
 
                     mEditTextName.setText("");
                     mEditTextPassword.setText("");
@@ -112,56 +130,18 @@ public class  SignIn extends AppCompatActivity {
         });
     }
 
-    private void showResult(){
+    public void postFirebaseDatabase(boolean add){
+        mPostReference = FirebaseDatabase.getInstance().getReference();
+        Map<String, Object> childUpdates = new HashMap<>();
+        Map<String, Object> postValues = null;
+        if(add){
 
-        String TAG_JSON="webnautes";
-        String TAG_ID = "id";
-        String TAG_NAME = "name";
-        String TAG_PASSWORD ="password";String TAG_LEVEL ="level";
-       String TAG_TIER ="tier";
-        boolean check=false;
-
-
-        try {
-            JSONObject jsonObject = new JSONObject(mJsonString);
-            JSONArray jsonArray = jsonObject.getJSONArray(TAG_JSON);
-
-
-            for(int i=0;i<jsonArray.length();i++){
-
-                JSONObject item = jsonArray.getJSONObject(i);
-
-                String name = item.getString(TAG_NAME);
-                String password = item.getString(TAG_PASSWORD);
-                String level = item.getString(TAG_LEVEL);
-                String tier = item.getString(TAG_TIER);
-
-                if(rid.equals(name))
-                {
-
-                    // 전역변수 설정 (로그인한 유저 정보들)
-
-                    Toast toast=Toast.makeText(getApplicationContext(),"이미 사용하고있는 아이디입니다",Toast.LENGTH_LONG);
-
-                    toast.show();
-                    check=true;
-                    break;
-                }
-
-            }
-            if(check==false)
-            {
-                Toast toast=Toast.makeText(getApplicationContext(),"사용가능한 아이디입니다.",Toast.LENGTH_LONG);
-                cid = mEditTextName.getText().toString();
-                toast.show();
-                id_check=true;
-            }
-
-        } catch (JSONException e) {
-
-            Log.d(TAG, "showResult : ", e);
+            //Long l= new Long(31);
+            FirebasePost post = new FirebasePost(ID, password, "bronze","false");
+            postValues = post.toMap();
         }
-
+        childUpdates.put("/id_list/" + ID, postValues);
+        mPostReference.updateChildren(childUpdates);
     }
 
 
@@ -170,102 +150,65 @@ public class  SignIn extends AppCompatActivity {
     {
         rid=mEditTextName.getText().toString();
 
-        GetData task = new GetData();
-        task.execute( "http://" + IP_ADDRESS + "/getjson.php", "");
+        ValueEventListener postListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Boolean check=false;
+
+                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                    String key = postSnapshot.getKey();
+                    FirebasePost get = postSnapshot.getValue(FirebasePost.class);
+                    String[] info = {get.id, get.password, get.tier, get.using};
 
 
-    }
-
-    private class GetData extends AsyncTask<String, Void, String>{
-
-        ProgressDialog progressDialog;
-        String errorString = null;
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-
-            progressDialog = ProgressDialog.show(SignIn.this,
-                    "Please Wait", null, true, true);
-        }
+                    if(info[0].equals(rid))
+                    {
+                        check=true;
+                        break;
+                    }
 
 
-        @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-
-            progressDialog.dismiss();
-
-            Log.d(TAG, "response - " + result);
-
-            mJsonString = result;
-            showResult();
-
-        }
-
-
-        @Override
-        protected String doInBackground(String... params) {
-
-            String serverURL = params[0];
-            String postParameters = "password=" + params[1];
-
-            try {
-
-                URL url = new URL(serverURL);
-                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-
-
-                httpURLConnection.setReadTimeout(5000);
-                httpURLConnection.setConnectTimeout(5000);
-                httpURLConnection.setRequestMethod("POST");
-                httpURLConnection.setDoInput(true);
-                httpURLConnection.connect();
-
-
-                OutputStream outputStream = httpURLConnection.getOutputStream();
-                outputStream.write(postParameters.getBytes("UTF-8"));
-                outputStream.flush();
-                outputStream.close();
-
-
-                int responseStatusCode = httpURLConnection.getResponseCode();
-                Log.d(TAG, "response code - " + responseStatusCode);
-
-                InputStream inputStream;
-                if(responseStatusCode == HttpURLConnection.HTTP_OK) {
-                    inputStream = httpURLConnection.getInputStream();
                 }
-                else{
-                    inputStream = httpURLConnection.getErrorStream();
+                if(check==true)
+                {
+
+                    // 전역변수 설정 (로그인한 유저 정보들)
+
+                    Toast toast=Toast.makeText(getApplicationContext(),"이미 사용하고있는 아이디입니다",Toast.LENGTH_LONG);
+
+                    toast.show();
+
+
                 }
 
 
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
-                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
-                StringBuilder sb = new StringBuilder();
-                String line;
-
-                while((line = bufferedReader.readLine()) != null){
-                    sb.append(line);
-                }
-
-                bufferedReader.close();
-
-                return sb.toString().trim();
-
-
-            } catch (Exception e) {
-
-                Log.d(TAG, "GetData : Error ", e);
-                errorString = e.toString();
-
-                return null;
+            if(check==false)
+            {
+                Toast toast=Toast.makeText(getApplicationContext(),"사용가능한 아이디입니다.",Toast.LENGTH_LONG);
+                cid = mEditTextName.getText().toString();
+                toast.show();
+                id_check=true;
             }
 
-        }
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w("getFirebaseDatabase","loadPost:onCancelled", databaseError.toException());
+            }
+        };
+
+        String sort_column_name = "ID";
+        Query sortbyAge = FirebaseDatabase.getInstance().getReference().child("id_list").orderByChild(sort_column_name);
+        sortbyAge.addListenerForSingleValueEvent(postListener);
+
+
+
     }
+
 
     public void onButton3Clicked(View v)
     {
@@ -516,103 +459,6 @@ public class  SignIn extends AppCompatActivity {
 
         AlertDialog dialog = builder.create();
         dialog.show();
-    }
-
-    public void showMessage()
-    {
-    }
-
-
-
-    class InsertData extends AsyncTask<String, Void, String>{
-        ProgressDialog progressDialog;
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-
-            progressDialog = ProgressDialog.show(SignIn.this,
-                    "Please Wait", null, true, true);
-        }
-
-
-        @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-
-            progressDialog.dismiss();
-            mTextViewResult.setText(result);
-            Log.d(TAG, "POST response  - " + result);
-        }
-
-
-        @Override
-        protected String doInBackground(String... params) {
-
-            String name = (String)params[1];
-            String password = (String)params[2];
-            String level = (String)params[3];
-            String tier = (String)params[4];
-
-            String serverURL = (String)params[0];
-            String postParameters = "name=" + name + "&password=" + password + "&level=" + level + "&tier=" + tier;
-
-
-            try {
-
-                URL url = new URL(serverURL);
-                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-
-
-                httpURLConnection.setReadTimeout(5000);
-                httpURLConnection.setConnectTimeout(5000);
-                httpURLConnection.setRequestMethod("POST");
-                httpURLConnection.connect();
-
-
-                OutputStream outputStream = httpURLConnection.getOutputStream();
-                outputStream.write(postParameters.getBytes("UTF-8"));
-                outputStream.flush();
-                outputStream.close();
-
-
-                int responseStatusCode = httpURLConnection.getResponseCode();
-                Log.d(TAG, "POST response code - " + responseStatusCode);
-
-                InputStream inputStream;
-                if(responseStatusCode == HttpURLConnection.HTTP_OK) {
-                    inputStream = httpURLConnection.getInputStream();
-                }
-                else{
-                    inputStream = httpURLConnection.getErrorStream();
-                }
-
-
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
-                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-
-                StringBuilder sb = new StringBuilder();
-                String line = null;
-
-                while((line = bufferedReader.readLine()) != null){
-                    sb.append(line);
-                }
-
-
-                bufferedReader.close();
-
-
-                return sb.toString();
-
-
-            } catch (Exception e) {
-
-                Log.d(TAG, "InsertData: Error ", e);
-
-                return new String("Error: " + e.getMessage());
-            }
-
-        }
     }
 
 
