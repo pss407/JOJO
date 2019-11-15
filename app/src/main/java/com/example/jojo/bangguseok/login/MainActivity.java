@@ -55,7 +55,8 @@ public class MainActivity extends AppCompatActivity {
     String rpassword;
     EditText editText;
     EditText editText2;
-    String tmp="";
+    String tmp_id="";   //id 저장
+    String tmp_tier="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,14 +83,19 @@ public class MainActivity extends AppCompatActivity {
                         for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
                             String key = postSnapshot.getKey();
                             FirebasePost get = postSnapshot.getValue(FirebasePost.class);
-                            String[] info = {get.id, get.password, get.tier, get.using};
+                            String[] info = {get.id, get.password, get.tier, get.using, get.start_matching};
 
 
                             check_using=info[3];
 
                             if(info[0].equals(editText.getText().toString())&&info[1].equals(editText2.getText().toString()))
                             {
-                                tmp=info[0];
+                                tmp_id=info[0];
+                                tmp_tier=info[2];
+                                com.example.jojo.bangguseok.login.MyApplication myApp = (com.example.jojo.bangguseok.login.MyApplication) getApplicationContext();
+                                myApp.setname(tmp_id);
+                                myApp.settier(tmp_tier);
+
 
                                 check=true;
                                 break;
@@ -102,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
                             Intent intent = new Intent(getApplicationContext(), com.example.jojo.bangguseok.login.SelectMode.class);
                             startActivity(intent);
 
-                            databaseReference.child("id_list").child(tmp).child("using").setValue("true");
+                            databaseReference.child("id_list").child(tmp_id).child("using").setValue("true");
                         }
                         else if(check==true&&check_using.equals("true"))
                         {
@@ -140,6 +146,10 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), com.example.jojo.bangguseok.login.SignIn.class);
                 startActivity(intent);
+
+
+
+
             }
         });
     }

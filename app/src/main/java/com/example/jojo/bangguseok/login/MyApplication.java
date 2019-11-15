@@ -8,15 +8,15 @@ public class MyApplication extends Application {
     //전역 변수 설정
 
 
-        private String name;
-        private String level;
+        private String name;   //여기서 name 이 id임
+       // private String level;
         private String tier;
 
 //
         @Override
         public void onCreate() {
             //전역 변수 초기화
-            level = "1";
+
             tier = "bronze";
             name="";
             super.onCreate();
@@ -27,9 +27,7 @@ public class MyApplication extends Application {
             super.onTerminate();
         }
 
-        public void setlevel(String state){
-            this.level = state;
-        }
+
 
         public void settier(String state){
             this.tier = state;
@@ -40,9 +38,6 @@ public class MyApplication extends Application {
 ///
 
 
-        public String getlevel(){
-            return level;
-        }
         public String gettier(){
             return tier;
         }

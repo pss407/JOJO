@@ -114,6 +114,8 @@ public class  SignIn extends AppCompatActivity {
                     ID = mEditTextName.getText().toString();
                     password = mEditTextPassword.getText().toString();
 
+
+
                     postFirebaseDatabase(true);
 
                     /*
@@ -137,7 +139,7 @@ public class  SignIn extends AppCompatActivity {
         if(add){
 
             //Long l= new Long(31);
-            FirebasePost post = new FirebasePost(ID, password, "bronze","false");
+            FirebasePost post = new FirebasePost(ID, password, "bronze","false","false");
             postValues = post.toMap();
         }
         childUpdates.put("/id_list/" + ID, postValues);
@@ -148,6 +150,7 @@ public class  SignIn extends AppCompatActivity {
 
     public void onButton6Clicked(View v)
     {
+
         rid=mEditTextName.getText().toString();
 
         ValueEventListener postListener = new ValueEventListener() {
@@ -158,7 +161,7 @@ public class  SignIn extends AppCompatActivity {
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
                     String key = postSnapshot.getKey();
                     FirebasePost get = postSnapshot.getValue(FirebasePost.class);
-                    String[] info = {get.id, get.password, get.tier, get.using};
+                    String[] info = {get.id, get.password, get.tier, get.using, get.start_matching};
 
 
                     if(info[0].equals(rid))
