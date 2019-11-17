@@ -15,6 +15,7 @@ import com.example.jojo.bangguseok.R;
 import com.example.jojo.bangguseok.broadcast.BroadcastActivity;
 import com.example.jojo.bangguseok.broadcast.liveVideoBroadcaster.LiveVideoBroadcasterActivity;
 import com.example.jojo.bangguseok.chatting.ChatActivity;
+import com.example.jojo.bangguseok.viewer.ViewerActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -338,15 +339,14 @@ public class SelectMode extends AppCompatActivity {
 
 
     public void onButton7Clicked(View view) {
-
+        Intent i = new Intent(this, ViewerActivity.class);
+        startActivity(i);
     }
-
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        com.example.jojo.bangguseok.login.MyApplication myApp = (com.example.jojo.bangguseok.login.MyApplication) getApplicationContext();
-
+        MyApplication myApp = (MyApplication) getApplicationContext();
         databaseReference.child("id_list").child(myApp.getname()).child("using").setValue("false");
 
     }

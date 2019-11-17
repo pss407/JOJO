@@ -126,16 +126,9 @@ public class LiveVideoPlayerActivity extends AppCompatActivity implements OnClic
       CookieHandler.setDefault(DEFAULT_COOKIE_MANAGER);
     }
 
-    setContentView(R.layout.activity_live_video_player);
-    View rootView = findViewById(R.id.root);
-    rootView.setOnClickListener(this);
     debugRootView = (LinearLayout) findViewById(R.id.controls_root);
-    debugTextView = (TextView) findViewById(R.id.debug_text_view);
     retryButton = (Button) findViewById(R.id.retry_button);
     retryButton.setOnClickListener(this);
-
-    videoNameEditText = (EditText) findViewById(R.id.video_name_edit_text);
-    videoStartControlLayout = findViewById(R.id.video_start_control_layout);
 
     simpleExoPlayerView = (SimpleExoPlayerView) findViewById(R.id.player_view);
     simpleExoPlayerView.setControllerVisibilityListener(this);

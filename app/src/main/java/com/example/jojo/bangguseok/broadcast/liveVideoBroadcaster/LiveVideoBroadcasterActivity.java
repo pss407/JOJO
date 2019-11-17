@@ -118,9 +118,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-
-
-
 public class LiveVideoBroadcasterActivity extends AppCompatActivity implements View.OnClickListener, ExoPlayer.EventListener,
         PlaybackControlView.VisibilityListener{
 
@@ -130,7 +127,7 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
 
     //채팅 변수
 
-    ArrayList<com.example.jojo.bangguseok.chatting.ChatVO> list = new ArrayList<>();
+    ArrayList<ChatVO> list = new ArrayList<>();
     ListView lv;
     Button btn;
     EditText edt;
@@ -190,14 +187,8 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference = firebaseDatabase.getReference();
 
-
-
-
-
     /** Defines callbacks for service binding, passed to bindService() */
     private ServiceConnection mConnection = new ServiceConnection() {
-
-
 
         @Override
         public void onServiceConnected(ComponentName className,
@@ -284,9 +275,6 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
         //String URL = "http://192.168.1.34:5080/vod/streams/test_adaptive.m3u8";
 
         //videoStartControlLayout.setVisibility(View.GONE);
-
-
-
         /////////송출
 
 
@@ -436,13 +424,13 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
 //list.add(new ChatVO(R.drawable.profile1, id, sb.toString(), timeNow.format(today)));
 //adapter.notifyDataSetChanged();
 
-                    myRef.child("room1").push().setValue(new ChatVO(R.drawable.profile, id, sb.toString(), timeNow.format(today)));
+                    myRef.child("TT-Twice").push().setValue(new ChatVO(R.drawable.profile, id, sb.toString(), timeNow.format(today)));
                     edt.setText("");
                 }
             }
         });
 
-        myRef.child("room1").addChildEventListener(new ChildEventListener() {
+        myRef.child("TT-Twice").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 ChatVO value = dataSnapshot.getValue(ChatVO.class); // 괄호 안 : 꺼낼 자료 형태
@@ -471,9 +459,6 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
 
             }
         });
-
-
-
     }
 
     public void changeCamera(View v) {
@@ -1113,7 +1098,6 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
         initializePlayer(URL);
         videoStartControlLayout.setVisibility(View.GONE);
     }
-
 
     @Override
     protected void onDestroy() {

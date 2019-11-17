@@ -7,16 +7,6 @@
     android:id="@+id/root_layout"
     android:orientation="vertical">
 
-    <!--
-    <com.google.android.exoplayer.AspectRatioFrameLayout
-        android:id="@+id/cameraPreview_afl"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:layout_centerInParent="true"
-        >
-        -->
-
     <LinearLayout
         android:id="@+id/controls_root"
         android:layout_width="match_parent"
@@ -94,22 +84,6 @@
         android:layout_height="250dp"
         android:orientation="horizontal">
 
-        <!--<android.opengl.GLSurfaceView
-            android:id="@+id/cameraPreview_surfaceView"
-            android:layout_width="match_parent"
-            android:layout_height="238dp"
-            android:layout_gravity="bottom"
-            android:layout_weight="1"
-            android:paddingBottom="30dp"
-            android:visibility="visible" />
-
-        <com.google.android.exoplayer2.ui.SimpleExoPlayerView
-            android:id="@+id/player_view"
-            android:layout_width="match_parent"
-            android:layout_height="266dp"
-            android:layout_weight="1"
-             />-->
-
         <android.opengl.GLSurfaceView
             android:id="@+id/cameraPreview_surfaceView"
             android:layout_width="200dp"
@@ -125,46 +99,49 @@
             app:resize_mode="fill"
             />
 
-        <!--<View
-            android:id="@+id/transparent_cover"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:background="#77000000"
-            android:visibility="invisible" />-->
     </LinearLayout>
-
-
-    <!--
-   </com.google.android.exoplayer.AspectRatioFrameLayout>
-    -->
-
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!--<LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="match_parent"
-            android:layout_height="328dp"
-            android:layout_gravity="bottom"
-            android:orientation="vertical"
-            android:padding="24dp"
-            android:visibility="visible">-->
+        <ListView
+            android:id="@+id/listView"
+            android:layout_width="wrap_content"
+            android:layout_height="150dp"
+            android:layout_marginTop="50dp"
+            android:transcriptMode="alwaysScroll"
+            app:layout_constraintVertical_weight="50"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <EditText
+            android:id="@+id/chat_message"
+            android:layout_width="wrap_content"
+            android:layout_height="43dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="40dp"
+            android:ems="15"
+            android:inputType="textPersonName"
+            android:textColor="#fff"
+            app:layout_constraintBottom_toBottomOf="@+id/toggle_broadcasting"
+            app:layout_constraintEnd_toStartOf="@+id/bnt_send"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/listView" />
 
         <Button
             android:id="@+id/bnt_send"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="104dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginBottom="40dp"
             android:text="send"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.869"
             app:layout_constraintStart_toEndOf="@id/chat_message"
             app:layout_constraintTop_toBottomOf="@+id/listView" />
-
-        <!--</LinearLayout>-->
 
         <Button
             android:id="@+id/toggle_broadcasting"
@@ -180,31 +157,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
-
-        <EditText
-            android:id="@+id/chat_message"
-            android:layout_width="wrap_content"
-            android:layout_height="43dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:textColor="#fff"
-            app:layout_constraintEnd_toStartOf="@+id/bnt_send"
-            app:layout_constraintHorizontal_bias="0.403"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/listView" />
-
-        <ListView
-            android:id="@+id/listView"
-            android:layout_width="wrap_content"
-            android:layout_height="150dp"
-            android:layout_marginTop="50dp"
-            android:transcriptMode="alwaysScroll"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"></ListView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>
