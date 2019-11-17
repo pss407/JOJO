@@ -118,6 +118,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+
+
+
 public class LiveVideoBroadcasterActivity extends AppCompatActivity implements View.OnClickListener, ExoPlayer.EventListener,
         PlaybackControlView.VisibilityListener{
 
@@ -183,6 +186,13 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
     private GLSurfaceView mGLView;
     private ILiveVideoBroadcaster mLiveVideoBroadcaster;
     private Button mBroadcastControlButton;
+
+    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    private DatabaseReference databaseReference = firebaseDatabase.getReference();
+
+
+
+
 
     /** Defines callbacks for service binding, passed to bindService() */
     private ServiceConnection mConnection = new ServiceConnection() {
@@ -279,11 +289,13 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
 
         /////////송출
 
+
         Handler delayHandler = new Handler();
         delayHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 //여기에 딜레이 후 시작할 작업들을 입력
+                com.example.jojo.bangguseok.login.MyApplication myApp = (com.example.jojo.bangguseok.login.MyApplication) getApplicationContext();
                 if (!mIsRecording)
                 {
                     if (mLiveVideoBroadcaster != null) {
@@ -323,7 +335,7 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
                                         triggerStopRecording();
                                     }
                                 }
-                            }.execute("rtmp://rtmp-ls-k1.video.media.ntruss.com/live/aKSuwKH7fg");
+                            }.execute(myApp.getSend_url());//"rtmp://rtmp-ls-k1.video.media.ntruss.com/live/aKSuwKH7fg"
                         }
                         else {
                             //Snackbar.make(mRootView, R.string.streaming_not_finished, Snackbar.LENGTH_LONG).show();
@@ -352,7 +364,8 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
             @Override
             public void run() {
                 //여기에 딜레이 후 시작할 작업들을 입력
-                String URL =  "https://orrkzjbnurrk2465864.cdn.ntruss.com/video/235_360p_s_l.m3u8";   //진홍//"https://gkbjsozvwply2376889.cdn.ntruss.com/video/253_270p_s_l.m3u8";
+                com.example.jojo.bangguseok.login.MyApplication myApp = (com.example.jojo.bangguseok.login.MyApplication) getApplicationContext();
+                String URL =  myApp.getGet_url();//"https://orrkzjbnurrk2465864.cdn.ntruss.com/video/235_360p_s_l.m3u8";   //진홍//"https://gkbjsozvwply2376889.cdn.ntruss.com/video/253_270p_s_l.m3u8";
 
                 initializePlayer(URL);
             }
@@ -1099,5 +1112,17 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
         //String URL = "http://192.168.1.34:5080/vod/streams/test_adaptive.m3u8";
         initializePlayer(URL);
         videoStartControlLayout.setVisibility(View.GONE);
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        com.example.jojo.bangguseok.login.MyApplication myApp = (com.example.jojo.bangguseok.login.MyApplication) getApplicationContext();
+
+        databaseReference.child("URL").child("room" + myApp.getUrl_room()).child("url_1").child("check").setValue("false");
+        databaseReference.child("URL").child("room" + myApp.getUrl_room()).child("url_2").child("check").setValue("false");
+
     }
 }

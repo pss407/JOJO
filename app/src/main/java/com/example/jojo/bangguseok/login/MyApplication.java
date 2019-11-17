@@ -11,6 +11,9 @@ public class MyApplication extends Application {
         private String name;   //여기서 name 이 id임
        // private String level;
         private String tier;
+        private String send_url;
+        private String get_url;
+        private String url_room;
 
 //
         @Override
@@ -35,6 +38,9 @@ public class MyApplication extends Application {
         public void setname(String name){
             this.name = name;
         }
+        public void setSend_url(String send_url) {this.send_url=send_url;}
+        public void setGet_url(String get_url) {this.get_url=get_url;}
+    public void setUrl_room(String url_room) {this.url_room=url_room;}
 ///
 
 
@@ -44,6 +50,17 @@ public class MyApplication extends Application {
         public String getname(){
             return name;
         }
+
+        public String getSend_url(){
+        return send_url;
+    }
+       public String getGet_url(){
+        return get_url;
+    }
+
+    public String getUrl_room(){
+        return url_room;
+    }
 }
 
 

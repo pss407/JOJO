@@ -204,7 +204,7 @@ public class  SignIn extends AppCompatActivity {
             }
         };
 
-        String sort_column_name = "ID";
+        String sort_column_name = "id";
         Query sortbyAge = FirebaseDatabase.getInstance().getReference().child("id_list").orderByChild(sort_column_name);
         sortbyAge.addListenerForSingleValueEvent(postListener);
 
