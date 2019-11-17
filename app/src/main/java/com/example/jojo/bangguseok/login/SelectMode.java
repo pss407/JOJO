@@ -315,7 +315,7 @@ public class SelectMode extends AppCompatActivity {
 
 
                     }
-                }, 4000);   //이거 나중에 바꾸기
+                }, 10000);   //이거 나중에 바꾸기
 
 
 

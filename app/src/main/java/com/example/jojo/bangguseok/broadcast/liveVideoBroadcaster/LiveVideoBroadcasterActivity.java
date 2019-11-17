@@ -1124,5 +1124,7 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
         databaseReference.child("URL").child("room" + myApp.getUrl_room()).child("url_1").child("check").setValue("false");
         databaseReference.child("URL").child("room" + myApp.getUrl_room()).child("url_2").child("check").setValue("false");
 
+        music_stop();
+
     }
 }
