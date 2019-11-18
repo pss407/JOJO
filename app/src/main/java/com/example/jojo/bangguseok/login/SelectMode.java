@@ -236,14 +236,14 @@ public class SelectMode extends AppCompatActivity {
             @Override
             public void run() {
 
-                if(isUrl_1==true)
+                if(!num.equals(""))
                 {
-                    databaseReference.child("URL").child("room" + num).child("url_1").child("check").setValue("true");
-                }
-                else
-                {
-                    databaseReference.child("URL").child("room"+num).child("url_2").child("check").setValue("true");
+                    if (isUrl_1 == true) {
+                        databaseReference.child("URL").child("room" + num).child("url_1").child("check").setValue("true");
+                    } else {
+                        databaseReference.child("URL").child("room" + num).child("url_2").child("check").setValue("true");
 
+                    }
                 }
 
                 Toast toast = Toast.makeText(getApplicationContext(), num+" "+send_url, Toast.LENGTH_LONG);
@@ -321,7 +321,7 @@ public class SelectMode extends AppCompatActivity {
 
 
             }
-        }, 1000);
+        }, 1300);
 
 
 
