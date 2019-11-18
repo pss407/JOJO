@@ -102,9 +102,8 @@ public class ViewerActivity extends AppCompatActivity {
             };
 
 
-
             //채널 늘리면 room에 숫자 증가시키며 더하면됨
-            String value = "room" + i; //room번호 증가시키며 탐색
+            String value = "room" + i ; //room번호 증가시키며 탐색
             // String sort_column_name = "get_url";
             Query sortbyAge = FirebaseDatabase.getInstance().getReference().child("URL").child(value);
             // sortbyAge.addValueEventListener(postListener);
