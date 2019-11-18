@@ -432,7 +432,7 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
                 }
             }
         });
-
+//
         myRef.child("room"+myApp.getUrl_room()).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
