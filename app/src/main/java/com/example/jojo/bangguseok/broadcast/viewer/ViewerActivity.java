@@ -2,6 +2,7 @@ package com.example.jojo.bangguseok.broadcast.viewer;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -10,19 +11,31 @@ import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.jojo.bangguseok.R;
+import com.example.jojo.bangguseok.login.FirebasePost_url;
 import com.example.jojo.bangguseok.login.MyApplication;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 public class ViewerActivity extends AppCompatActivity {
 
     private ListView chat_list;
 
+    private int channel_count=2;
+
+    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    private DatabaseReference databaseReference = firebaseDatabase.getReference();
+
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     final DatabaseReference myRef = database.getReference();
+
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +61,57 @@ public class ViewerActivity extends AppCompatActivity {
     }
 
     private void showChatList() {
+
+        for(int i=1;i<=channel_count;i++) {
+
+
+            ValueEventListener postListener = new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+
+                    int count = 1;
+
+
+                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                        String key = postSnapshot.getKey();
+                        FirebasePost_url get = postSnapshot.getValue(FirebasePost_url.class);
+                        String[] info = {get.check, get.send_url, get.get_url,get.num};
+
+
+                       if(info[0]=="true")
+                       {
+                           if(count==2)
+                           {
+                               databaseReference.child("chat").child("room" + info[3]);
+                           }
+                           count++;
+                       }
+
+                    }
+
+
+                }
+
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Log.w("getFirebaseDatabase", "loadPost:onCancelled", databaseError.toException());
+
+                }
+            };
+
+
+
+            //채널 늘리면 room에 숫자 증가시키며 더하면됨
+            String value = "room" + i; //room번호 증가시키며 탐색
+            // String sort_column_name = "get_url";
+            Query sortbyAge = FirebaseDatabase.getInstance().getReference().child("URL").child(value);
+            // sortbyAge.addValueEventListener(postListener);
+            sortbyAge.addValueEventListener(postListener);
+
+        }
+
 
 
 
