@@ -103,27 +103,25 @@ public class MainActivity extends AppCompatActivity {
 
                         }
 
-                        if(check==true&&check_using.equals("false"))
+                        if(!tmp_id.equals(""))
                         {
-                            Intent intent = new Intent(getApplicationContext(), com.example.jojo.bangguseok.login.SelectMode.class);
-                            startActivity(intent);
 
-                            databaseReference.child("id_list").child(tmp_id).child("using").setValue("true");
-                        }
-                        else if(check==true&&check_using.equals("true"))
-                        {
-                            Toast toast = Toast.makeText(getApplicationContext(), "이미 로그인 되어있습니다", Toast.LENGTH_LONG);
-                            toast.setGravity(Gravity.TOP | Gravity.LEFT, 350, 200);
-                            toast.show();
+                            if (check == true && check_using.equals("false")) {
+                                Intent intent = new Intent(getApplicationContext(), com.example.jojo.bangguseok.login.SelectMode.class);
+                                startActivity(intent);
 
-                        }
-                        else
-                        {
-                            Toast toast = Toast.makeText(getApplicationContext(), "틀렸습니다", Toast.LENGTH_LONG);
-                            toast.setGravity(Gravity.TOP | Gravity.LEFT, 350, 200);
-                            toast.show();
-                        }
+                                databaseReference.child("id_list").child(tmp_id).child("using").setValue("true");
+                            } else if (check == true && check_using.equals("true")) {
+                                Toast toast = Toast.makeText(getApplicationContext(), "이미 로그인 되어있습니다", Toast.LENGTH_LONG);
+                                toast.setGravity(Gravity.TOP | Gravity.LEFT, 350, 200);
+                                toast.show();
 
+                            } else {
+                                Toast toast = Toast.makeText(getApplicationContext(), "틀렸습니다", Toast.LENGTH_LONG);
+                                toast.setGravity(Gravity.TOP | Gravity.LEFT, 350, 200);
+                                toast.show();
+                            }
+                        }
                     }
 
                     @Override
