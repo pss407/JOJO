@@ -23,17 +23,15 @@
         </activity>
         <activity android:name="com.example.jojo.bangguseok.login.SelectMode" />
         <activity android:name="com.example.jojo.bangguseok.login.SignIn" />
-        <activity android:name="com.example.jojo.bangguseok.chatting.ChatActivity"/>
-        <activity android:name="com.example.jojo.bangguseok.broadcast.BroadcastActivity" />
-        <activity android:name="com.example.jojo.bangguseok.viewer.ViewerActivity" />
-        <activity android:name=".viewer.LiveViewerActivity"/>
+        <activity android:name="com.example.jojo.bangguseok.broadcast.viewer.ViewerActivity" />
+        <activity android:name="com.example.jojo.bangguseok.broadcast.viewer.LiveViewerActivity"
+            android:theme="@style/AppThemeDark"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
         <activity android:name="com.example.jojo.bangguseok.broadcast.liveVideoBroadcaster.LiveVideoBroadcasterActivity"
             android:theme="@style/AppThemeDark"
             android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            />
-        <activity android:name="com.example.jojo.bangguseok.broadcast.liveVideoPlayer.LiveVideoPlayerActivity"
-            android:theme="@style/AppThemeDark"
             />
         <service android:name="com.example.jojo.bangguseok.broadcast.broadcaster.LiveVideoBroadcaster" />
 

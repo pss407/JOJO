@@ -15,10 +15,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 //import com.bumptech.glide.Glide;
 import com.example.jojo.bangguseok.R;
-import com.example.jojo.bangguseok.broadcast.BroadcastActivity;
 import com.example.jojo.bangguseok.broadcast.liveVideoBroadcaster.LiveVideoBroadcasterActivity;
-import com.example.jojo.bangguseok.chatting.ChatActivity;
-import com.example.jojo.bangguseok.viewer.ViewerActivity;
+import com.example.jojo.bangguseok.broadcast.viewer.ViewerActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -58,8 +56,6 @@ public class SelectMode extends AppCompatActivity {
    private boolean isUrl_1=true;
 
     Intent t;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,10 +64,8 @@ public class SelectMode extends AppCompatActivity {
 
         MyApplication myApp = (MyApplication)getApplicationContext();
 
-
         t = new Intent(this, LiveVideoBroadcasterActivity.class);
         t.putExtra("id", myApp.getname());
-
 
         tier = myApp.gettier();
         name = myApp.getname();
@@ -353,8 +347,8 @@ public class SelectMode extends AppCompatActivity {
     }
 
 
-
     public void onButton7Clicked(View view) {
+
         Intent i = new Intent(this, ViewerActivity.class);
         startActivity(i);
     }
