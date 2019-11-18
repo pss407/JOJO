@@ -2,11 +2,14 @@ package com.example.jojo.bangguseok.broadcast.viewer;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -62,7 +65,11 @@ public class ViewerActivity extends AppCompatActivity {
 
     private void showChatList() {
 
-        for(int i=1;i<=channel_count;i++) {
+
+ /*
+        for(int i=1;i<=channel_count;i++)
+        {
+
 
 
             ValueEventListener postListener = new ValueEventListener() {
@@ -70,41 +77,42 @@ public class ViewerActivity extends AppCompatActivity {
                 public void onDataChange(DataSnapshot dataSnapshot) {
 
 
-                    int count = 1;
 
-
+                    int count=1;
                     for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                         String key = postSnapshot.getKey();
                         FirebasePost_url get = postSnapshot.getValue(FirebasePost_url.class);
-                        String[] info = {get.check, get.send_url, get.get_url,get.num};
+                        String[] info = {get.check, get.send_url, get.get_url, get.num};
 
 
-                       if(info[0]=="true")
-                       {
-                           if(count==2)
-                           {
-                               databaseReference.child("chat").child("room" + info[3]);
-                           }
-                           count++;
-                       }
+
+                        if(info[0].equals("true"))
+                        {
+                            if(count==2)
+                            {
+
+
+                                databaseReference.child("chat").child("room" + info[3]).setValue("");
+                            }
+                            count++;
+                        }
+
+
+
 
                     }
 
 
                 }
 
-
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
                     Log.w("getFirebaseDatabase", "loadPost:onCancelled", databaseError.toException());
-
                 }
             };
-
-
             //채널 늘리면 room에 숫자 증가시키며 더하면됨
-            String value = "room" + i ; //room번호 증가시키며 탐색
-            // String sort_column_name = "get_url";
+            String value = "room" + i; //room번호 증가시키며 탐색
+            //String sort_column_name = "get_url";
             Query sortbyAge = FirebaseDatabase.getInstance().getReference().child("URL").child(value);
             // sortbyAge.addValueEventListener(postListener);
             sortbyAge.addValueEventListener(postListener);
@@ -112,12 +120,7 @@ public class ViewerActivity extends AppCompatActivity {
         }
 
 
-
-
-
-
-
-
+*/
 
 
 

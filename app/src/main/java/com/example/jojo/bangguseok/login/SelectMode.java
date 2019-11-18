@@ -290,6 +290,7 @@ public class SelectMode extends AppCompatActivity {
                                 {
 
                                         startActivity(t);
+                                    databaseReference.child("chat").child("room" + num).setValue("");
 
                                 }
                                 count++;
