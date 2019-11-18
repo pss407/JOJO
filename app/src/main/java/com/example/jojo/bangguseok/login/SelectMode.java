@@ -1,16 +1,19 @@
 package com.example.jojo.bangguseok.login;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+//import com.bumptech.glide.Glide;
 import com.example.jojo.bangguseok.R;
 import com.example.jojo.bangguseok.broadcast.BroadcastActivity;
 import com.example.jojo.bangguseok.broadcast.liveVideoBroadcaster.LiveVideoBroadcasterActivity;
@@ -27,6 +30,10 @@ public class SelectMode extends AppCompatActivity {
     private String level;
     private String tier;
     private String name;
+
+    private Activity thisAct= this;
+
+    ImageView load;
 
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference = firebaseDatabase.getReference();
@@ -75,6 +82,10 @@ public class SelectMode extends AppCompatActivity {
 
         textView10.setText("티어:"+tier);
         textView.setText("아이디:"+name);
+
+
+        load = (ImageView)findViewById(R.id.imageView);
+
 
 
 
@@ -171,6 +182,8 @@ public class SelectMode extends AppCompatActivity {
 
 
 
+
+
                 if(send_url.equals(""))//대기하고있는 방채널 없으면 방파기
                 {
                     i=1;
@@ -254,6 +267,9 @@ public class SelectMode extends AppCompatActivity {
                 myApp.setSend_url(send_url);
                 myApp.setGet_url(get_url);
                 myApp.setUrl_room(num);
+
+
+                //Glide.with(thisAct).load(R.raw.loading).into(load); //로딩 화면
 
 
 
