@@ -89,6 +89,9 @@ public class SelectMode extends AppCompatActivity {
 
     public void onButton5Clicked(View view)
     {
+
+
+
         send_url="";
         get_url="";
 

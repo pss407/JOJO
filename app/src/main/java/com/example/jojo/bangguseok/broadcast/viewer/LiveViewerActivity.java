@@ -1,5 +1,7 @@
 package com.example.jojo.bangguseok.broadcast.viewer;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +15,17 @@ import com.example.jojo.bangguseok.R;
 import com.example.jojo.bangguseok.chatting.ChatAdapter;
 import com.example.jojo.bangguseok.chatting.ChatVO;
 import com.example.jojo.bangguseok.login.MyApplication;
+import com.google.android.exoplayer2.C;
+import com.google.android.exoplayer2.DefaultLoadControl;
+import com.google.android.exoplayer2.ExoPlayerFactory;
+import com.google.android.exoplayer2.SimpleExoPlayer;
+import com.google.android.exoplayer2.source.ConcatenatingMediaSource;
+import com.google.android.exoplayer2.source.MediaSource;
+import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection;
+import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
+import com.google.android.exoplayer2.trackselection.TrackSelection;
+import com.google.android.exoplayer2.ui.DebugTextViewHelper;
+import com.google.android.exoplayer2.util.Util;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -111,4 +124,9 @@ public class LiveViewerActivity extends AppCompatActivity {
             }
         });
     }
+
+
+
 }
+
+

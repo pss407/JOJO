@@ -135,7 +135,6 @@ public class MainActivity extends AppCompatActivity {
                 sortbyAge.addListenerForSingleValueEvent(postListener);
 
 
-
             }
         });
         Button button2 = (Button) findViewById(R.id.button2);

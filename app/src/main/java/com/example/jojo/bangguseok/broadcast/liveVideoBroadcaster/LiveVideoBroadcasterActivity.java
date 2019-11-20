@@ -82,9 +82,6 @@ import com.google.android.exoplayer2.upstream.HttpDataSource;
 import com.google.android.exoplayer2.util.Util;
 import com.google.android.material.snackbar.Snackbar;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
 import java.util.ArrayList;
@@ -323,7 +320,7 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
                                         triggerStopRecording();
                                     }
                                 }
-                            }.execute(myApp.getSend_url());//"rtmp://rtmp-ls-k1.video.media.ntruss.com/live/aKSuwKH7fg"
+                            }.execute(myApp.getSend_url());//"rtmp://rtmp-ls-k1.video.media.ntruss.com/live/8KTNWDG3mv"//myApp.getSend_url()//"rtmp://rtmp-ls-k1.video.media.ntruss.com/live/aKSuwKH7fg"
                         }
                         else {
                             //Snackbar.make(mRootView, R.string.streaming_not_finished, Snackbar.LENGTH_LONG).show();
@@ -353,7 +350,7 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
             public void run() {
                 //여기에 딜레이 후 시작할 작업들을 입력
                 com.example.jojo.bangguseok.login.MyApplication myApp = (com.example.jojo.bangguseok.login.MyApplication) getApplicationContext();
-                String URL =  myApp.getGet_url();//"https://orrkzjbnurrk2465864.cdn.ntruss.com/video/235_360p_s_l.m3u8";   //진홍//"https://gkbjsozvwply2376889.cdn.ntruss.com/video/253_270p_s_l.m3u8";
+                String URL = myApp.getGet_url();//"https://orrkzjbnurrk2465864.cdn.ntruss.com/video/235_360p_s_l.m3u8";//myApp.getGet_url()   //진홍//"https://gkbjsozvwply2376889.cdn.ntruss.com/video/253_270p_s_l.m3u8";
 
                 initializePlayer(URL);
             }
@@ -373,7 +370,7 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
         // 여기서는 MediaPlayer로도 음악 파일을 가져오고
         // start()로 실행할 수 있다.
 
-
+/*
         Handler delayHandler3 = new Handler();
         delayHandler2.postDelayed(new Runnable() {
             @Override
@@ -383,7 +380,7 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
             }
         }, 4000);
 
-
+*/
 ////sdfsdf
         //채팅 추가
         lv = findViewById(R.id.listView);
@@ -771,6 +768,7 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
         try {
             music_stop();
             m = MediaPlayer.create(this, R.raw.mymusic);
+
             m.setLooping(true);
             m.start();
         }catch (IllegalStateException e) {
@@ -1111,7 +1109,7 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
         databaseReference.child("URL").child("room" + myApp.getUrl_room()).child("url_1").child("check").setValue("false");
         databaseReference.child("URL").child("room" + myApp.getUrl_room()).child("url_2").child("check").setValue("false");
 
-        music_stop();
+       // music_stop();
 
     }
 }
