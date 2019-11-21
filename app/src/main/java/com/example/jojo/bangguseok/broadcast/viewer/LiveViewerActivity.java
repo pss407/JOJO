@@ -58,7 +58,7 @@ public class LiveViewerActivity extends AppCompatActivity {
 
 
    //이거 나중에 바꾸기
-
+//
 
 
         lv = findViewById(R.id.chat_list2);
