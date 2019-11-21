@@ -60,7 +60,7 @@ public class ViewerActivity extends AppCompatActivity {
                 strText = (String)parent.getItemAtPosition(position);
 
 //////////////////////////////
-/*
+
                 for(int i=1;i<=channel_count;i++) {
                     ValueEventListener postListener = new ValueEventListener() {
                         @Override
@@ -117,7 +117,7 @@ public class ViewerActivity extends AppCompatActivity {
 
 
                 }
-*/
+
 ////////////////////////////////////
 
                 Intent i = new Intent(ViewerActivity.this, LiveViewerActivity.class);
@@ -151,7 +151,8 @@ public class ViewerActivity extends AppCompatActivity {
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-
+                adapter.remove(dataSnapshot.getKey());
+                adapter.notifyDataSetChanged();
             }
 
             @Override

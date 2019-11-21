@@ -24,6 +24,15 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+////
+import android.app.Activity;
+import android.content.Context;
+import android.media.MediaPlayer;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+
 public class SelectMode extends AppCompatActivity {
 
     private String level;
@@ -54,6 +63,10 @@ public class SelectMode extends AppCompatActivity {
    int i=0;
 
    private boolean isUrl_1=true;
+
+    public MediaPlayer m;
+    public Context c;
+
 
     Intent t;
     @Override
@@ -90,7 +103,7 @@ public class SelectMode extends AppCompatActivity {
     public void onButton5Clicked(View view)
     {
 
-
+        music_stop();
 
         send_url="";
         get_url="";
@@ -352,9 +365,43 @@ public class SelectMode extends AppCompatActivity {
 
 
     public void onButton7Clicked(View view) {
+        music_stop();
 
         Intent i = new Intent(this, ViewerActivity.class);
         startActivity(i);
+    }
+
+    public void Sample_music(View view) {
+
+        music_play();
+
+    }
+
+    public void music_play(){
+        c = getApplicationContext();
+        try {
+            music_stop();
+            m = MediaPlayer.create(c, R.raw.mymusic);
+            m.setLooping(true);
+            m.start();
+        }catch (IllegalStateException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //Stop music play
+    public void music_stop()
+    {
+        try {
+            if(m != null)
+            {
+                m.stop();
+                m.release();
+                m = null;
+            }
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
