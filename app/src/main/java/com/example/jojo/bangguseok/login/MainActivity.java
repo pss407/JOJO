@@ -66,6 +66,45 @@ public class MainActivity extends AppCompatActivity {
         editText=(EditText)findViewById(R.id.editText);
         editText2=(EditText)findViewById(R.id.editText2);
 
+        ValueEventListener postListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                int count=1;
+
+
+
+
+
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    String key = postSnapshot.getKey();
+                    FirebasePost_url get = postSnapshot.getValue(FirebasePost_url.class);
+                    String[] info = {get.check, get.send_url, get.get_url, get.num};
+
+
+
+                    com.example.jojo.bangguseok.login.MyApplication myApp = (com.example.jojo.bangguseok.login.MyApplication) getApplicationContext();
+
+
+
+                }
+
+
+            }
+
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w("getFirebaseDatabase", "loadPost:onCancelled", databaseError.toException());
+
+            }
+        };
+
+        String sort_column_name = "id";
+        Query sortbyAge = FirebaseDatabase.getInstance().getReference().child("id_list").orderByChild(sort_column_name);
+        sortbyAge.addListenerForSingleValueEvent(postListener);
+
+
 
         Button button = (Button) findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {

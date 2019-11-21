@@ -408,7 +408,17 @@ public class SelectMode extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         MyApplication myApp = (MyApplication) getApplicationContext();
-        databaseReference.child("id_list").child(myApp.getname()).child("using").setValue("false");
+        if(myApp.getname().equals(""))
+        {
+            databaseReference.child("id_list").child("error").child("using").setValue("false");
+
+        }
+        else
+        {
+            databaseReference.child("id_list").child(myApp.getname()).child("using").setValue("false");
+
+        }
+
 
     }
 }
