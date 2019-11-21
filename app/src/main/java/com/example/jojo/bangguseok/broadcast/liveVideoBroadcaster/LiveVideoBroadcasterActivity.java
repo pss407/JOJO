@@ -370,7 +370,7 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
         // 여기서는 MediaPlayer로도 음악 파일을 가져오고
         // start()로 실행할 수 있다.
 
-/*
+
         Handler delayHandler3 = new Handler();
         delayHandler2.postDelayed(new Runnable() {
             @Override
@@ -380,7 +380,7 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
             }
         }, 4000);
 
-*/
+
 ////sdfsdf
         //채팅 추가
         lv = findViewById(R.id.listView);
@@ -1109,7 +1109,7 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
         databaseReference.child("URL").child("room" + myApp.getUrl_room()).child("url_1").child("check").setValue("false");
         databaseReference.child("URL").child("room" + myApp.getUrl_room()).child("url_2").child("check").setValue("false");
 
-       // music_stop();
+        music_stop();
 
     }
 }

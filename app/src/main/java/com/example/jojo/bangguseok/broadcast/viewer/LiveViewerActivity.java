@@ -3,6 +3,8 @@ package com.example.jojo.bangguseok.broadcast.viewer;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -50,6 +52,13 @@ public class LiveViewerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_live_video_viewer);
+
+
+
+
+
+   //이거 나중에 바꾸기
+
 
 
         lv = findViewById(R.id.chat_list2);
