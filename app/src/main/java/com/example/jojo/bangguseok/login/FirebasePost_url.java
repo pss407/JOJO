@@ -12,17 +12,19 @@ public class FirebasePost_url {
     public String get_url;
     public String send_url;
     public String num;
+    public String music_finish;
 
 
     public FirebasePost_url(){
         // Default constructor required for calls to DataSnapshot.getValue(FirebasePost.class)
     }
 
-    public FirebasePost_url(String check,String get_url, String send_url,String num) {
+    public FirebasePost_url(String check,String get_url, String send_url,String num,String music_finish) {
       this.check=check;
       this.get_url=get_url;
       this.send_url=send_url;
       this.num=num;
+      this.music_finish=music_finish;
     }
 
     @Exclude
@@ -32,6 +34,7 @@ public class FirebasePost_url {
         result.put("get_url",get_url);
         result.put("send_url", send_url);
         result.put("num",num);
+        result.put("music_finish",music_finish);
 
         return result;
     }

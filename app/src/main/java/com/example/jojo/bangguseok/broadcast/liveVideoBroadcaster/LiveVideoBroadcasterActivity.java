@@ -24,6 +24,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.SurfaceHolder;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -48,6 +49,8 @@ import com.example.jojo.bangguseok.broadcast.broadcaster.utils.Resolution;
 import com.example.jojo.bangguseok.broadcast.liveVideoPlayer.DefaultExtractorsFactoryForFLV;
 import com.example.jojo.bangguseok.chatting.ChatAdapter;
 import com.example.jojo.bangguseok.chatting.ChatVO;
+import com.example.jojo.bangguseok.login.FirebasePost_url;
+import com.example.jojo.bangguseok.login.MyApplication;
 import com.google.android.exoplayer2.BuildConfig;
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.DefaultLoadControl;
@@ -111,6 +114,11 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
+
+import android.media.MediaPlayer;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -133,6 +141,15 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
     String id = "";
     String message = "chat";
     //int chatId = 0;
+
+    public String start_second="false";
+
+    ValueEventListener postListener2;
+
+    Query sortby;
+
+    String tmp="";
+
 
     public static final String PREFER_EXTENSION_DECODERS = "prefer_extension_decoders";
 
@@ -183,6 +200,10 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
 
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference = firebaseDatabase.getReference();
+
+    public String listener2_remove="true";
+
+
 
     /** Defines callbacks for service binding, passed to bindService() */
     private ServiceConnection mConnection = new ServiceConnection() {
@@ -357,8 +378,146 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
                 String URL = myApp.getGet_url();//"https://orrkzjbnurrk2465864.cdn.ntruss.com/video/235_360p_s_l.m3u8";//myApp.getGet_url()   //진홍//"https://gkbjsozvwply2376889.cdn.ntruss.com/video/253_270p_s_l.m3u8";
 
                 initializePlayer(URL);
+
+                //////////////대결 순서대로 진행
+
+                MyApplication myApp3 = (MyApplication)getApplicationContext();
+                String num= myApp3.getUrl_room();
+                tmp=num;
+
+                MyApplication myApp2 = (MyApplication)getApplicationContext();
+                if(myApp2.getOrder().equals("first")) //첫번째면
+                {
+
+                    Toast toast2 = Toast.makeText(getApplicationContext(), "자신의 차례입니다. 10초후에 노래가 시작됩니다.", Toast.LENGTH_LONG);
+                    toast2.setGravity(Gravity.TOP | Gravity.LEFT, 350, 200);
+                    toast2.show();
+
+
+                    Handler delayHandler4 = new Handler();
+                    delayHandler4.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            music_play();
+
+                            m.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                                public void onCompletion(MediaPlayer mp) {
+                                    MyApplication myApp4 = (MyApplication)getApplicationContext();
+                                    String num= myApp4.getUrl_room();
+
+                                    Toast toast = Toast.makeText(getApplicationContext(), "자신의 노래가 끝났습니다. 이제 상대의 차례입니다.", Toast.LENGTH_LONG);
+                                    toast.setGravity(Gravity.TOP | Gravity.LEFT, 350, 200);
+                                    toast.show();
+
+
+                                    Handler delayHandler6 = new Handler();
+                                    delayHandler6.postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+
+                                            databaseReference.child("URL").child("room" + tmp).child("url_1").child("music_finish").setValue("true");
+                                        }
+                                    }, 6000);   //나보다 상대는 조금 늦게 노래가끝나기때문에 딜레이를 줌
+
+
+                                }
+                            });
+
+                        }
+                    }, 6000);
+
+                }
+                else   //두번째면
+                {
+
+                    listener2_remove="false";
+                     postListener2 = new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+
+
+                            int count = 1;
+
+
+                            for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                                String key = postSnapshot.getKey();
+                                FirebasePost_url get = postSnapshot.getValue(FirebasePost_url.class);
+                                String[] info = {get.music_finish};
+
+
+                                if(count==1&&info[0].equals("true"))
+                                {
+                                    Toast toast4 = Toast.makeText(getApplicationContext(), "상대방의 노래가 끝났습니다. 5초뒤에 자신의 노래가 시작됩니다.", Toast.LENGTH_LONG);
+                                    toast4.setGravity(Gravity.TOP | Gravity.LEFT, 350, 200);
+                                    toast4.show();
+
+                                    Handler delayHandler5 = new Handler();
+                                    delayHandler5.postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+
+                                            music_play();
+
+
+                                            m.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                                                public void onCompletion(MediaPlayer mp) {
+                                                    MyApplication myApp4 = (MyApplication)getApplicationContext();
+                                                    String num= myApp4.getUrl_room();
+
+                                                    databaseReference.child("URL").child("room" + num).child("url_2").child("music_finish").setValue("true");
+
+
+                                                }
+                                            });
+
+                                            Handler delayHandler5 = new Handler();
+                                            delayHandler5.postDelayed(new Runnable() {
+                                                @Override
+                                                public void run() {
+
+
+                                                    listener2_remove="true";
+                                                    sortby.removeEventListener(postListener2);
+
+                                                }
+                                            }, 4000);
+
+                                        }
+                                    }, 6000);
+
+
+                                }
+                                count++;
+
+
+                            }
+
+
+
+                        }
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            Log.w("getFirebaseDatabase", "loadPost:onCancelled", databaseError.toException());
+
+                        }
+                    };
+
+
+
+                    String value = "room" + num;
+                    // String sort_column_name = "get_url";
+                    sortby = FirebaseDatabase.getInstance().getReference().child("URL").child(value);
+                    // sortbyAge.addValueEventListener(postListener);
+                    sortby.addValueEventListener(postListener2);
+
+
+
+
+
+                }
             }
-        }, 10000);
+        }, 12000);
 
 
 
@@ -374,7 +533,7 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
         // 여기서는 MediaPlayer로도 음악 파일을 가져오고
         // start()로 실행할 수 있다.
 
-
+/*
         Handler delayHandler3 = new Handler();
         delayHandler2.postDelayed(new Runnable() {
             @Override
@@ -384,7 +543,7 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
             }
         }, 4000);
 
-
+*/
 ////sdfsdf
         //채팅 추가
         lv = findViewById(R.id.listView);
@@ -657,6 +816,8 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
             triggerStopRecording();
         }
 
+
+
     }
 
 
@@ -681,6 +842,8 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
         myRef.child("chat").updateChildren(childUpdates);
 
         mIsRecording = false;
+
+        music_stop();
         finish();
     }
 
@@ -772,8 +935,6 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
         try {
             music_stop();
             m = MediaPlayer.create(this, R.raw.mymusic);
-
-            m.setLooping(true);
             m.start();
         }catch (IllegalStateException e) {
             e.printStackTrace();
@@ -1106,14 +1267,28 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
+
+
+
+        if(listener2_remove.equals("false"))
+        {
+
+            sortby.removeEventListener(postListener2);
+        }
 
         com.example.jojo.bangguseok.login.MyApplication myApp = (com.example.jojo.bangguseok.login.MyApplication) getApplicationContext();
 
         databaseReference.child("URL").child("room" + myApp.getUrl_room()).child("url_1").child("check").setValue("false");
         databaseReference.child("URL").child("room" + myApp.getUrl_room()).child("url_2").child("check").setValue("false");
 
+        MyApplication myApp5 = (MyApplication)getApplicationContext();
+        String num= myApp5.getUrl_room();
+        databaseReference.child("URL").child("room" + num).child("url_1").child("music_finish").setValue("false");
+        databaseReference.child("URL").child("room" + num).child("url_2").child("music_finish").setValue("false");
+
         music_stop();
+
+        super.onDestroy();
 
     }
 }

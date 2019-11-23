@@ -13,7 +13,8 @@ public class MyApplication extends Application {
         private String tier;
         private String send_url;
         private String get_url;
-        private String url_room;
+        private String url_room;   //번호만
+        private String order="first";  //노래부르는 순서
 
 //
         @Override
@@ -40,7 +41,9 @@ public class MyApplication extends Application {
         }
         public void setSend_url(String send_url) {this.send_url=send_url;}
         public void setGet_url(String get_url) {this.get_url=get_url;}
-    public void setUrl_room(String url_room) {this.url_room=url_room;}
+        public void setUrl_room(String url_room) {this.url_room=url_room;}
+        public void setOrder(String order){this.order=order;}
+
 ///
 
 
@@ -54,13 +57,14 @@ public class MyApplication extends Application {
         public String getSend_url(){
         return send_url;
     }
-       public String getGet_url(){
+        public String getGet_url(){
         return get_url;
     }
 
-    public String getUrl_room(){
+        public String getUrl_room(){
         return url_room;
     }
+        public String getOrder(){return order;}
 }
 
 

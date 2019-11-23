@@ -59,7 +59,13 @@ public class SelectMode extends AppCompatActivity {
     private String num="";
 
     Query sortby;
+
+    ValueEventListener postListener;
     ValueEventListener postListener2;
+    ValueEventListener postListener3;
+
+    Query sortbyAge;
+
    int i=0;
 
    private boolean isUrl_1=true;
@@ -67,12 +73,16 @@ public class SelectMode extends AppCompatActivity {
     public MediaPlayer m;
     public Context c;
 
+    private String ismatching="false";
+
 
     Intent t;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main3);
+
+        music_stop();
 
 
         MyApplication myApp = (MyApplication)getApplicationContext();
@@ -124,7 +134,7 @@ public class SelectMode extends AppCompatActivity {
             }
 
 
-                ValueEventListener postListener = new ValueEventListener() {
+                postListener = new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -149,6 +159,8 @@ public class SelectMode extends AppCompatActivity {
                                     get_url = info[2];
                                     num = info[3];
                                     isUrl_1=false;
+                                    MyApplication myApp = (MyApplication)getApplicationContext(); //노래 순서 두번째 할당
+                                    myApp.setOrder("second");
 
 
 
@@ -173,10 +185,9 @@ public class SelectMode extends AppCompatActivity {
                     //채널 늘리면 room에 숫자 증가시키며 더하면됨
                 String value = "room" + i; //room번호 증가시키며 탐색
                 // String sort_column_name = "get_url";
-                Query sortbyAge = FirebaseDatabase.getInstance().getReference().child("URL").child(value);
+                sortbyAge = FirebaseDatabase.getInstance().getReference().child("URL").child(value);
                 // sortbyAge.addValueEventListener(postListener);
                 sortbyAge.addListenerForSingleValueEvent(postListener);
-
 
 
 
@@ -202,7 +213,7 @@ public class SelectMode extends AppCompatActivity {
 
                     for(;i<=channel_count;i++) {
 
-                        ValueEventListener postListener = new ValueEventListener() {
+                        postListener3 = new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -221,12 +232,12 @@ public class SelectMode extends AppCompatActivity {
                                             get_url = info[2];
                                             num = info[3];
                                             isUrl_1=true;
+                                        MyApplication myApp = (MyApplication)getApplicationContext();
+                                        myApp.setOrder("first");
 
 
                                             break;
                                     }
-
-
 
                                 }
 
@@ -241,9 +252,9 @@ public class SelectMode extends AppCompatActivity {
                         //채널 늘리면 room에 숫자 증가시키며 더하면됨
                         String value = "room" + i; //room번호 증가시키며 탐색
                         //String sort_column_name = "get_url";
-                        Query sortbyAge = FirebaseDatabase.getInstance().getReference().child("URL").child(value);
+                        Query sortby2 = FirebaseDatabase.getInstance().getReference().child("URL").child(value);
                         // sortbyAge.addValueEventListener(postListener);
-                        sortbyAge.addListenerForSingleValueEvent(postListener);
+                        sortby2.addListenerForSingleValueEvent(postListener3);
 
 
                     }
@@ -259,6 +270,8 @@ public class SelectMode extends AppCompatActivity {
         delayHandler4.postDelayed(new Runnable() {
             @Override
             public void run() {
+
+
 
                 if(!num.equals(""))
                 {
@@ -296,7 +309,7 @@ public class SelectMode extends AppCompatActivity {
                         for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                             String key = postSnapshot.getKey();
                             FirebasePost_url get = postSnapshot.getValue(FirebasePost_url.class);
-                            String[] info = {get.check, get.send_url, get.get_url,get.num};
+                            String[] info = {get.check};
 
 
                             if (info[0].equals("true")) {
@@ -305,8 +318,11 @@ public class SelectMode extends AppCompatActivity {
                                 if (count == 2)
                                 {
 
+                                    ismatching="true";
+
                                         startActivity(t);
                                     databaseReference.child("chat").child("room" + num).setValue("");
+
 
                                 }
                                 count++;
@@ -339,6 +355,14 @@ public class SelectMode extends AppCompatActivity {
                     public void run() {
 
                         sortby.removeEventListener(postListener2);   //리스너 그만 대기하고 정지시키기
+
+                        if(ismatching.equals("false")) {
+                            databaseReference.child("URL").child("room" + num).child("url_1").child("check").setValue("false");
+
+                            Toast toast = Toast.makeText(getApplicationContext(), "현재 가능한 매칭상대가 없습니다", Toast.LENGTH_LONG);
+                            toast.setGravity(Gravity.TOP | Gravity.LEFT, 350, 200);
+                            toast.show();
+                        }
 
 
 
@@ -404,6 +428,8 @@ public class SelectMode extends AppCompatActivity {
         }
     }
 
+
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -418,6 +444,12 @@ public class SelectMode extends AppCompatActivity {
             databaseReference.child("id_list").child(myApp.getname()).child("using").setValue("false");
 
         }
+
+
+
+
+
+
 
 
     }
