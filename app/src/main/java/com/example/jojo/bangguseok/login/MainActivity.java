@@ -39,8 +39,6 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity {
 
 
-
-
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference = firebaseDatabase.getReference();
 
@@ -55,55 +53,20 @@ public class MainActivity extends AppCompatActivity {
     String rpassword;
     EditText editText;
     EditText editText2;
-    String tmp_id="";   //id 저장
-    String tmp_tier="";
+    String tmp_id = "";   //id 저장
+    String tmp_tier = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
 
-        editText=(EditText)findViewById(R.id.editText);
-        editText2=(EditText)findViewById(R.id.editText2);
-
-        ValueEventListener postListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                int count=1;
 
 
 
-
-
-                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    String key = postSnapshot.getKey();
-                    FirebasePost_url get = postSnapshot.getValue(FirebasePost_url.class);
-                    String[] info = {get.check, get.send_url, get.get_url, get.num};
-
-
-
-                    com.example.jojo.bangguseok.login.MyApplication myApp = (com.example.jojo.bangguseok.login.MyApplication) getApplicationContext();
-
-
-
-                }
-
-
-            }
-
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.w("getFirebaseDatabase", "loadPost:onCancelled", databaseError.toException());
-
-            }
-        };
-
-        String sort_column_name = "id";
-        Query sortbyAge = FirebaseDatabase.getInstance().getReference().child("id_list").orderByChild(sort_column_name);
-        sortbyAge.addListenerForSingleValueEvent(postListener);
-
+        editText = (EditText) findViewById(R.id.editText);
+        editText2 = (EditText) findViewById(R.id.editText2);
 
 
         Button button = (Button) findViewById(R.id.button);
@@ -112,38 +75,35 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
 
-
                 ValueEventListener postListener = new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        Boolean check=false;
-                        String check_using="false";
+                        Boolean check = false;
+                        String check_using = "false";
 
-                        for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                             String key = postSnapshot.getKey();
                             FirebasePost get = postSnapshot.getValue(FirebasePost.class);
                             String[] info = {get.id, get.password, get.tier, get.using, get.start_matching};
 
 
-                            check_using=info[3];
+                            check_using = info[3];
 
-                            if(info[0].equals(editText.getText().toString())&&info[1].equals(editText2.getText().toString()))
-                            {
-                                tmp_id=info[0];
-                                tmp_tier=info[2];
+                            if (info[0].equals(editText.getText().toString()) && info[1].equals(editText2.getText().toString())) {
+                                tmp_id = info[0];
+                                tmp_tier = info[2];
                                 com.example.jojo.bangguseok.login.MyApplication myApp = (com.example.jojo.bangguseok.login.MyApplication) getApplicationContext();
                                 myApp.setname(tmp_id);
                                 myApp.settier(tmp_tier);
 
 
-                                check=true;
+                                check = true;
                                 break;
                             }
 
                         }
 
-                        if(!tmp_id.equals(""))
-                        {
+                        if (!tmp_id.equals("")) {
 
                             if (check == true && check_using.equals("false")) {
                                 Intent intent = new Intent(getApplicationContext(), com.example.jojo.bangguseok.login.SelectMode.class);
@@ -165,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
-                        Log.w("getFirebaseDatabase","loadPost:onCancelled", databaseError.toException());
+                        Log.w("getFirebaseDatabase", "loadPost:onCancelled", databaseError.toException());
                     }
                 };
 
@@ -184,14 +144,9 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
 
 
-
-
             }
         });
     }
-
-
-
 
 
 

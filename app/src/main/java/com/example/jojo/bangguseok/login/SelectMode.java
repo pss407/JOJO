@@ -184,7 +184,7 @@ public class SelectMode extends AppCompatActivity {
         }
 
 
-  //대기방 있는 지 탐색후에 0.5초후에 방 만들기
+  //대기방 있는 지 탐색후에 0.8초후에 방 만들기
 
         Handler delayHandler3 = new Handler();
         delayHandler3.postDelayed(new Runnable() {
@@ -251,7 +251,7 @@ public class SelectMode extends AppCompatActivity {
 
 
             }
-        }, 500);
+        }, 800);
 
 
           //채널을 할당받았음.

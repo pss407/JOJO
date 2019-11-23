@@ -274,6 +274,10 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
         //videoStartControlLayout.setVisibility(View.GONE);
         /////////송출
 
+        Toast toast = Toast.makeText(getApplicationContext(), "5초후에 대결이 시작됩니다. 대결을 준비하세요", Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.TOP | Gravity.LEFT, 350, 200);
+        toast.show();
+
 
         Handler delayHandler = new Handler();
         delayHandler.postDelayed(new Runnable() {
@@ -354,7 +358,7 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
 
                 initializePlayer(URL);
             }
-        }, 2000);
+        }, 10000);
 
 
 

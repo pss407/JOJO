@@ -57,8 +57,23 @@ public class LiveViewerActivity extends AppCompatActivity {
 
 
 
-   //이거 나중에 바꾸기
-//
+
+        Handler delayHandler6 = new Handler();
+        delayHandler6.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                com.example.jojo.bangguseok.login.MyApplication myApp2 = (com.example.jojo.bangguseok.login.MyApplication) getApplicationContext();
+
+                Toast toast = Toast.makeText(getApplicationContext(), myApp2.getGet_url(), Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.TOP | Gravity.LEFT, 350, 200);
+                toast.show();
+
+
+
+            }
+        }, 2000);   //이거 나중에 바꾸기
+
 
 
         lv = findViewById(R.id.chat_list2);
