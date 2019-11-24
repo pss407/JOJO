@@ -82,6 +82,7 @@ public class ViewerActivity extends AppCompatActivity {
                                 com.example.jojo.bangguseok.login.MyApplication myApp = (com.example.jojo.bangguseok.login.MyApplication) getApplicationContext();
 
                                 if (strText.equals("room"+info[3])) {
+                                    //myApp.setUrl_room(info[3]);
 
                                     if(count==1) {
                                         myApp.setSend_url(info[2]);
