@@ -33,6 +33,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+
 public class SelectMode extends AppCompatActivity {
 
     private String level;
@@ -66,6 +69,8 @@ public class SelectMode extends AppCompatActivity {
 
     Query sortbyAge;
 
+    AlertDialog alertDialog;
+
    int i=0;
 
    private boolean isUrl_1=true;
@@ -87,11 +92,14 @@ public class SelectMode extends AppCompatActivity {
 
         MyApplication myApp = (MyApplication)getApplicationContext();
 
-        t = new Intent(this, LiveVideoBroadcasterActivity.class);
-        t.putExtra("id", myApp.getname());
-
         tier = myApp.gettier();
         name = myApp.getname();
+
+
+        MyApplication myApp2 = (MyApplication)getApplicationContext();
+
+        t = new Intent(this, LiveVideoBroadcasterActivity.class);
+        t.putExtra("id", myApp2.getname());
 
 
         TextView textView10 = (TextView)findViewById(R.id.textView10);
@@ -399,6 +407,47 @@ public class SelectMode extends AppCompatActivity {
 
         music_play();
 
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setTitle("투표를 해주세요").setMessage("");
+
+        builder.setPositiveButton("2번", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int id)
+            {
+                Toast.makeText(getApplicationContext(), "2번", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        builder.setNeutralButton("1번", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int id)
+            {
+                Toast.makeText(getApplicationContext(), "1번", Toast.LENGTH_SHORT).show();
+            }
+        });
+        alertDialog = builder.create();
+
+        alertDialog.show();
+
+        Handler delayHandler6 = new Handler();
+        delayHandler6.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                alertDialog.cancel();
+
+                Toast toast = Toast.makeText(getApplicationContext(), "투표가 마감되었습니다.", Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.TOP | Gravity.LEFT, 350, 200);
+                toast.show();
+
+            }
+        }, 3000);
+
+
+
+
     }
 
     public void music_play(){
@@ -447,7 +496,7 @@ public class SelectMode extends AppCompatActivity {
 
 
 
-
+         music_stop();
 
 
 

@@ -47,6 +47,8 @@ import com.example.jojo.bangguseok.broadcast.broadcaster.ILiveVideoBroadcaster;
 import com.example.jojo.bangguseok.broadcast.broadcaster.LiveVideoBroadcaster;
 import com.example.jojo.bangguseok.broadcast.broadcaster.utils.Resolution;
 import com.example.jojo.bangguseok.broadcast.liveVideoPlayer.DefaultExtractorsFactoryForFLV;
+import com.example.jojo.bangguseok.broadcast.viewer.LiveViewerActivity;
+import com.example.jojo.bangguseok.broadcast.viewer.ViewerActivity;
 import com.example.jojo.bangguseok.chatting.ChatAdapter;
 import com.example.jojo.bangguseok.chatting.ChatVO;
 import com.example.jojo.bangguseok.login.FirebasePost_url;
@@ -144,9 +146,12 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
 
     public String start_second="false";
 
+    String numm;
+
     ValueEventListener postListener2;
 
     Query sortby;
+    Query sortby2;
 
     String tmp="";
 
@@ -202,6 +207,16 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
     private DatabaseReference databaseReference = firebaseDatabase.getReference();
 
     public String listener2_remove="true";
+
+    public String Listener4_finish="false";
+    public String Listener4_exist="false";
+
+    public ValueEventListener postListener4;
+
+    AlertDialog.Builder builder;
+
+    int vote_tmp;
+    String winner="";
 
 
 
@@ -424,6 +439,8 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
                                 }
                             });
 
+
+
                         }
                     }, 6000);
 
@@ -518,6 +535,142 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
                 }
             }
         }, 12000);
+
+        MyApplication myApp6 = (MyApplication)getApplicationContext();
+        numm=myApp6.getUrl_room();
+
+        builder = new AlertDialog.Builder(this);
+        
+        postListener4 = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                int count=1;
+
+
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    String key = postSnapshot.getKey();
+                    FirebasePost_url get = postSnapshot.getValue(FirebasePost_url.class);
+                    String[] info = {get.music_finish,get.vote};
+
+
+                  if(info[0].equals("true")&&Listener4_finish.equals("false")) // 한번 둘다 true되면 중지
+                  {
+
+                      if(count==2)//음악이 둘다 끝날경우
+                      {
+                          Listener4_finish="true";
+
+                          Toast toast = Toast.makeText(getApplicationContext(), "채점, 투표 마감후 결과가 발표됩니다. 잠시만 기다려주세요", Toast.LENGTH_LONG);
+                          toast.setGravity(Gravity.TOP | Gravity.LEFT, 350, 200);
+                          toast.show();
+
+                          Handler delayHandler6 = new Handler();
+                          delayHandler6.postDelayed(new Runnable() {
+                              @Override
+                              public void run() {
+
+                                  ValueEventListener postListener5 = new ValueEventListener() {
+                                      @Override
+                                      public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                          int count=1;
+
+                                          for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                                              String key = postSnapshot.getKey();
+                                              FirebasePost_url get = postSnapshot.getValue(FirebasePost_url.class);
+                                              String[] info = { get.vote};
+
+                                              if(count==2)
+                                              {
+                                                  if(vote_tmp>Integer.parseInt(info[0]))
+                                                  {
+                                                      winner="1번";
+                                                  }
+                                                  else if(vote_tmp<Integer.parseInt(info[0]))
+                                                  {
+                                                      winner="2번";
+                                                  }
+
+                                              }
+
+                                              vote_tmp=Integer.parseInt(info[0]);
+                                              count++;
+
+                                          }
+
+
+                                      }
+
+
+                                      @Override
+                                      public void onCancelled(DatabaseError databaseError) {
+                                          Log.w("getFirebaseDatabase", "loadPost:onCancelled", databaseError.toException());
+
+                                      }
+                                  };
+
+
+                                  String value = "room" + numm;
+                                  // String sort_column_name = "get_url";
+                                  Query sortbyAge = FirebaseDatabase.getInstance().getReference().child("URL").child(value);
+                                  // sortbyAge.addValueEventListener(postListener);
+                                  sortbyAge.addListenerForSingleValueEvent(postListener5);
+
+
+                                  Handler delayHandler7 = new Handler();
+                                  delayHandler7.postDelayed(new Runnable() {
+                                      @Override
+                                      public void run() {
+
+                                          if(winner.equals(""))
+                                          {
+                                              builder.setTitle("").setMessage("수고하셨습니다. 무승부 입니다.");
+                                          }
+                                          else {
+                                              builder.setTitle("").setMessage("수고하셨습니다. 우승자는 " +winner+" 입니다");
+                                          }
+
+                                          builder.setPositiveButton("확인", new DialogInterface.OnClickListener(){
+                                              @Override
+                                              public void onClick(DialogInterface dialog, int id)
+                                              {
+
+                                              }
+                                          });
+
+                                          AlertDialog alertDialog = builder.create();
+                                          alertDialog.show();
+
+                                      }
+                                  }, 1500);   //이거 나중에 바꾸기
+
+
+
+
+                              }
+                          }, 15000);   //이거 나중에 바꾸기
+
+
+
+                      }
+                      count++;
+                  }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w("getFirebaseDatabase", "loadPost:onCancelled", databaseError.toException());
+            }
+        };
+
+        String value = "room" + numm;
+
+        sortby2 = FirebaseDatabase.getInstance().getReference().child("URL").child(value);
+        // sortbyAge.addValueEventListener(postListener);
+        sortby2.addValueEventListener(postListener4);
 
 
 
@@ -843,7 +996,7 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
 
         mIsRecording = false;
 
-        music_stop();
+        //music_stop();
         finish();
     }
 
@@ -1270,13 +1423,16 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
 
 
 
+        sortby2.removeEventListener(postListener4);
+
+
         if(listener2_remove.equals("false"))
         {
 
             sortby.removeEventListener(postListener2);
         }
 
-        com.example.jojo.bangguseok.login.MyApplication myApp = (com.example.jojo.bangguseok.login.MyApplication) getApplicationContext();
+        MyApplication myApp = (MyApplication)getApplicationContext();
 
         databaseReference.child("URL").child("room" + myApp.getUrl_room()).child("url_1").child("check").setValue("false");
         databaseReference.child("URL").child("room" + myApp.getUrl_room()).child("url_2").child("check").setValue("false");
@@ -1285,6 +1441,9 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
         String num= myApp5.getUrl_room();
         databaseReference.child("URL").child("room" + num).child("url_1").child("music_finish").setValue("false");
         databaseReference.child("URL").child("room" + num).child("url_2").child("music_finish").setValue("false");
+
+        databaseReference.child("URL").child("room" + num).child("url_1").child("vote").setValue("0");
+        databaseReference.child("URL").child("room" + num).child("url_2").child("vote").setValue("0");
 
         music_stop();
 

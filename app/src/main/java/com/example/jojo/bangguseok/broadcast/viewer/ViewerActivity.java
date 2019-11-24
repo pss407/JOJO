@@ -82,7 +82,7 @@ public class ViewerActivity extends AppCompatActivity {
                                 com.example.jojo.bangguseok.login.MyApplication myApp = (com.example.jojo.bangguseok.login.MyApplication) getApplicationContext();
 
                                 if (strText.equals("room"+info[3])) {
-                                    //myApp.setUrl_room(info[3]);
+                                    myApp.setUrl_room(info[3]);
 
                                     if(count==1) {
                                         myApp.setSend_url(info[2]);
@@ -121,9 +121,18 @@ public class ViewerActivity extends AppCompatActivity {
 
 ////////////////////////////////////
 
-                Intent i = new Intent(ViewerActivity.this, LiveViewerActivity.class);
-                i.putExtra("room", strText);
-                startActivity(i);
+                Handler delayHandler6 = new Handler();
+                delayHandler6.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        Intent i = new Intent(ViewerActivity.this, LiveViewerActivity.class);
+                        i.putExtra("room", strText);
+                        startActivity(i);
+
+                    }
+                }, 1500);   //이거 나중에 바꾸기
+
             }
         });
 
