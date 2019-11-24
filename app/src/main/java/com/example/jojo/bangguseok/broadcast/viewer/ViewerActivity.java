@@ -70,7 +70,7 @@ public class ViewerActivity extends AppCompatActivity {
 
 
 
-
+//
 
                             for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                                 String key = postSnapshot.getKey();
