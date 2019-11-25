@@ -111,6 +111,8 @@ public class LiveViewerActivity extends AppCompatActivity {
 
 
 
+
+
         lv = findViewById(R.id.chat_list2);
         edt = findViewById(R.id.chat_message2);
         btn = findViewById(R.id.bnt_send2);

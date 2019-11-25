@@ -6,12 +6,14 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.hardware.Camera;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.opengl.GLSurfaceView;
@@ -218,6 +220,8 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
     int vote_tmp;
     String winner="";
 
+    AudioManager am;
+
 
 
     /** Defines callbacks for service binding, passed to bindService() */
@@ -303,6 +307,9 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
         simpleExoPlayerView.setControllerVisibilityListener(this);
         simpleExoPlayerView.requestFocus();
         simpleExoPlayerView.setUseController(false);
+
+         am = (AudioManager)getSystemService(Context.AUDIO_SERVICE);  //마이크
+        am.setMicrophoneMute(true);
 
         //"https://gkbjsozvwply2376889.cdn.ntruss.com/video/ls-20190919204002-vFu5I_270p_a_l.m3u8";
         //String URL = "http://192.168.1.34:5080/vod/streams/test_adaptive.m3u8";
@@ -425,6 +432,8 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
                                     toast.setGravity(Gravity.TOP | Gravity.LEFT, 350, 200);
                                     toast.show();
 
+                                    am.setMicrophoneMute(true);
+
 
                                     Handler delayHandler6 = new Handler();
                                     delayHandler6.postDelayed(new Runnable() {
@@ -448,6 +457,8 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
                 else   //두번째면
                 {
 
+                    am.setMicrophoneMute(true);
+
                     listener2_remove="false";
                      postListener2 = new ValueEventListener() {
                         @Override
@@ -468,6 +479,8 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
                                     Toast toast4 = Toast.makeText(getApplicationContext(), "상대방의 노래가 끝났습니다. 5초뒤에 자신의 노래가 시작됩니다.", Toast.LENGTH_LONG);
                                     toast4.setGravity(Gravity.TOP | Gravity.LEFT, 350, 200);
                                     toast4.show();
+
+                                    am.setMicrophoneMute(false);
 
                                     Handler delayHandler5 = new Handler();
                                     delayHandler5.postDelayed(new Runnable() {
@@ -540,7 +553,7 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
         numm=myApp6.getUrl_room();
 
         builder = new AlertDialog.Builder(this);
-        
+
         postListener4 = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -862,6 +875,8 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
             releasePlayer();
         }
     }
+
+
 
 
     @Override
