@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.jojo.bangguseok.broadcast.liveVideoBroadcaster.LiveVideoBroadcasterActivity"
+    tools:context=".broadcast.viewer.LiveViewerActivity"
     android:id="@+id/root_layout"
     android:orientation="vertical">
 
@@ -39,17 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
-            android:onClick="showSetResolutionDialog"
             android:src="@drawable/ic_settings_white_24dp" />
-
-        <ImageButton
-            android:id="@+id/changeCameraButton2"
-            style="?attr/borderlessButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            android:onClick="changeCamera"
-            android:src="@drawable/ic_switch_camera_white_24dp" />
 
         <TextView
             android:id="@+id/debug_text_view2"
