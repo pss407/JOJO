@@ -7,7 +7,7 @@
     tools:context=".broadcast.viewer.LiveViewerActivity"
     android:id="@+id/root_layout"
     android:orientation="vertical">
-//
+
     <LinearLayout
         android:id="@+id/controls_root2"
         android:layout_width="match_parent"

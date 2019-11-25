@@ -1,6 +1,7 @@
 package com.example.jojo.bangguseok.login;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -272,6 +273,13 @@ public class SelectMode extends AppCompatActivity {
             public void run() {
 
 
+                final ProgressDialog progressDialog = new ProgressDialog(SelectMode.this);
+                progressDialog.setIndeterminate(true);
+                progressDialog.setMessage("매칭중 입니다");
+                progressDialog.show();
+
+
+
 
                 if(!num.equals(""))
                 {
@@ -283,9 +291,19 @@ public class SelectMode extends AppCompatActivity {
                     }
                 }
 
-                Toast toast = Toast.makeText(getApplicationContext(), num+" "+send_url, Toast.LENGTH_LONG);
-                toast.setGravity(Gravity.TOP | Gravity.LEFT, 350, 200);
-                toast.show();
+                if(send_url.length()>3)
+                {
+                   //
+                }
+                else
+                {
+                    progressDialog.cancel();
+                    Toast toast = Toast.makeText(getApplicationContext(), "매칭 실패", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.TOP | Gravity.LEFT, 350, 200);
+                    toast.show();
+                    progressDialog.cancel();
+
+                }
 
                 com.example.jojo.bangguseok.login.MyApplication myApp = (com.example.jojo.bangguseok.login.MyApplication) getApplicationContext();
                 myApp.setSend_url(send_url);
@@ -293,7 +311,6 @@ public class SelectMode extends AppCompatActivity {
                 myApp.setUrl_room(num);
 
 
-                //Glide.with(thisAct).load(R.raw.loading).into(load); //로딩 화면
 
 
 
@@ -319,6 +336,7 @@ public class SelectMode extends AppCompatActivity {
                                 {
 
                                     ismatching="true";
+                                    progressDialog.cancel();
 
                                         startActivity(t);
                                     databaseReference.child("chat").child("room" + num).setValue("");
@@ -359,9 +377,11 @@ public class SelectMode extends AppCompatActivity {
                         if(ismatching.equals("false")) {
                             databaseReference.child("URL").child("room" + num).child("url_1").child("check").setValue("false");
 
+                            progressDialog.cancel();
                             Toast toast = Toast.makeText(getApplicationContext(), "현재 가능한 매칭상대가 없습니다", Toast.LENGTH_LONG);
                             toast.setGravity(Gravity.TOP | Gravity.LEFT, 350, 200);
                             toast.show();
+
                         }
 
 
