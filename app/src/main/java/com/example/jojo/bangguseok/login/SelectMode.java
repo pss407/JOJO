@@ -108,14 +108,6 @@ public class SelectMode extends AppCompatActivity {
 
         textView10.setText("티어:"+tier);
         textView.setText("아이디:"+name);
-
-
-        load = (ImageView)findViewById(R.id.imageView);
-
-
-
-
-
     }
 
     public void onButton5Clicked(View view)
