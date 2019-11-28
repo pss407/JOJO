@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
 
                         }
 
-                        if (!tmp_id.equals("")) {
+
 
                             if (check == true && check_using.equals("false")) {
                                 Intent intent = new Intent(getApplicationContext(), com.example.jojo.bangguseok.login.SelectMode.class);
@@ -112,15 +112,15 @@ public class MainActivity extends AppCompatActivity {
                                 databaseReference.child("id_list").child(tmp_id).child("using").setValue("true");
                             } else if (check == true && check_using.equals("true")) {
                                 Toast toast = Toast.makeText(getApplicationContext(), "이미 로그인 되어있습니다", Toast.LENGTH_LONG);
-                                toast.setGravity(Gravity.TOP | Gravity.LEFT, 350, 200);
+                                toast.setGravity(Gravity.CENTER , 0, 0);
                                 toast.show();
 
                             } else {
                                 Toast toast = Toast.makeText(getApplicationContext(), "틀렸습니다", Toast.LENGTH_LONG);
-                                toast.setGravity(Gravity.TOP | Gravity.LEFT, 350, 200);
+                                toast.setGravity(Gravity.CENTER , 0, 0);
                                 toast.show();
                             }
-                        }
+
                     }
 
                     @Override

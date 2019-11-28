@@ -291,103 +291,106 @@ public class SelectMode extends AppCompatActivity {
                     }
                 }
 
-                if(send_url.length()>3)
+                if(send_url.length()>3)  //url잘 받아왔으면 그다음 진행
                 {
-                   //
-                }
-                else
-                {
-                    progressDialog.cancel();
-                    Toast toast = Toast.makeText(getApplicationContext(), "매칭 실패", Toast.LENGTH_LONG);
-                    toast.setGravity(Gravity.TOP | Gravity.LEFT, 350, 200);
-                    toast.show();
-                    progressDialog.cancel();
-
-                }
-
-                com.example.jojo.bangguseok.login.MyApplication myApp = (com.example.jojo.bangguseok.login.MyApplication) getApplicationContext();
-                myApp.setSend_url(send_url);
-                myApp.setGet_url(get_url);
-                myApp.setUrl_room(num);
+                    com.example.jojo.bangguseok.login.MyApplication myApp = (com.example.jojo.bangguseok.login.MyApplication) getApplicationContext();
+                    myApp.setSend_url(send_url);
+                    myApp.setGet_url(get_url);
+                    myApp.setUrl_room(num);
 
 
 
 
 
 
-                postListener2 = new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
+                    postListener2 = new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
 
 
-                        int count = 1;
+                            int count = 1;
 
 
-                        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                            String key = postSnapshot.getKey();
-                            FirebasePost_url get = postSnapshot.getValue(FirebasePost_url.class);
-                            String[] info = {get.check};
+                            for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                                String key = postSnapshot.getKey();
+                                FirebasePost_url get = postSnapshot.getValue(FirebasePost_url.class);
+                                String[] info = {get.check};
 
 
-                            if (info[0].equals("true")) {
+                                if (info[0].equals("true")) {
 
 
-                                if (count == 2)
-                                {
+                                    if (count == 2)
+                                    {
 
-                                    ismatching="true";
-                                    progressDialog.cancel();
+                                        ismatching="true";
+                                        progressDialog.cancel();
 
                                         startActivity(t);
-                                    databaseReference.child("chat").child("room" + num).setValue("");
+                                        databaseReference.child("chat").child("room" + num).setValue("");
 
+
+                                    }
+                                    count++;
 
                                 }
-                                count++;
 
                             }
 
                         }
-
-                    }
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        Log.w("getFirebaseDatabase", "loadPost:onCancelled", databaseError.toException());
-
-                    }
-                };
-
-
-
-
-                String value = "room" + num;
-                // String sort_column_name = "get_url";
-                sortby = FirebaseDatabase.getInstance().getReference().child("URL").child(value);
-                // sortbyAge.addValueEventListener(postListener);
-                sortby.addValueEventListener(postListener2);
-
-
-                Handler delayHandler6 = new Handler();
-                delayHandler6.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-
-                        sortby.removeEventListener(postListener2);   //리스너 그만 대기하고 정지시키기
-
-                        if(ismatching.equals("false")) {
-                            databaseReference.child("URL").child("room" + num).child("url_1").child("check").setValue("false");
-
-                            progressDialog.cancel();
-                            Toast toast = Toast.makeText(getApplicationContext(), "현재 가능한 매칭상대가 없습니다", Toast.LENGTH_LONG);
-                            toast.setGravity(Gravity.TOP | Gravity.LEFT, 350, 200);
-                            toast.show();
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            Log.w("getFirebaseDatabase", "loadPost:onCancelled", databaseError.toException());
 
                         }
+                    };
 
 
 
-                    }
-                }, 10000);   //이거 나중에 바꾸기
+
+                    String value = "room" + num;
+                    // String sort_column_name = "get_url";
+                    sortby = FirebaseDatabase.getInstance().getReference().child("URL").child(value);
+                    // sortbyAge.addValueEventListener(postListener);
+                    sortby.addValueEventListener(postListener2);
+
+
+                    Handler delayHandler6 = new Handler();
+                    delayHandler6.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            sortby.removeEventListener(postListener2);   //리스너 그만 대기하고 정지시키기
+
+                            if(ismatching.equals("false")) {
+                                databaseReference.child("URL").child("room" + num).child("url_1").child("check").setValue("false");
+
+                                progressDialog.cancel();
+                                Toast toast = Toast.makeText(getApplicationContext(), "현재 가능한 매칭상대가 없습니다", Toast.LENGTH_LONG);
+                                toast.setGravity(Gravity.CENTER , 0, 0);
+                                toast.show();
+
+                            }
+
+
+
+                        }
+                    }, 10000);   //이거 나중에 바꾸기
+
+                }
+                else   //url 잘못받아왔으면
+                {
+                    progressDialog.cancel();
+                    Toast toast = Toast.makeText(getApplicationContext(), "매칭 실패", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER , 0, 0);
+                    toast.show();
+                    progressDialog.cancel();
+
+                    databaseReference.child("URL").child("room" + num).child("url_1").child("check").setValue("false");
+                    databaseReference.child("URL").child("room" + num).child("url_2").child("check").setValue("false");
+
+                }
+
 
 
 
@@ -451,7 +454,7 @@ public class SelectMode extends AppCompatActivity {
                 alertDialog.cancel();
 
                 Toast toast = Toast.makeText(getApplicationContext(), "투표가 마감되었습니다.", Toast.LENGTH_LONG);
-                toast.setGravity(Gravity.TOP | Gravity.LEFT, 350, 200);
+                toast.setGravity(Gravity.CENTER , 0, 0);
                 toast.show();
 
             }

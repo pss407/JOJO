@@ -318,7 +318,7 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
         /////////송출
 
         Toast toast = Toast.makeText(getApplicationContext(), "5초후에 대결이 시작됩니다. 대결을 준비하세요", Toast.LENGTH_LONG);
-        toast.setGravity(Gravity.TOP | Gravity.LEFT, 350, 200);
+        toast.setGravity(Gravity.CENTER , 0, 0);
         toast.show();
 
 
@@ -372,14 +372,14 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
                         else {
                             //Snackbar.make(mRootView, R.string.streaming_not_finished, Snackbar.LENGTH_LONG).show();
                             Toast toast = Toast.makeText(getApplicationContext(), "streaming not finished", Toast.LENGTH_LONG);
-                            toast.setGravity(Gravity.TOP | Gravity.LEFT, 350, 200);
+                            toast.setGravity(Gravity.CENTER , 0, 0);
                             toast.show();
                         }
                     }
                     else {
                         // Snackbar.make(mRootView, R.string.oopps_shouldnt_happen, Snackbar.LENGTH_LONG).show();
                         Toast toast = Toast.makeText(getApplicationContext(), "oopps shouldnt happen", Toast.LENGTH_LONG);
-                        toast.setGravity(Gravity.TOP | Gravity.LEFT, 350, 200);
+                        toast.setGravity(Gravity.CENTER , 0, 0);
                         toast.show();
                     }
                 }
@@ -412,7 +412,7 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
                 {
 
                     Toast toast2 = Toast.makeText(getApplicationContext(), "자신의 차례입니다. 10초후에 노래가 시작됩니다.", Toast.LENGTH_LONG);
-                    toast2.setGravity(Gravity.TOP | Gravity.LEFT, 350, 200);
+                    toast2.setGravity(Gravity.CENTER , 0, 0);
                     toast2.show();
 
 
@@ -429,7 +429,7 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
                                     String num= myApp4.getUrl_room();
 
                                     Toast toast = Toast.makeText(getApplicationContext(), "자신의 노래가 끝났습니다. 이제 상대의 차례입니다.", Toast.LENGTH_LONG);
-                                    toast.setGravity(Gravity.TOP | Gravity.LEFT, 350, 200);
+                                    toast.setGravity(Gravity.CENTER , 0, 0);
                                     toast.show();
 
                                     am.setMicrophoneMute(true);
@@ -477,7 +477,7 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
                                 if(count==1&&info[0].equals("true"))
                                 {
                                     Toast toast4 = Toast.makeText(getApplicationContext(), "상대방의 노래가 끝났습니다. 5초뒤에 자신의 노래가 시작됩니다.", Toast.LENGTH_LONG);
-                                    toast4.setGravity(Gravity.TOP | Gravity.LEFT, 350, 200);
+                                    toast4.setGravity(Gravity.CENTER , 0, 0);
                                     toast4.show();
 
                                     am.setMicrophoneMute(false);
@@ -559,6 +559,13 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 int count=1;
+                /*
+                if(Listener4_finish.equals("true"))
+                {
+                    sortby.removeEventListener(postListener4);
+                }
+
+                 */
 
 
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
@@ -575,7 +582,7 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
                           Listener4_finish="true";
 
                           Toast toast = Toast.makeText(getApplicationContext(), "채점, 투표 마감후 결과가 발표됩니다. 잠시만 기다려주세요", Toast.LENGTH_LONG);
-                          toast.setGravity(Gravity.TOP | Gravity.LEFT, 350, 200);
+                          toast.setGravity(Gravity.CENTER , 0, 0);
                           toast.show();
 
                           Handler delayHandler6 = new Handler();
@@ -641,7 +648,7 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
                                               builder.setTitle("").setMessage("수고하셨습니다. 무승부 입니다.");
                                           }
                                           else {
-                                              builder.setTitle("").setMessage("수고하셨습니다. 우승자는 " +winner+" 입니다");
+                                              builder.setTitle("").setMessage("수고하셨습니다. 우승자는 " +winner+ " 입니다. 7초 후에 방을 나갑니다.");
                                           }
 
                                           builder.setPositiveButton("확인", new DialogInterface.OnClickListener(){
@@ -654,6 +661,19 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
 
                                           AlertDialog alertDialog = builder.create();
                                           alertDialog.show();
+
+
+
+                                          Handler delayHandler8 = new Handler();
+                                          delayHandler8.postDelayed(new Runnable() {
+                                              @Override
+                                              public void run() {
+
+                                                  finish();
+
+
+                                              }
+                                          }, 10000);   //이거 나중에 바꾸기
 
                                       }
                                   }, 1500);   //이거 나중에 바꾸기
@@ -930,6 +950,7 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
 
     @SuppressLint("WrongConstant")
     public void toggleBroadcasting(View v) {
+        /*
         if (!mIsRecording)
         {
             if (mLiveVideoBroadcaster != null) {
@@ -984,7 +1005,7 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
             triggerStopRecording();
         }
 
-
+*/
 
     }
 
@@ -1012,7 +1033,7 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
         mIsRecording = false;
 
         //music_stop();
-        finish();
+        //finish();
     }
 
     //This method starts a mTimer and updates the textview to show elapsed time for recording
@@ -1061,10 +1082,13 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
                     break;
                 case CONNECTION_LOST:
                     triggerStopRecording();
+                    /*
                     new AlertDialog.Builder(LiveVideoBroadcasterActivity.this)
                             .setMessage(R.string.broadcast_connection_lost)
                             .setPositiveButton(android.R.string.yes, null)
                             .show();
+
+                     */
 
                     break;
             }
@@ -1435,6 +1459,8 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
 
     @Override
     protected void onDestroy() {
+
+        triggerStopRecording();
 
 
 

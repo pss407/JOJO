@@ -321,8 +321,8 @@ public class LiveViewerActivity extends AppCompatActivity {
 
                                        alertDialog.cancel();
 
-                                       Toast toast = Toast.makeText(getApplicationContext(), "투표가 마감되었습니다.", Toast.LENGTH_LONG);
-                                       toast.setGravity(Gravity.TOP | Gravity.LEFT, 350, 200);
+                                       Toast toast = Toast.makeText(getApplicationContext(), "투표가 마감되었습니다. ", Toast.LENGTH_LONG);
+                                       toast.setGravity(Gravity.CENTER , 0, 0);
                                        toast.show();
                                    }
 
@@ -389,7 +389,7 @@ public class LiveViewerActivity extends AppCompatActivity {
                                                        builder2.setTitle("").setMessage("수고하셨습니다. 무승부 입니다.");
                                                    }
                                                    else {
-                                                       builder2.setTitle("").setMessage("수고하셨습니다. 우승자는 " +winner+" 입니다");
+                                                       builder2.setTitle("").setMessage("수고하셨습니다. 우승자는 " +winner+" 입니다.  5초후에 방을 나갑니다");
                                                    }
 
 
@@ -403,6 +403,18 @@ public class LiveViewerActivity extends AppCompatActivity {
 
                                                    AlertDialog alertDialog = builder2.create();
                                                    alertDialog.show();
+
+
+                                                   Handler delayHandler8 = new Handler();
+                                                   delayHandler8.postDelayed(new Runnable() {
+                                                       @Override
+                                                       public void run() {
+
+                                                           finish();
+
+
+                                                       }
+                                                   }, 6000);   //이거 나중에 바꾸기
 
                                                }
                                            }, 1500);   //이거 나중에 바꾸기
