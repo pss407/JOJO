@@ -139,7 +139,7 @@ public class  SignIn extends AppCompatActivity {
         if(add){
 
             //Long l= new Long(31);
-            FirebasePost post = new FirebasePost(ID, password, "bronze","false","false");
+            FirebasePost post = new FirebasePost(ID, password, "bronze","false","false","0");
             postValues = post.toMap();
         }
         childUpdates.put("/id_list/" + ID, postValues);

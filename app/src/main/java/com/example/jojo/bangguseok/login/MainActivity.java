@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
                         for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                             String key = postSnapshot.getKey();
                             FirebasePost get = postSnapshot.getValue(FirebasePost.class);
-                            String[] info = {get.id, get.password, get.tier, get.using, get.start_matching};
+                            String[] info = {get.id, get.password, get.tier, get.using, get.experience};
 
 
                             check_using = info[3];
@@ -95,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
                                 com.example.jojo.bangguseok.login.MyApplication myApp = (com.example.jojo.bangguseok.login.MyApplication) getApplicationContext();
                                 myApp.setname(tmp_id);
                                 myApp.settier(tmp_tier);
+                                myApp.setExperience(info[4]);
 
 
                                 check = true;

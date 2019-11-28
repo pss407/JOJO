@@ -53,6 +53,7 @@ import com.example.jojo.bangguseok.broadcast.viewer.LiveViewerActivity;
 import com.example.jojo.bangguseok.broadcast.viewer.ViewerActivity;
 import com.example.jojo.bangguseok.chatting.ChatAdapter;
 import com.example.jojo.bangguseok.chatting.ChatVO;
+import com.example.jojo.bangguseok.login.FirebasePost;
 import com.example.jojo.bangguseok.login.FirebasePost_url;
 import com.example.jojo.bangguseok.login.MyApplication;
 import com.google.android.exoplayer2.BuildConfig;
@@ -158,6 +159,8 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
     String tmp="";
 
 
+
+
     public static final String PREFER_EXTENSION_DECODERS = "prefer_extension_decoders";
 
     private static final DefaultBandwidthMeter BANDWIDTH_METER = new DefaultBandwidthMeter();
@@ -221,6 +224,9 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
     String winner="";
 
     AudioManager am;
+
+    String experience="0";
+
 
 
 
@@ -297,6 +303,8 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
 
         debugRootView = (LinearLayout) findViewById(R.id.controls_root);
         debugTextView = (TextView) findViewById(R.id.debug_text_view2);
+
+
         retryButton = (Button) findViewById(R.id.retry_button);
         retryButton.setOnClickListener(this);
 
@@ -408,7 +416,7 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
                 tmp=num;
 
                 MyApplication myApp2 = (MyApplication)getApplicationContext();
-                if(myApp2.getOrder().equals("first")) //첫번째면
+                if(myApp2.getOrder().equals("1")) //첫번째면
                 {
 
                     Toast toast2 = Toast.makeText(getApplicationContext(), "자신의 차례입니다. 10초후에 노래가 시작됩니다.", Toast.LENGTH_LONG);
@@ -605,11 +613,11 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
                                               {
                                                   if(vote_tmp>Integer.parseInt(info[0]))
                                                   {
-                                                      winner="1번";
+                                                      winner="1";
                                                   }
                                                   else if(vote_tmp<Integer.parseInt(info[0]))
                                                   {
-                                                      winner="2번";
+                                                      winner="2";
                                                   }
 
                                               }
@@ -648,7 +656,68 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
                                               builder.setTitle("").setMessage("수고하셨습니다. 무승부 입니다.");
                                           }
                                           else {
-                                              builder.setTitle("").setMessage("수고하셨습니다. 우승자는 " +winner+ " 입니다. 7초 후에 방을 나갑니다.");
+                                              builder.setTitle("").setMessage("수고하셨습니다. 우승자는 " +winner+ "번 입니다. 7초 후에 방을 나갑니다.");
+
+
+                                              MyApplication myApp = (MyApplication)getApplicationContext();
+                                              String turn=myApp.getOrder();
+
+                                              if(turn.equals(winner)) {
+
+
+                                                  ValueEventListener postListener = new ValueEventListener() {
+                                                      @Override
+                                                      public void onDataChange(DataSnapshot dataSnapshot) {
+
+
+
+                                                          for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                                                              String key = postSnapshot.getKey();
+                                                              FirebasePost get = postSnapshot.getValue(FirebasePost.class);
+                                                              String[] info = {get.id, get.experience};
+
+                                                              MyApplication myApp2 = (MyApplication)getApplicationContext();
+                                                              String id=myApp2.getname();
+                                                              if(id.equals(info[0]))  //해당 id면
+                                                              {
+
+                                                                  experience=info[1];
+
+                                                              }
+
+
+                                                          }
+
+
+                                                      }
+
+                                                      @Override
+                                                      public void onCancelled(DatabaseError databaseError) {
+                                                          Log.w("getFirebaseDatabase", "loadPost:onCancelled", databaseError.toException());
+                                                      }
+                                                  };
+
+                                                  String sort_column_name = "id";
+                                                  Query sortbyAge = FirebaseDatabase.getInstance().getReference().child("id_list").orderByChild(sort_column_name);
+                                                  sortbyAge.addListenerForSingleValueEvent(postListener);
+
+                                                  MyApplication myApp3 = (MyApplication)getApplicationContext();
+                                                  String id=myApp3.getname();
+
+                                                  int exp = Integer.parseInt(experience);
+                                                  exp += 10;
+
+                                                  databaseReference.child("id_list").child(id).child("experience").setValue(""+exp);
+                                                  //
+
+
+
+
+                                              }
+
+
+
+
                                           }
 
                                           builder.setPositiveButton("확인", new DialogInterface.OnClickListener(){

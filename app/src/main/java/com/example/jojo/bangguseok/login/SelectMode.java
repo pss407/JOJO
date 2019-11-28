@@ -105,10 +105,22 @@ public class SelectMode extends AppCompatActivity {
 
         TextView textView10 = (TextView)findViewById(R.id.textView10);
         TextView textView = (TextView)findViewById(R.id.textView);
+        TextView textView3 = (TextView)findViewById(R.id.textView3);
 
+
+        int exper = Integer.parseInt(myApp2.getExperience());
+        int exper_tier= exper/100;
+        exper = exper%100;
+
+        if(exper_tier==0)tier="Bronze";
+        else if(exper_tier==1)tier="Silver";
+        else if(exper_tier==2)tier="Gold";
+        else if(exper_tier==3)tier="Platinum";
+        else tier="Master";
 
         textView10.setText("티어:"+tier);
         textView.setText("아이디:"+name);
+        textView3.setText("경험치:"+ exper+"%");
     }
 
     public void onButton5Clicked(View view)
@@ -161,7 +173,7 @@ public class SelectMode extends AppCompatActivity {
                                     num = info[3];
                                     isUrl_1=false;
                                     MyApplication myApp = (MyApplication)getApplicationContext(); //노래 순서 두번째 할당
-                                    myApp.setOrder("second");
+                                    myApp.setOrder("2");
 
 
 
@@ -234,7 +246,7 @@ public class SelectMode extends AppCompatActivity {
                                             num = info[3];
                                             isUrl_1=true;
                                         MyApplication myApp = (MyApplication)getApplicationContext();
-                                        myApp.setOrder("first");
+                                        myApp.setOrder("1");
 
 
                                             break;

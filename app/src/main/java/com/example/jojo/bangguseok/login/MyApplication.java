@@ -14,7 +14,8 @@ public class MyApplication extends Application {
         private String send_url;
         private String get_url;
         private String url_room;   //번호만
-        private String order="first";  //노래부르는 순서
+        private String order="1";  //노래부르는 순서
+        private String experience="";
 
 //
         @Override
@@ -43,6 +44,7 @@ public class MyApplication extends Application {
         public void setGet_url(String get_url) {this.get_url=get_url;}
         public void setUrl_room(String url_room) {this.url_room=url_room;}
         public void setOrder(String order){this.order=order;}
+        public void setExperience(String experience){this.experience=experience;}
 
 ///
 
@@ -65,6 +67,7 @@ public class MyApplication extends Application {
         return url_room;
     }
         public String getOrder(){return order;}
+        public String getExperience(){return experience;}
 }
 
 

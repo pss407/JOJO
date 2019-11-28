@@ -57,6 +57,7 @@
             android:paddingLeft="4dp"
             android:paddingRight="4dp"
             android:textSize="10sp"
+            android:visibility="invisible"
             tools:ignore="SmallSp" />
 
         <TextView
