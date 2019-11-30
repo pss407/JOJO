@@ -3,44 +3,48 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.jojo.bangguseok">
 
-    <application
-        android:appComponentFactory="bangguseok"
-        android:name="com.example.jojo.bangguseok.login.MyApplication"
-        android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="bangguseok"
-        android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true"
-        android:screenOrientation="portrait"
-        tools:replace="android:appComponentFactory">
-        <activity android:name="com.example.jojo.bangguseok.login.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name="com.example.jojo.bangguseok.login.SelectMode" />
-        <activity android:name="com.example.jojo.bangguseok.login.SignIn" />
-        <activity android:name="com.example.jojo.bangguseok.broadcast.viewer.ViewerActivity" />
-        <activity android:name="com.example.jojo.bangguseok.broadcast.viewer.LiveViewerActivity"
-            android:theme="@style/AppThemeDark"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation|keyboardHidden|screenSize"/>
-        <activity android:name="com.example.jojo.bangguseok.broadcast.liveVideoBroadcaster.LiveVideoBroadcasterActivity"
-            android:theme="@style/AppThemeDark"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            />
-        <service android:name="com.example.jojo.bangguseok.broadcast.broadcaster.LiveVideoBroadcaster" />
-
-    </application>
-
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:name=".login.MyApplication"
+        android:allowBackup="true"
+        android:appComponentFactory="bangguseok"
+        android:icon="@mipmap/ic_launcher"
+        android:label="bangguseok"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:screenOrientation="portrait"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true"
+        tools:replace="android:appComponentFactory">
+        <activity android:name=".music_lists"></activity>
+        <activity android:name=".Main4Activity" />
+        <activity android:name=".login.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".login.SelectMode" />
+        <activity android:name=".login.SignIn" />
+        <activity android:name=".broadcast.viewer.ViewerActivity" />
+        <activity
+            android:name=".broadcast.viewer.LiveViewerActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeDark" />
+        <activity
+            android:name=".broadcast.liveVideoBroadcaster.LiveVideoBroadcasterActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeDark" />
+
+        <service android:name=".broadcast.broadcaster.LiveVideoBroadcaster" />
+    </application>
 
 </manifest>

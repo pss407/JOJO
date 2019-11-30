@@ -1,8 +1,12 @@
 package com.example.jojo.bangguseok.login;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -14,7 +18,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-//import com.bumptech.glide.Glide;
 import com.example.jojo.bangguseok.R;
 import com.example.jojo.bangguseok.broadcast.liveVideoBroadcaster.LiveVideoBroadcasterActivity;
 import com.example.jojo.bangguseok.broadcast.viewer.ViewerActivity;
@@ -25,17 +28,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+//import com.bumptech.glide.Glide;
 ////
-import android.app.Activity;
-import android.content.Context;
-import android.media.MediaPlayer;
-import android.os.Bundle;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 
 public class SelectMode extends AppCompatActivity {
 
@@ -126,7 +120,18 @@ public class SelectMode extends AppCompatActivity {
     public void onButton5Clicked(View view)
     {
 
-        music_stop();
+
+        MyApplication myApp = (MyApplication)getApplicationContext();
+        String music_title= myApp.getMusic_title();
+        if(music_title.equals(""))
+        {
+            Toast toast = Toast.makeText(getApplicationContext(), "먼저 노래를 선택하세요", Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.CENTER , 0, 0);
+            toast.show();
+
+            return;
+        }
+
 
         send_url="";
         get_url="";
@@ -422,6 +427,12 @@ public class SelectMode extends AppCompatActivity {
 
     }
 
+
+    public void  music_choice(View view) {
+
+        Intent i = new Intent(this, com.example.jojo.bangguseok.music_lists.class);
+        startActivity(i);
+    }
 
     public void onButton7Clicked(View view) {
         music_stop();

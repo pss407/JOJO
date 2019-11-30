@@ -16,6 +16,7 @@ public class MyApplication extends Application {
         private String url_room;   //번호만
         private String order="1";  //노래부르는 순서
         private String experience="";
+        private String music_title="";
 
 //
         @Override
@@ -45,6 +46,7 @@ public class MyApplication extends Application {
         public void setUrl_room(String url_room) {this.url_room=url_room;}
         public void setOrder(String order){this.order=order;}
         public void setExperience(String experience){this.experience=experience;}
+        public void setMusic_title(String music_title){this.music_title=music_title;}
 
 ///
 
@@ -68,6 +70,7 @@ public class MyApplication extends Application {
     }
         public String getOrder(){return order;}
         public String getExperience(){return experience;}
+        public String getMusic_title(){return music_title;}
 }
 
 

@@ -19,14 +19,13 @@ import android.net.Uri;
 import android.opengl.GLSurfaceView;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.os.Handler;
+import android.os.IBinder;
 import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
-import android.view.SurfaceHolder;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -34,11 +33,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.widget.ContentLoadingProgressBar;
 import androidx.fragment.app.Fragment;
@@ -49,11 +49,10 @@ import com.example.jojo.bangguseok.broadcast.broadcaster.ILiveVideoBroadcaster;
 import com.example.jojo.bangguseok.broadcast.broadcaster.LiveVideoBroadcaster;
 import com.example.jojo.bangguseok.broadcast.broadcaster.utils.Resolution;
 import com.example.jojo.bangguseok.broadcast.liveVideoPlayer.DefaultExtractorsFactoryForFLV;
-import com.example.jojo.bangguseok.broadcast.viewer.LiveViewerActivity;
-import com.example.jojo.bangguseok.broadcast.viewer.ViewerActivity;
 import com.example.jojo.bangguseok.chatting.ChatAdapter;
 import com.example.jojo.bangguseok.chatting.ChatVO;
 import com.example.jojo.bangguseok.login.FirebasePost;
+import com.example.jojo.bangguseok.login.FirebasePost_music;
 import com.example.jojo.bangguseok.login.FirebasePost_url;
 import com.example.jojo.bangguseok.login.MyApplication;
 import com.google.android.exoplayer2.BuildConfig;
@@ -65,6 +64,8 @@ import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.Timeline;
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
+import com.google.android.exoplayer2.mediacodec.MediaCodecRenderer.DecoderInitializationException;
+import com.google.android.exoplayer2.mediacodec.MediaCodecUtil.DecoderQueryException;
 import com.google.android.exoplayer2.source.BehindLiveWindowException;
 import com.google.android.exoplayer2.source.ConcatenatingMediaSource;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
@@ -77,6 +78,7 @@ import com.google.android.exoplayer2.source.smoothstreaming.DefaultSsChunkSource
 import com.google.android.exoplayer2.source.smoothstreaming.SsMediaSource;
 import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
+import com.google.android.exoplayer2.trackselection.MappingTrackSelector.MappedTrackInfo;
 import com.google.android.exoplayer2.trackselection.TrackSelection;
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.google.android.exoplayer2.ui.DebugTextViewHelper;
@@ -89,31 +91,6 @@ import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.upstream.HttpDataSource;
 import com.google.android.exoplayer2.util.Util;
 import com.google.android.material.snackbar.Snackbar;
-
-import java.net.CookieManager;
-import java.net.CookiePolicy;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Timer;
-import java.util.TimerTask;
-
-import static com.example.jojo.bangguseok.broadcast.BroadcastActivity.RTMP_BASE_URL;
-
-
-
-
-/////////////////
-
-import com.google.android.exoplayer2.mediacodec.MediaCodecRenderer.DecoderInitializationException;
-import com.google.android.exoplayer2.mediacodec.MediaCodecUtil.DecoderQueryException;
-import com.google.android.exoplayer2.trackselection.MappingTrackSelector.MappedTrackInfo;
-
-import java.net.CookieHandler;
-
-//채팅 추가
-import android.widget.ListView;
-
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -122,14 +99,24 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-
-import android.media.MediaPlayer;
-
+import java.net.CookieHandler;
+import java.net.CookieManager;
+import java.net.CookiePolicy;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import static com.example.jojo.bangguseok.broadcast.BroadcastActivity.RTMP_BASE_URL;
+
+/////////////////
+//채팅 추가
 
 public class LiveVideoBroadcasterActivity extends AppCompatActivity implements View.OnClickListener, ExoPlayer.EventListener,
-        PlaybackControlView.VisibilityListener{
+        PlaybackControlView.VisibilityListener, MediaPlayer.OnPreparedListener{
 
     //노래
 
@@ -223,9 +210,17 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
     int vote_tmp;
     String winner="";
 
-    AudioManager am;
 
+    AudioManager am;
     String experience="0";
+
+    private MediaPlayer mMediaplayer;
+
+    String music_title;
+
+    String music_url="";
+
+    MediaPlayer mediaplayer;
 
 
 
@@ -255,6 +250,8 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+         mediaplayer = new MediaPlayer();
 
   //
         // Hide title
@@ -424,37 +421,47 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
                     toast2.show();
 
 
-                    Handler delayHandler4 = new Handler();
-                    delayHandler4.postDelayed(new Runnable() {
+                    Handler delayHandler7 = new Handler();
+                    delayHandler7.postDelayed(new Runnable() {
                         @Override
                         public void run() {
 
                             music_play();
 
-                            m.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                                public void onCompletion(MediaPlayer mp) {
-                                    MyApplication myApp4 = (MyApplication)getApplicationContext();
-                                    String num= myApp4.getUrl_room();
 
-                                    Toast toast = Toast.makeText(getApplicationContext(), "자신의 노래가 끝났습니다. 이제 상대의 차례입니다.", Toast.LENGTH_LONG);
-                                    toast.setGravity(Gravity.CENTER , 0, 0);
-                                    toast.show();
+                            Handler delayHandler4 = new Handler();
+                            delayHandler4.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
 
-                                    am.setMicrophoneMute(true);
+                                    mediaplayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                                        public void onCompletion(MediaPlayer mp) {
+                                            MyApplication myApp4 = (MyApplication)getApplicationContext();
+                                            String num= myApp4.getUrl_room();
+
+                                            Toast toast = Toast.makeText(getApplicationContext(), "자신의 노래가 끝났습니다. 이제 상대의 차례입니다.", Toast.LENGTH_LONG);
+                                            toast.setGravity(Gravity.CENTER , 0, 0);
+                                            toast.show();
+
+                                            am.setMicrophoneMute(true);
 
 
-                                    Handler delayHandler6 = new Handler();
-                                    delayHandler6.postDelayed(new Runnable() {
-                                        @Override
-                                        public void run() {
+                                            Handler delayHandler6 = new Handler();
+                                            delayHandler6.postDelayed(new Runnable() {
+                                                @Override
+                                                public void run() {
 
-                                            databaseReference.child("URL").child("room" + tmp).child("url_1").child("music_finish").setValue("true");
+                                                    databaseReference.child("URL").child("room" + tmp).child("url_1").child("music_finish").setValue("true");
+                                                }
+                                            }, 6000);   //나보다 상대는 조금 늦게 노래가끝나기때문에 딜레이를 줌
+
+
                                         }
-                                    }, 6000);   //나보다 상대는 조금 늦게 노래가끝나기때문에 딜레이를 줌
+                                    });
 
 
                                 }
-                            });
+                            }, 500);
 
 
 
@@ -497,29 +504,40 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
 
                                             music_play();
 
-
-                                            m.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                                                public void onCompletion(MediaPlayer mp) {
-                                                    MyApplication myApp4 = (MyApplication)getApplicationContext();
-                                                    String num= myApp4.getUrl_room();
-
-                                                    databaseReference.child("URL").child("room" + num).child("url_2").child("music_finish").setValue("true");
-
-
-                                                }
-                                            });
-
-                                            Handler delayHandler5 = new Handler();
-                                            delayHandler5.postDelayed(new Runnable() {
+                                            Handler delayHandler4 = new Handler();
+                                            delayHandler4.postDelayed(new Runnable() {
                                                 @Override
                                                 public void run() {
 
 
-                                                    listener2_remove="true";
-                                                    sortby.removeEventListener(postListener2);
+                                                    mediaplayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                                                        public void onCompletion(MediaPlayer mp) {
+                                                            MyApplication myApp4 = (MyApplication)getApplicationContext();
+                                                            String num= myApp4.getUrl_room();
+
+                                                            databaseReference.child("URL").child("room" + num).child("url_2").child("music_finish").setValue("true");
+
+
+                                                        }
+                                                    });
+
+                                                    Handler delayHandler5 = new Handler();
+                                                    delayHandler5.postDelayed(new Runnable() {
+                                                        @Override
+                                                        public void run() {
+
+
+                                                            listener2_remove="true";
+                                                            sortby.removeEventListener(postListener2);
+
+                                                        }
+                                                    }, 4000);
+
 
                                                 }
-                                            }, 4000);
+                                            }, 500);
+
+
 
                                         }
                                     }, 6000);
@@ -653,7 +671,7 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
 
                                           if(winner.equals(""))
                                           {
-                                              builder.setTitle("").setMessage("수고하셨습니다. 무승부 입니다.");
+                                              builder.setTitle("").setMessage("수고하셨습니다. 무승부 입니다. 7초 후에 방을 나갑니다.");
                                           }
                                           else {
                                               builder.setTitle("").setMessage("수고하셨습니다. 우승자는 " +winner+ "번 입니다. 7초 후에 방을 나갑니다.");
@@ -1140,6 +1158,8 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
         mLiveVideoBroadcaster.setResolution(size);
     }
 
+
+
     private class TimerHandler extends Handler {
         static final int CONNECTION_LOST = 2;
         static final int INCREASE_TIMER = 1;
@@ -1191,6 +1211,84 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
         return String.valueOf(number);
     }
 
+    @Override
+    public void onPrepared(MediaPlayer mp) {
+
+       mp.start();
+    }
+
+    public void music_play(){
+        MyApplication myApp = (MyApplication)getApplicationContext();
+        music_title=myApp.getMusic_title();
+
+
+        //db에서 해당 music url 받아오기
+        ValueEventListener postListener5 = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+
+
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    String key = postSnapshot.getKey();
+                    FirebasePost_music get = postSnapshot.getValue(FirebasePost_music.class);
+                    String[] info = { get.title, get.url};
+
+                    if(music_title.equals(info[0])) {
+                        music_url=info[1];
+                    }
+                }
+
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w("getFirebaseDatabase", "loadPost:onCancelled", databaseError.toException());
+
+            }
+        };
+
+        String value = "room" + numm;
+        // String sort_column_name = "get_url";
+        Query sortbyAge = FirebaseDatabase.getInstance().getReference().child("music");
+        // sortbyAge.addValueEventListener(postListener);
+        sortbyAge.addListenerForSingleValueEvent(postListener5);
+
+//////// 음악 틀기
+
+        Handler delayHandler6 = new Handler();
+        delayHandler6.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                try {
+                    // music_stop();
+                    mediaplayer.setDataSource(music_url);
+
+                    mediaplayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener()
+                    {
+                        @Override
+                        public void onPrepared(MediaPlayer mp){
+
+                            mp.start();
+                        }
+
+
+                    });
+                    mediaplayer.prepare();
+                }catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, 500);   //나보다 상대는 조금 늦게 노래가끝나기때문에 딜레이를 줌
+
+
+
+    }
+
+/*
+
     public void music_play(){
 
         try {
@@ -1201,7 +1299,7 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
             e.printStackTrace();
         }
     }
-
+*/
     public void music_stop()
     {
         try {
