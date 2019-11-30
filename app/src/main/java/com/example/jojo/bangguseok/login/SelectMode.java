@@ -116,7 +116,7 @@ public class SelectMode extends AppCompatActivity {
         textView.setText("아이디:"+name);
         textView3.setText("경험치:"+ exper+"%");
     }
-
+//
     public void onButton5Clicked(View view)
     {
 
