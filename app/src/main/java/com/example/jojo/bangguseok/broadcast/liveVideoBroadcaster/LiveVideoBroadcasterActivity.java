@@ -719,13 +719,25 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
                                                   Query sortbyAge = FirebaseDatabase.getInstance().getReference().child("id_list").orderByChild(sort_column_name);
                                                   sortbyAge.addListenerForSingleValueEvent(postListener);
 
-                                                  MyApplication myApp3 = (MyApplication)getApplicationContext();
-                                                  String id=myApp3.getname();
 
-                                                  int exp = Integer.parseInt(experience);
-                                                  exp += 10;
+                                                  Handler delayHandler6 = new Handler();
+                                                  delayHandler6.postDelayed(new Runnable() {
+                                                      @Override
+                                                      public void run() {
 
-                                                  databaseReference.child("id_list").child(id).child("experience").setValue(""+exp);
+
+                                                          MyApplication myApp3 = (MyApplication)getApplicationContext();
+                                                          String id=myApp3.getname();
+
+                                                          int exp = Integer.parseInt(experience);
+                                                          exp += 10;
+
+                                                          databaseReference.child("id_list").child(id).child("experience").setValue(""+exp);
+
+
+                                                      }
+                                                  }, 500);   //이거 나중
+
                                                   //
 
 

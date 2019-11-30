@@ -2,7 +2,6 @@ package com.example.jojo.bangguseok.broadcast.viewer;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -21,19 +20,7 @@ import com.example.jojo.bangguseok.R;
 import com.example.jojo.bangguseok.chatting.ChatAdapter;
 import com.example.jojo.bangguseok.chatting.ChatVO;
 import com.example.jojo.bangguseok.login.FirebasePost_url;
-import com.example.jojo.bangguseok.login.MainActivity;
 import com.example.jojo.bangguseok.login.MyApplication;
-import com.google.android.exoplayer2.C;
-import com.google.android.exoplayer2.DefaultLoadControl;
-import com.google.android.exoplayer2.ExoPlayerFactory;
-import com.google.android.exoplayer2.SimpleExoPlayer;
-import com.google.android.exoplayer2.source.ConcatenatingMediaSource;
-import com.google.android.exoplayer2.source.MediaSource;
-import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection;
-import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
-import com.google.android.exoplayer2.trackselection.TrackSelection;
-import com.google.android.exoplayer2.ui.DebugTextViewHelper;
-import com.google.android.exoplayer2.util.Util;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -41,10 +28,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-
-import android.media.MediaPlayer;
-
-
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -83,6 +66,11 @@ public class LiveViewerActivity extends AppCompatActivity {
     String winner="";
 
     ValueEventListener postListener1;
+
+    Handler delayHandler8;
+    Handler delayHandler6;
+    Handler delayHandler7;
+    Handler delayHandler9;
 
 
 
@@ -313,7 +301,7 @@ public class LiveViewerActivity extends AppCompatActivity {
                            alertDialog.show();
 
 
-                           Handler delayHandler6 = new Handler();
+                           delayHandler6 = new Handler();
                            delayHandler6.postDelayed(new Runnable() {
                                @Override
                                public void run() {
@@ -326,8 +314,8 @@ public class LiveViewerActivity extends AppCompatActivity {
                                        toast.show();
                                    }
 
-                                   Handler delayHandler6 = new Handler();
-                                   delayHandler6.postDelayed(new Runnable() {
+                                   delayHandler9 = new Handler();
+                                   delayHandler9.postDelayed(new Runnable() {
                                        @Override
                                        public void run() {
 
@@ -379,7 +367,7 @@ public class LiveViewerActivity extends AppCompatActivity {
                                            sortbyAge.addListenerForSingleValueEvent(postListener5);
 
 
-                                           Handler delayHandler7 = new Handler();
+                                           delayHandler7 = new Handler();
                                            delayHandler7.postDelayed(new Runnable() {
                                                @Override
                                                public void run() {
@@ -405,7 +393,7 @@ public class LiveViewerActivity extends AppCompatActivity {
                                                    alertDialog.show();
 
 
-                                                   Handler delayHandler8 = new Handler();
+                                                   delayHandler8 = new Handler();
                                                    delayHandler8.postDelayed(new Runnable() {
                                                        @Override
                                                        public void run() {
@@ -471,6 +459,12 @@ public class LiveViewerActivity extends AppCompatActivity {
         super.onDestroy();
 
         sortby.removeEventListener(postListener1);
+
+       // delayHandler8.removeCallbacksAndMessages(null);
+       // delayHandler7.removeCallbacksAndMessages(null);
+      //  delayHandler9.removeCallbacksAndMessages(null);
+       // delayHandler6.removeCallbacksAndMessages(null);
+
     }
 }
 

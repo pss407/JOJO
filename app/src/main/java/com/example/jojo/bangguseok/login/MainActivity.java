@@ -21,6 +21,8 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 
+
+
 public class MainActivity extends AppCompatActivity {
 
 
@@ -45,11 +47,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+////
 
-
-
-
-
+//////
         editText = (EditText) findViewById(R.id.editText);
         editText2 = (EditText) findViewById(R.id.editText2);
 
@@ -132,8 +132,19 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-    }
 
+
+        Button test_click = (Button) findViewById(R.id.button12);
+        test_click.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), com.example.jojo.bangguseok.broadcast.marking.class);
+                startActivity(intent);
+
+
+            }
+        });
+    }
 
 
 
