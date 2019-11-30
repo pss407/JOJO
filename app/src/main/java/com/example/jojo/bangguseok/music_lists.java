@@ -3,6 +3,8 @@ package com.example.jojo.bangguseok;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,7 +14,13 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.jojo.bangguseok.login.FirebasePost_music;
 import com.example.jojo.bangguseok.login.MyApplication;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -27,6 +35,8 @@ public class music_lists extends AppCompatActivity {
     private StorageReference mStorageRef;
     MediaPlayer m;
     AudioManager am;
+
+    int music_num=2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,37 +53,85 @@ public class music_lists extends AppCompatActivity {
 
         final ArrayList<String> list = new ArrayList<>();
 
-        list.add("cheerup");
-        list.add("mymusic");
-        list.add("I'm yours  (Jason Mraz)");
-        list.add("광화문에서   (규현)");
 
-        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                this, //context(액티비티 인스턴스)
-                android.R.layout.simple_list_item_1, // 한 줄에 하나의 텍스트 아이템만 보여주는 레이아웃 파일
-                // 한 줄에 보여지는 아이템 갯수나 구성을 변경하려면 여기에 새로만든 레이아웃을 지정하면 됩니다.
-                list  // 데이터가 저장되어 있는 ArrayList 객체
-        );
 
-        listView.setAdapter(adapter);
+            ValueEventListener postListener = new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
+                    int count = 1;
+
+                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                        String key = postSnapshot.getKey();
+                        FirebasePost_music get = postSnapshot.getValue(FirebasePost_music.class);
+                        String[] info = {get.title};
+
+                        list.add(info[0]);
+
+
+                    }
+
+
+                }
+
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Log.w("getFirebaseDatabase", "loadPost:onCancelled", databaseError.toException());
+
+                }
+            };
+
+
+            //String value = "music" + i;
+            Query sortbyAge = FirebaseDatabase.getInstance().getReference().child("music");
+            sortbyAge.addListenerForSingleValueEvent(postListener);
+
+
+
+
+
+        Handler delayHandler6 = new Handler();
+        delayHandler6.postDelayed(new Runnable() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView,
-                                    View view, int position, long id) {
+            public void run() {
 
-                // 클릭한 아이템의 문자열을 가져오기
-                String selected_item = (String)adapterView.getItemAtPosition(position);
+                final ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                        music_lists.this, //context(액티비티 인스턴스)
+                        android.R.layout.simple_list_item_1, // 한 줄에 하나의 텍스트 아이템만 보여주는 레이아웃 파일
+                        // 한 줄에 보여지는 아이템 갯수나 구성을 변경하려면 여기에 새로만든 레이아웃을 지정하면 됩니다.
+                        list  // 데이터가 저장되어 있는 ArrayList 객체
+                );
 
-                MyApplication myApp = (MyApplication)getApplicationContext();
-                myApp.setMusic_title(selected_item);
+
+                listView.setAdapter(adapter);
 
 
-                finish();
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView,
+                                            View view, int position, long id) {
+
+                        // 클릭한 아이템의 문자열을 가져오기
+                        String selected_item = (String)adapterView.getItemAtPosition(position);
+
+                        MyApplication myApp = (MyApplication)getApplicationContext();
+                        myApp.setMusic_title(selected_item);
+
+
+                        finish();
+
+                    }
+                });
+
 
             }
-        });
+        }, 500);   //이거 나중에 바꾸기
+
+
+
 
 
 
