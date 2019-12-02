@@ -1,6 +1,7 @@
 package com.example.jojo.bangguseok.broadcast;
 
 import android.content.Context;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -31,13 +32,19 @@ public class marking extends AppCompatActivity {
     float pitchInHz_tmp;
     int count=0;
     AudioDispatcher dispatcher;
+    String correc="aaabbbbbbbbbbbbbbbbbbbccccccccccccccbbbbbbbbbbbbbaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbcccccccccccccccbbbbbbbbaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbcccccccccccccbbbbbbbbbbbbbbbaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
 
 
+    boolean lock=false;
+
+    MediaPlayer mediaplayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_marking);
+
+        mediaplayer = new MediaPlayer();
 
         noteText = (TextView) findViewById(R.id.noteText);
         pitchText = (TextView) findViewById(R.id.pitchText);
@@ -54,9 +61,11 @@ public class marking extends AppCompatActivity {
                     @Override
                     public void run() {
                         pitchInHz_tmp=pitchInHz;
-                        func();
-                        //processPitch(pitchInHz);
+                        //func();
+                        processPitch(pitchInHz);
 
+/*
+*/
                     }
                 });
             }
@@ -65,8 +74,30 @@ public class marking extends AppCompatActivity {
         dispatcher.addAudioProcessor(pitchProcessor);
 
         Thread audioThread = new Thread(dispatcher, "Audio Thread");
-        audioThread.start();
 
+
+        try {
+            // music_stop();
+            mediaplayer.setDataSource("https://firebasestorage.googleapis.com/v0/b/chatting-570cd.appspot.com/o/Falling%20slowly%20sing%20a%20long%20%5Binstrumental%20%20lyrics%5D.mp3?alt=media&token=a063399f-9860-4a62-b30e-58acb88419dc");
+
+            mediaplayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener()
+            {
+                @Override
+                public void onPrepared(MediaPlayer mp){
+
+                    mp.start();
+
+                }
+
+
+            });
+            mediaplayer.prepare();
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        audioThread.start();
 
 
 
@@ -81,6 +112,10 @@ public class marking extends AppCompatActivity {
         super.onDestroy();
 
         releaseDispatcher();
+
+        mediaplayer.stop();
+        mediaplayer.release();
+        mediaplayer = null;
     }
 
     public void releaseDispatcher()
@@ -157,7 +192,11 @@ public class marking extends AppCompatActivity {
 
         pitchText.setText("" + pitchInHz);
 
-        if(pitchInHz < 137) {
+        if(pitchInHz<125)
+        {
+            mus+="1";
+        }
+        else if(pitchInHz >= 125&&pitchInHz < 137) {
             //A
             noteText.setText("낮은 도");
             mus+="a";

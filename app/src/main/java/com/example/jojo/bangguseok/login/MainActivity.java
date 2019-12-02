@@ -144,6 +144,17 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        Button button10 = (Button) findViewById(R.id.button10);
+        button10.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), com.example.jojo.bangguseok.broadcast.marking_test.class);
+                startActivity(intent);
+
+            }
+        });
+
     }
 
 

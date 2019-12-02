@@ -22,7 +22,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="android:appComponentFactory">
-        <activity android:name=".broadcast.marking"></activity>
+        <activity android:name=".broadcast.marking_test"></activity>
+        <activity android:name=".broadcast.marking" />
         <activity android:name=".music_lists" />
         <activity android:name=".login.MainActivity">
             <intent-filter>
