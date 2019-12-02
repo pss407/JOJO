@@ -37,27 +37,27 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
+            android:visibility="invisible"
             android:onClick="showSetResolutionDialog"
             android:src="@drawable/ic_settings_white_24dp" />
 
         <ImageButton
             android:id="@+id/changeCameraButton"
             style="?attr/borderlessButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:adjustViewBounds="true"
             android:onClick="changeCamera"
             android:src="@drawable/ic_switch_camera_white_24dp" />
 
         <TextView
             android:id="@+id/debug_text_view2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="0"
             android:paddingLeft="4dp"
             android:paddingRight="4dp"
-            android:textSize="10sp"
-            android:visibility="invisible"
+            android:textSize="0sp"
             tools:ignore="SmallSp" />
 
         <TextView
@@ -131,17 +131,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/listView" />
 
-        <Button
+        <ImageButton
             android:id="@+id/bnt_send"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:layout_marginBottom="40dp"
-            android:text="send"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/chat_message"
-            app:layout_constraintTop_toBottomOf="@+id/listView" />
+            app:layout_constraintTop_toBottomOf="@+id/listView"
+            android:src="@drawable/send" />
+
+
 
         <Button
             android:id="@+id/toggle_broadcasting"

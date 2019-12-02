@@ -38,17 +38,18 @@
             style="?borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="invisible"
             android:adjustViewBounds="true"
             android:src="@drawable/ic_settings_white_24dp" />
 
         <TextView
             android:id="@+id/debug_text_view2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="0"
             android:paddingLeft="4dp"
             android:paddingRight="4dp"
-            android:textSize="10sp"
+            android:textSize="0sp"
             tools:ignore="SmallSp" />
 
         <TextView
@@ -121,16 +122,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/listView" />
 
-        <Button
+        <ImageButton
             android:id="@+id/bnt_send2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
-            android:layout_marginBottom="48dp"
-            android:text="send"
+            android:layout_marginBottom="50dp"
+            android:src="@drawable/send"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toEndOf="@id/chat_message2"
             app:layout_constraintTop_toBottomOf="@+id/listView" />
 

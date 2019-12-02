@@ -126,7 +126,7 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
 
     ArrayList<ChatVO> list = new ArrayList<>();
     ListView lv;
-    Button btn;
+    ImageButton btn;
     EditText edt;
     int imageID = R.drawable.profile;
 
