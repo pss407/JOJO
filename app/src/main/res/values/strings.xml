@@ -23,6 +23,9 @@
     <string name="text">Text</string>
     <string name="retry">Retry</string>
 
+    <string name="open">Open navigation drawer</string>
+    <string name="closed">Close navigation drawer</string>
+
     <string name="selection_disabled">Disabled</string>
     <string name="selection_default">Default</string>
     <string name="selection_default_none">Default (none)</string>

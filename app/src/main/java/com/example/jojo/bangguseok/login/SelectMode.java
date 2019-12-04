@@ -16,7 +16,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.jojo.bangguseok.R;
 import com.example.jojo.bangguseok.broadcast.liveVideoBroadcaster.LiveVideoBroadcasterActivity;
@@ -80,10 +84,10 @@ public class SelectMode extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main3);
+        setContentView(R.layout.drawer);
 
+        this.InitializeLayout();
         music_stop();
-
 
         MyApplication myApp = (MyApplication)getApplicationContext();
 
@@ -97,9 +101,9 @@ public class SelectMode extends AppCompatActivity {
         t.putExtra("id", myApp2.getname());
 
 
-        TextView textView10 = (TextView)findViewById(R.id.textView10);
-        TextView textView = (TextView)findViewById(R.id.textView);
-        TextView textView3 = (TextView)findViewById(R.id.textView3);
+        TextView Tier = (TextView)findViewById(R.id.Tier);
+        TextView Id = (TextView)findViewById(R.id.Id);
+        TextView Exp = (TextView)findViewById(R.id.Exp);
 
 
         int exper = Integer.parseInt(myApp2.getExperience());
@@ -112,9 +116,9 @@ public class SelectMode extends AppCompatActivity {
         else if(exper_tier==3)tier="Platinum";
         else tier="Master";
 
-        textView10.setText("티어:"+tier);
-        textView.setText("아이디:"+name);
-        textView3.setText("경험치:"+ exper+"%");
+        Tier.setText("티어:"+tier);
+        Id.setText("아이디:"+name);
+        Exp.setText("경험치:"+ exper+"%");
     }
 //
     public void onButton5Clicked(View view)
@@ -516,6 +520,38 @@ public class SelectMode extends AppCompatActivity {
     }
 
 
+    public void InitializeLayout()
+    {
+        //toolBar를 통해 App Bar 생성
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        //App Bar의 좌측 영영에 Drawer를 Open 하기 위한 Incon 추가
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_24px);
+
+        DrawerLayout drawLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(
+                this,
+                drawLayout,
+                toolbar,
+                R.string.open,
+                R.string.closed
+        );
+
+        drawLayout.addDrawerListener(actionBarDrawerToggle);
+    }
+
+    public void onBackPressed() {
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
 
     @Override
     protected void onDestroy() {
@@ -532,12 +568,7 @@ public class SelectMode extends AppCompatActivity {
 
         }
 
-
-
          music_stop();
-
-
-
 
     }
 }
