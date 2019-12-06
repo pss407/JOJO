@@ -30,8 +30,15 @@ public class marking_test extends AppCompatActivity {
     TextView textView11;
     float pitchInHz_tmp;
     AudioDispatcher dispatcher; //70
-    public String correc="111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111aaaaaaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbbbbccccccccccbbbbbbbbbb11111111111111111111aaaaaaaaaabbbbbbbbbbbbbbbbbbbbdddddddddddddddddddd11111111111111111111aaaaaaaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbaaaaaaaaaa11111111111111111111111111111111111111111111111111111111111111111111111111111111aaaaaaaaaaabbbbbbbbbbbbbbbbbbbbbbbbbbccccbbbbbbbbbbbbb1111111111aaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbccccccccdddddddddddccccccccc11111111111111111111aaaaaaaaaaabbbbbbbbbbbbbbbbbccccccbbbbbaaaaaa111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111bbbbbbbccccccccccbabbbbbbaaaaaaaa1111111111111111111111111111111111111111ccccccccccccbbbbaaaaaaaaa1111111111111111111111111111111111111111ccccccccccbbbbbbaaaaaaaaaaaaaaaa1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111ggggggBBBBBBBBBggggggggggggggggggg1111111111BBBBBBBgggggggggggggggggg1111111111BBBBBBBBBBgggggggggggggggg1111111111FFFFFFFFFFFFFFFFFFFF1111111111gggggBBBBggggggggg1111111111BBBBBgggggggggggg11111111111111111111BBBgggggggg1111111111FFFFFFFFFFFf11111111111111111111111111";
-    int correc_count=-1;// "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111                                                       11111111111111111111                                                  11111111111111111111                                                                                               11111111111111111111111111111111111111111111111111111111111111111111111111111111         1111111111                                                                11111111111111111111                                             111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111                                 1111111111111111111111111111111111111111                         1111111111111111111111111111111111111111                                1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111                                  1111111111                         1111111111                          1111111111                    1111111111                  1111111111                 11111111111111111111           1111111111
+   //falling slowly //public String correc="111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111aaaaaaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbbbbcccccccccccccccbbbbbbbbbbbbbbbbbbb1111111aaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbbbdddddddddddddddddddd1111111111111aaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbbbcccccccccccccccaaaaaaaaaa11111111111111111111111111111111111111111111111111111111111111111111111111111111aaaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbcccccccccccccccbbbbbbbbbbbbb1111111111aaaaaaaaaaaaabbbbbbbbbbbbbbbbbccccccccdddddddddccccccc11111111111111aaaaaaaaaaaaaabbbbbbbbbbbbbbbbccccccccccccbbbbbaaaaaaaaa11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111bbbbbbbcccccccccccccccccccccbabbbbbbbbaaaaaaaaaaaaaaaaaaaa111111111111111111111111111cccccccccccccccbbbbbbbbbbbaaaaaaaaaaaaa1111111111111111111111111111111111111111111cccccccccccccccccccbbbbbbbbbaaaaaaaaaaaaaaaa1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111AAAAAAAAAAAAAAAAAAAAABBBBBBBBBBBBBBBBBBBBBBgggggggggggggggggggggAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABBBBBBBBBBBBBBBBBBBBBBgggggggggggggggggggggAAAAAAAAAAAAAAAAAAAAAAAAAAAABBBBBBBBBBBBBBBBBBBBBggggggggggggggggggggAAAAAAAAAAAAAAAAAAAAFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFAAAAAAAAAAAAAAAAAAAAABBBBBBBBBBBBBBBBBBBBBBgggggggggggggggggggggAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABBBBBBBBBBBBBBBBBBBBBBgggggggggggggggggggggAAAAAAAAAAAAAAAAAAAAAAAAAAAABBBBBBBBBBBBBBBBBBBBBBgggggggggggggggggggggAAAAAAAAAAAAAAAAAAAAAFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF111111111111111111111111111111111111111111111111111111111111111111111111111111111";
+
+ // public String correc="11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111bbbbbbbbbbbbbbbbbcccccccccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeeebbbbbbbbcccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeebbbbbbbbcccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeedddddddddddd1111111111111111111bbbbbbbbcccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeeebbbbbbbbcccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeebbbbbbbbcccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeedddddddddddd111111111111111111111bbbbbbbbcccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeeebbbbbbbbcccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeebbbbbbbbcccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeedddddddddddd111111111111111111111bbbbbbbbcccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeeebbbbbbbbcccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeebbbbbbbbcccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeedddddddddddd111111111111111111111bbbbbbbbcccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeeebbbbbbbbcccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeebbbbbbbbcccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeedddddddddddd11111111111111111111111111111111111111";
+
+
+    public String correc="11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111bbbbbbbbbbbbbbbbb11111111111111111111";//cccccccccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeeebbbbbbbbcccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeebbbbbbbbcccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeedddddddddddd1111111111111111111bbbbbbbbcccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeeebbbbbbbbcccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeebbbbbbbbcccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeedddddddddddd111111111111111111111bbbbbbbbcccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeeebbbbbbbbcccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeebbbbbbbbcccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeedddddddddddd111111111111111111111bbbbbbbbcccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeeebbbbbbbbcccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeebbbbbbbbcccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeedddddddddddd111111111111111111111bbbbbbbbcccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeeebbbbbbbbcccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeebbbbbbbbcccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeedddddddddddd11111111111111111111111111111111111111";
+
+
+    int correc_count=-1;// "111111111111111111111111111111111aaaaaaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbbbbbbbeeeee1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111                         cccccccccccccccc bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbcccccccc bbbbbbbbccccccccbbbbbbbbccccccccbbbbbbbbcccccccc                            bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb11111111111111111111                                                  1111111111111111bbbbbbbbbbbbbbbbbbbbb                                           aaaaaaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbbbbcccccccccccccccbbbbbbbbbbbbb111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111bbbbbb                                      1111111111111111111111111111111111111111111111aaaaaaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbbbbcccccccccccccccbbbbbbbbbbbbbbbbbbb1111111aaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbbbdddddddddddddddddddd11111111111111111111aaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbbbcccccccccccccccaaaaaaaaaa                                                                11111111111111111111                                      aaaaaaaaaaaaaaaaaaaaaaaccccccccccccccccccccc       11111111111111111111111111111111111111111111111111111111111111111ccccccccccccccccccccc111111cccccccccccccccccccccccccccccccccccccccccc111111cccccccccccccccccccccccccccccccccccccccccccccccccaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc111aaaacccccccccccccccccccccaaaaaaaaaaaaaaaaaaaa111111111                                 1111111111111111111111111111111111111111                         1111111111111111111111111111111111111111                                1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111                                  1111111111                         1111111111                          1111111111                    1111111111                  1111111111                 11111111111111111111           1111111111
 
     public MediaPlayer m;
     public Context c;
@@ -82,7 +89,7 @@ public class marking_test extends AppCompatActivity {
 
         try {
             // music_stop();
-            mediaplayer.setDataSource("https://firebasestorage.googleapis.com/v0/b/chatting-570cd.appspot.com/o/Falling%20slowly%20sing%20a%20long%20%5Binstrumental%20%20lyrics%5D.mp3?alt=media&token=a063399f-9860-4a62-b30e-58acb88419dc");
+            mediaplayer.setDataSource("https://firebasestorage.googleapis.com/v0/b/chatting-570cd.appspot.com/o/%5BDingaStar%5D%20%ED%95%91%ED%81%AC%ED%90%81(PinkFong)-%EC%83%81%EC%96%B4%EA%B0%80%EC%A1%B1(Baby%20Shark)%20(Karaoke%20App%20No.1%20DingaStar).mp3?alt=media&token=8952a8be-62bc-463b-9ffc-b65ac5d23a8d");
 
             mediaplayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener()
             {
@@ -141,7 +148,7 @@ public class marking_test extends AppCompatActivity {
         //pitchText.setText("" + pitchInHz);
         textView12.setText(""+score);
         char pitch='3';
-        if(correc.length()-20>correc_count)
+        if(correc.length()-10>correc_count)
         {
             pitch = correc.charAt(correc_count);
         }
@@ -214,7 +221,7 @@ public class marking_test extends AppCompatActivity {
             }
 
         }
-        else if(pitchInHz >= 259 && pitchInHz < 168) {
+        else if(pitchInHz >= 254 && pitchInHz < 280) {
             //G
             if(pitch=='A')
             {
@@ -223,7 +230,7 @@ public class marking_test extends AppCompatActivity {
             }
 
         }
-        else if(pitchInHz >= 290 && pitchInHz <303) {
+        else if(pitchInHz >= 285 && pitchInHz <308) {
             //G
             if(pitch=='B')
             {
@@ -232,7 +239,7 @@ public class marking_test extends AppCompatActivity {
             }
 
         }
-        else if(pitchInHz >= 327 && pitchInHz < 339) {
+        else if(pitchInHz >= 327 && pitchInHz < 340) {
             //G
 
             if(pitch=='C')
@@ -241,7 +248,7 @@ public class marking_test extends AppCompatActivity {
 
             }
         }
-        else if(pitchInHz >= 347 && pitchInHz < 359) {
+        else if(pitchInHz >= 343 && pitchInHz < 362) {
             //G
 
             if(pitch=='D')

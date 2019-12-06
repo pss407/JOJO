@@ -130,7 +130,7 @@ public class music_lists extends AppCompatActivity {
 
 
             }
-        }, 500);   //이거 나중에 바꾸기
+        }, 1000);   //이거 나중에 바꾸기
 
 
 

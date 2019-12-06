@@ -10,6 +10,7 @@ import java.util.Map;
 public class FirebasePost_music {
     public String title;
     public String url;
+    public String lyric;
 
 
 
@@ -27,6 +28,7 @@ public class FirebasePost_music {
         HashMap<String, Object> result = new HashMap<>();
         result.put("title", title);
         result.put("url",url);
+        result.put("lyric",lyric);
 
         return result;
     }

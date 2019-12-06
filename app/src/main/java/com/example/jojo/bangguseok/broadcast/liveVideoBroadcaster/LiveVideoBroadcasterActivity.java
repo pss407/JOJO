@@ -23,6 +23,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.text.TextUtils;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -222,6 +223,10 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
 
     MediaPlayer mediaplayer;
 
+    TextView textView13;
+
+    String lyrics="";
+
 
 
 
@@ -252,6 +257,11 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
         super.onCreate(savedInstanceState);
 
          mediaplayer = new MediaPlayer();
+
+         //노래 가사 띄우기
+
+
+
 
   //
         // Hide title
@@ -314,7 +324,14 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
         simpleExoPlayerView.setUseController(false);
 
          am = (AudioManager)getSystemService(Context.AUDIO_SERVICE);  //마이크
-        am.setMicrophoneMute(true);
+        am.setMicrophoneMute(false);
+
+
+        //노래 가사 띄우기
+
+        textView13 = (TextView) findViewById(R.id.textView13);
+
+        //textView13.setMovementMethod(new ScrollingMovementMethod());
 
         //"https://gkbjsozvwply2376889.cdn.ntruss.com/video/ls-20190919204002-vFu5I_270p_a_l.m3u8";
         //String URL = "http://192.168.1.34:5080/vod/streams/test_adaptive.m3u8";
@@ -413,6 +430,8 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
                 tmp=num;
 
                 MyApplication myApp2 = (MyApplication)getApplicationContext();
+
+
                 if(myApp2.getOrder().equals("1")) //첫번째면
                 {
 
@@ -487,6 +506,7 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
                                 String key = postSnapshot.getKey();
                                 FirebasePost_url get = postSnapshot.getValue(FirebasePost_url.class);
                                 String[] info = {get.music_finish};
+
 
 
                                 if(count==1&&info[0].equals("true"))
@@ -1244,10 +1264,12 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     String key = postSnapshot.getKey();
                     FirebasePost_music get = postSnapshot.getValue(FirebasePost_music.class);
-                    String[] info = { get.title, get.url};
+                    String[] info = { get.title, get.url, get.lyric};
 
                     if(music_title.equals(info[0])) {
                         music_url=info[1];
+                        lyrics=info[2];
+                        textView13.setText(lyrics);
                     }
                 }
 

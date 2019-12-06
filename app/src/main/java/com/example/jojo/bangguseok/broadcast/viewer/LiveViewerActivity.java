@@ -2,15 +2,21 @@ package com.example.jojo.bangguseok.broadcast.viewer;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.media.Image;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.ImageButton;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 import android.widget.VideoView;
 
@@ -83,6 +89,8 @@ public class LiveViewerActivity extends AppCompatActivity {
 
         videoView = (VideoView) findViewById(R.id.videoView);
         videoView2 = (VideoView) findViewById(R.id.videoView2);
+
+
 
 
 
@@ -465,6 +473,28 @@ public class LiveViewerActivity extends AppCompatActivity {
       //  delayHandler9.removeCallbacksAndMessages(null);
        // delayHandler6.removeCallbacksAndMessages(null);
 
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+
+        View stream_view2 = (View)this.findViewById(R.id.stream_view2);
+        int a=stream_view2.getWidth();
+
+        RelativeLayout.LayoutParams videoviewlp = new RelativeLayout.LayoutParams(a/2, 500);
+        videoviewlp.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE);
+        // videoviewlp.alignWithParent=true;
+        //videoviewlp.addRule(RelativeLayout.CENTER_VERTICAL, RelativeLayout.TRUE);
+        videoView.setLayoutParams(videoviewlp);
+        videoView.invalidate();
+
+
+        RelativeLayout.LayoutParams videoviewlp2 = new RelativeLayout.LayoutParams(a/2, 500);
+        videoviewlp2.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE);
+        // videoviewlp2.addRule(RelativeLayout.CENTER_VERTICAL, RelativeLayout.TRUE);
+
+        videoView2.setLayoutParams(videoviewlp2);
+        videoView2.invalidate();
     }
 }
 

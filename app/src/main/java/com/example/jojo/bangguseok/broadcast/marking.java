@@ -1,6 +1,7 @@
 package com.example.jojo.bangguseok.broadcast;
 
 import android.content.Context;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
@@ -50,6 +51,12 @@ public class marking extends AppCompatActivity {
         pitchText = (TextView) findViewById(R.id.pitchText);
         textView11 = (TextView) findViewById(R.id.textView11);
 
+        ///
+
+
+
+        /////
+
         dispatcher =
                 AudioDispatcherFactory.fromDefaultMicrophone(22050,1024,0);
 
@@ -85,7 +92,7 @@ public class marking extends AppCompatActivity {
                 @Override
                 public void onPrepared(MediaPlayer mp){
 
-                    mp.start();
+                  //  mp.start();
 
                 }
 
