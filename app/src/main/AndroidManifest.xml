@@ -14,12 +14,12 @@
         android:name=".login.MyApplication"
         android:allowBackup="true"
         android:appComponentFactory="bangguseok"
-        android:icon="@mipmap/ic_launcher"
-        android:label="bangguseok"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:icon="@drawable/logo"
+        android:label="방구석라이브"
+        android:roundIcon="@drawable/logo"
         android:screenOrientation="portrait"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
+        android:theme="@style/HiddenTitleTheme"
         android:usesCleartextTraffic="true"
         tools:replace="android:appComponentFactory">
         <activity android:name=".broadcast.marking_test"></activity>
@@ -38,13 +38,11 @@
         <activity
             android:name=".broadcast.viewer.LiveViewerActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppThemeDark" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".broadcast.liveVideoBroadcaster.LiveVideoBroadcasterActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppThemeDark" />
+            android:screenOrientation="portrait" />
 
         <service android:name=".broadcast.broadcaster.LiveVideoBroadcaster" />
     </application>

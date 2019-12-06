@@ -15,5 +15,10 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="HiddenTitleTheme" parent="AppTheme">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+    </style>
+
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 </resources>

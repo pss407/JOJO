@@ -10,11 +10,13 @@
         android:layout_height="wrap_content"
         android:textSize="20dp"
         android:text="현재 개설된 채팅방"
+        android:fontFamily="@font/bm"
         android:layout_marginBottom="20dp"
         android:gravity="center"/>
 
     <ListView
         android:id="@+id/chat_list"
+        android:fontFamily="@font/bm"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </ListView>

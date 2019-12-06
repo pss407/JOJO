@@ -8,7 +8,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -36,7 +36,7 @@ import java.util.Date;
 public class LiveViewerActivity extends AppCompatActivity {
     ArrayList<ChatVO> list = new ArrayList<>();
     ListView lv;
-    Button btn;
+    ImageButton btn;
     EditText edt;
     int imageID = R.drawable.profile;
 

@@ -19,7 +19,7 @@
         android:layout_width="240dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="#FFFFFF"
+        android:background="#FFF"
         android:orientation="vertical">
 
         <LinearLayout
@@ -39,10 +39,11 @@
                 android:layout_height="70dp"
                 android:paddingTop="8dp"
                 android:layout_gravity="center"
-                app:srcCompat="@drawable/profile" />
+                app:srcCompat="@drawable/ic_person_24px" />
 
             <TextView
                 android:id="@+id/Id"
+                android:fontFamily="@font/binggrae"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingTop="8dp"
@@ -58,12 +59,14 @@
 
             <TextView
                 android:id="@+id/Tier"
+                android:fontFamily="@font/binggrae"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 />
 
             <TextView
                 android:id="@+id/Exp"
+                android:fontFamily="@font/binggrae"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"

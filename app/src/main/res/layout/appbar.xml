@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/back"
+    android:theme="@style/HiddenTitleTheme">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -14,47 +16,88 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary" />
+            android:background="#675B88">
+
+            <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="모드 선택"
+                android:textColor="#FFF"
+                android:fontFamily="@font/bmb"
+            android:layout_gravity="center"
+            android:textSize="20dp"/>
+
+        </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context="com.example.jojo.bangguseok.login.SelectMode">
 
-        <Button
-            android:id="@+id/button5"
-            android:layout_width="123dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="136dp"
-            android:layout_marginLeft="136dp"
-            android:layout_marginTop="236dp"
-            android:onClick="onButton5Clicked"
-            android:text="노래대결"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+<!--        <Button-->
+<!--            android:id="@+id/button5"-->
+<!--            android:layout_width="123dp"-->
+<!--            android:layout_height="60dp"-->
+<!--            android:layout_marginStart="@dimen/_100sdp"-->
+<!--            android:layout_marginTop="@dimen/_200sdp"-->
+<!--            android:onClick="onButton5Clicked"-->
+<!--            android:text="노래대결"-->
+<!--            android:fontFamily="@font/bm"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
 
-        <Button
+        <ImageButton
+            android:id="@+id/button5"
+            android:layout_width="257dp"
+            android:layout_height="190dp"
+            android:layout_marginEnd="76dp"
+            android:layout_marginBottom="336dp"
+            android:onClick="onButton5Clicked"
+            android:adjustViewBounds="true"
+            android:background="@android:color/transparent"
+            android:scaleType="fitCenter"
+            android:src="@drawable/battle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/listView" />
+
+
+        <!--        <Button-->
+<!--            android:id="@+id/button7"-->
+<!--            android:layout_width="121dp"-->
+<!--            android:layout_height="61dp"-->
+<!--            android:layout_marginStart="@dimen/_100sdp"-->
+<!--            android:layout_marginTop="@dimen/_300sdp"-->
+<!--            android:onClick="onButton7Clicked"-->
+<!--            android:text="시청하기"-->
+<!--            android:fontFamily="@font/bm"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
+
+        <ImageButton
             android:id="@+id/button7"
-            android:layout_width="121dp"
-            android:layout_height="61dp"
-            android:layout_marginStart="136dp"
-            android:layout_marginLeft="136dp"
-            android:layout_marginTop="364dp"
+            android:layout_width="257dp"
+            android:layout_height="190dp"
+            android:layout_marginEnd="76dp"
+            android:layout_marginBottom="88dp"
             android:onClick="onButton7Clicked"
-            android:text="시청하기"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:adjustViewBounds="true"
+            android:background="@android:color/transparent"
+            android:scaleType="fitCenter"
+            android:src="@drawable/view"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/listView" />
 
         <Button
             android:id="@+id/button8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="264dp"
-            android:layout_marginTop="60dp"
+            android:layout_marginStart="170dp"
+            android:layout_marginTop="68dp"
+            android:fontFamily="@font/bm"
             android:onClick="Sample_music"
             android:text="Sample 곡"
             app:layout_constraintStart_toStartOf="parent"
@@ -64,8 +107,9 @@
             android:id="@+id/button9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="268dp"
-            android:layout_marginTop="140dp"
+            android:layout_marginStart="288dp"
+            android:layout_marginTop="68dp"
+            android:fontFamily="@font/bm"
             android:onClick="music_choice"
             android:text="음악 선택하기"
             app:layout_constraintStart_toStartOf="parent"

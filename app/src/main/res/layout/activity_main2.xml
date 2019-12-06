@@ -18,13 +18,15 @@
         android:id="@+id/textView6"
         android:layout_width="381dp"
         android:layout_height="wrap_content"
-        android:text="아이디" />
+        android:text="아이디"
+        android:fontFamily="@font/bm"/>
 
     <EditText
         android:id="@+id/editText_main_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="id" />
+        android:hint="id"
+        android:fontFamily="@font/bm"/>
 
     <Button
         android:id="@+id/button6"
@@ -42,18 +44,21 @@
         android:id="@+id/textView7"
         android:layout_width="382dp"
         android:layout_height="wrap_content"
-        android:text="비밀번호" />
+        android:text="비밀번호"
+        android:fontFamily="@font/bm"/>
 
     <EditText
         android:id="@+id/editText_main_country"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="password" />
+        android:hint="password"
+        android:fontFamily="@font/bm"/>
 
     <TextView
         android:id="@+id/textView_main_result"
         android:layout_width="match_parent"
-        android:layout_height="5dp" />
+        android:layout_height="5dp"
+        android:fontFamily="@font/bm"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -65,6 +70,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="388dp"
             android:text="이용약관동의"
+            android:fontFamily="@font/bm"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -77,6 +83,7 @@
             android:layout_marginTop="384dp"
             android:onClick="onButton3Clicked"
             android:text="약관 보기"
+            android:fontFamily="@font/bm"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.785"
             app:layout_constraintStart_toStartOf="parent"
@@ -88,6 +95,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="448dp"
             android:text="개인정보취급약관 동의"
+            android:fontFamily="@font/bm"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -100,6 +108,7 @@
             android:layout_marginTop="44dp"
             android:ems="10"
             android:hint="정진홍"
+            android:fontFamily="@font/bm"
             android:inputType="textPersonName"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -111,6 +120,7 @@
             android:layout_marginTop="128dp"
             android:ems="10"
             android:hint="  년"
+            android:fontFamily="@font/bm"
             android:inputType="textPersonName"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -124,6 +134,7 @@
             android:layout_marginTop="128dp"
             android:ems="10"
             android:hint="  월"
+            android:fontFamily="@font/bm"
             android:inputType="textPersonName"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -137,6 +148,7 @@
             android:layout_marginTop="128dp"
             android:ems="10"
             android:hint="  일"
+            android:fontFamily="@font/bm"
             android:inputType="textPersonName"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -148,6 +160,7 @@
             android:layout_marginTop="216dp"
             android:ems="10"
             android:hint="wlshddlek1@ajou.ac.kr"
+            android:fontFamily="@font/bm"
             android:inputType="textPersonName"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -159,6 +172,7 @@
             android:layout_marginTop="312dp"
             android:ems="10"
             android:hint="010-7605-2435"
+            android:fontFamily="@font/bm"
             android:inputType="textPersonName"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -171,6 +185,7 @@
             android:layout_marginLeft="4dp"
             android:layout_marginTop="20dp"
             android:text="이름"
+            android:fontFamily="@font/bm"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -182,6 +197,7 @@
             android:layout_marginLeft="4dp"
             android:layout_marginTop="196dp"
             android:text="이메일"
+            android:fontFamily="@font/bm"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -193,6 +209,7 @@
             android:layout_marginLeft="4dp"
             android:layout_marginTop="112dp"
             android:text="생년월일"
+            android:fontFamily="@font/bm"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -202,6 +219,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="292dp"
             android:text="휴대폰"
+            android:fontFamily="@font/bm"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -212,6 +230,7 @@
             android:layout_marginTop="444dp"
             android:onClick="onButton4Clicked"
             android:text="약관 보기"
+            android:fontFamily="@font/bm"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.782"
             app:layout_constraintStart_toStartOf="parent"
@@ -222,7 +241,8 @@
         android:id="@+id/button_main_insert"
         android:layout_width="match_parent"
         android:layout_height="41dp"
-        android:text="create" />
+        android:text="create"
+        android:fontFamily="@font/bm"/>
 
 </LinearLayout>
 </ScrollView>

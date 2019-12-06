@@ -2,18 +2,31 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context="com.example.jojo.bangguseok.login.MainActivity"
-    android:layout_margin="15dp"
-    android:padding="10dp">
+    android:padding="@dimen/_65sdp"
+    android:background="@drawable/back">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_150sdp"
+        android:src="@drawable/logo"
+        android:background="@android:color/transparent" />
 
     <EditText
         android:id="@+id/editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="id"
+        android:hint=" id"
+        android:backgroundTint="@android:color/white"
+        android:textColorHint="@android:color/white"
+        android:textColor="@android:color/white"
+        android:drawableStart="@drawable/ic_person_24px"
+        android:fontFamily="@font/bm"
         android:inputType="textPersonName" />
 
     <EditText
@@ -21,32 +34,49 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="password"
+        android:hint=" password"
+        android:backgroundTint="@android:color/white"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white"
+        android:drawableStart="@drawable/ic_vpn_key_24px"
+        android:fontFamily="@font/bm"
         android:inputType="textPassword" />
 
     <Button
         android:id="@+id/button"
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/_80sdp"
         android:layout_height="wrap_content"
-        android:text="로그인" />
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:text="로그인"
+        android:textSize="@dimen/_12sdp"
+        android:textColor="#000"
+        android:background="@drawable/login_shape"
+        android:fontFamily="@font/maple"/>
 
     <Button
         android:id="@+id/button2"
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/_80sdp"
         android:layout_height="wrap_content"
-        android:text="회원가입" />
-
-    <Button
-        android:id="@+id/button12"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Button" />
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:text="회원가입"
+        android:textSize="@dimen/_12sdp"
+        android:textColor="#000"
+        android:background="#CE9390"
+        android:fontFamily="@font/maple"/>
 
     <Button
         android:id="@+id/button10"
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/_80sdp"
         android:layout_height="wrap_content"
-        android:text="채점" />
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:text="채점"
+        android:textSize="@dimen/_12sdp"
+        android:textColor="#000"
+        android:background="@drawable/score_shape"
+        android:fontFamily="@font/maple"/>
 
 
 </LinearLayout>

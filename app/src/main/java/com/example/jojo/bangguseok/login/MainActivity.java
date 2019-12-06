@@ -133,18 +133,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-        Button test_click = (Button) findViewById(R.id.button12);
-        test_click.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), com.example.jojo.bangguseok.broadcast.marking.class);
-                startActivity(intent);
-
-
-            }
-        });
-
         Button button10 = (Button) findViewById(R.id.button10);
         button10.setOnClickListener(new View.OnClickListener() {
             @Override
