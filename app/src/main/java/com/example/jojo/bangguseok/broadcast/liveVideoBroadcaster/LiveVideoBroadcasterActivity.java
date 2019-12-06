@@ -458,6 +458,8 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
                                             MyApplication myApp4 = (MyApplication)getApplicationContext();
                                             String num= myApp4.getUrl_room();
 
+                                            textView13.setText("");
+
                                             Toast toast = Toast.makeText(getApplicationContext(), "자신의 노래가 끝났습니다. 이제 상대의 차례입니다.", Toast.LENGTH_LONG);
                                             toast.setGravity(Gravity.CENTER , 0, 0);
                                             toast.show();
@@ -535,6 +537,7 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
                                                             MyApplication myApp4 = (MyApplication)getApplicationContext();
                                                             String num= myApp4.getUrl_room();
 
+                                                            textView13.setText("");
                                                             databaseReference.child("URL").child("room" + num).child("url_2").child("music_finish").setValue("true");
 
 
