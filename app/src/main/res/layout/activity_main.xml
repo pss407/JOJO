@@ -4,80 +4,86 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context="com.example.jojo.bangguseok.login.MainActivity"
-    android:padding="@dimen/_65sdp"
     android:background="@drawable/back">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="@dimen/_150sdp"
         android:src="@drawable/logo"
-        android:background="@android:color/transparent" />
+        android:background="@android:color/transparent"
+        android:layout_marginTop="@dimen/_60sdp"/>
 
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint=" id"
-        android:backgroundTint="@android:color/white"
-        android:textColorHint="@android:color/white"
-        android:textColor="@android:color/white"
-        android:drawableStart="@drawable/ic_person_24px"
-        android:fontFamily="@font/bm"
-        android:inputType="textPersonName" />
-
-    <EditText
-        android:id="@+id/editText2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint=" password"
-        android:backgroundTint="@android:color/white"
-        android:textColor="@android:color/white"
-        android:textColorHint="@android:color/white"
-        android:drawableStart="@drawable/ic_vpn_key_24px"
-        android:fontFamily="@font/bm"
-        android:inputType="textPassword" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="@dimen/_80sdp"
+    <LinearLayout
+        android:layout_width="@dimen/_200sdp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:text="로그인"
-        android:textSize="@dimen/_12sdp"
-        android:textColor="#000"
-        android:background="@drawable/login_shape"
-        android:fontFamily="@font/maple"/>
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/_40sdp">
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="@dimen/_80sdp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="@dimen/_5sdp"
-        android:text="회원가입"
-        android:textSize="@dimen/_12sdp"
-        android:textColor="#000"
-        android:background="#CE9390"
-        android:fontFamily="@font/maple"/>
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_person_24px"
+            android:ems="10"
+            android:fontFamily="@font/bm"
+            android:hint=" id"
+            android:inputType="textPersonName"
+            android:backgroundTint="@android:color/white"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/white" />
 
-    <Button
-        android:id="@+id/button10"
-        android:layout_width="@dimen/_80sdp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="@dimen/_5sdp"
-        android:text="채점"
-        android:textSize="@dimen/_12sdp"
-        android:textColor="#000"
-        android:background="@drawable/score_shape"
-        android:fontFamily="@font/maple"/>
+        <EditText
+            android:id="@+id/editText2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@android:color/white"
+            android:drawableStart="@drawable/ic_vpn_key_24px"
+            android:ems="10"
+            android:fontFamily="@font/bm"
+            android:hint=" password"
+            android:inputType="textPassword"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/white" />
 
+        <Button
+            android:id="@+id/button"
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/login_shape"
+            android:fontFamily="@font/maple"
+            android:text="로그인"
+            android:textColor="#000"
+            android:textSize="@dimen/_12sdp" />
 
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:background="#CE9390"
+            android:fontFamily="@font/maple"
+            android:text="회원가입"
+            android:textColor="#000"
+            android:textSize="@dimen/_12sdp" />
+
+        <Button
+            android:id="@+id/button10"
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:background="@drawable/score_shape"
+            android:fontFamily="@font/maple"
+            android:text="채점"
+            android:textColor="#000"
+            android:textSize="@dimen/_12sdp" />
+
+    </LinearLayout>
 </LinearLayout>
 
