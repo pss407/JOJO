@@ -283,36 +283,6 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
 
          mediaplayer = new MediaPlayer();
 
-         ///음정채정 세팅
-        dispatcher =
-                AudioDispatcherFactory.fromDefaultMicrophone(22050,1024,0);
-
-        PitchDetectionHandler pdh = new PitchDetectionHandler() {
-            @Override
-            public void handlePitch(PitchDetectionResult res, AudioEvent e){
-                final float pitchInHz = res.getPitch();
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        pitchInHz_tmp=pitchInHz;
-                        //func();
-
-                        processPitch(pitchInHz);
-
-                    }
-                });
-            }
-        };
-        AudioProcessor pitchProcessor = new PitchProcessor(PitchProcessor.PitchEstimationAlgorithm.FFT_YIN, 22050, 1024, pdh);
-        dispatcher.addAudioProcessor(pitchProcessor);
-
-        audioThread = new Thread(dispatcher, "Audio Thread");
-
-
-        ////
-         //노래 가사 띄우기
-
-
 
 
   //
@@ -482,6 +452,32 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
                 tmp=num;
 
                 MyApplication myApp2 = (MyApplication)getApplicationContext();
+
+
+                ///음정채정 세팅
+                dispatcher =
+                        AudioDispatcherFactory.fromDefaultMicrophone(22050,1024,0);
+
+                PitchDetectionHandler pdh = new PitchDetectionHandler() {
+                    @Override
+                    public void handlePitch(PitchDetectionResult res, AudioEvent e){
+                        final float pitchInHz = res.getPitch();
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                pitchInHz_tmp=pitchInHz;
+                                //func();
+
+                                processPitch(pitchInHz);
+
+                            }
+                        });
+                    }
+                };
+                AudioProcessor pitchProcessor = new PitchProcessor(PitchProcessor.PitchEstimationAlgorithm.FFT_YIN, 22050, 1024, pdh);
+                dispatcher.addAudioProcessor(pitchProcessor);
+
+                audioThread = new Thread(dispatcher, "Audio Thread");
 
 
                 if(myApp2.getOrder().equals("1")) //첫번째면
