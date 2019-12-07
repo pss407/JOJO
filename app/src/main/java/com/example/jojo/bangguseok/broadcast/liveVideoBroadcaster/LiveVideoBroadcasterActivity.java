@@ -243,10 +243,10 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
 
     float pitchInHz_tmp;
     String tmp2="";
-    AudioDispatcher dispatcher;
+    AudioDispatcher dispatcher2;
     int score=0;
     int correc_count=-1;
-    Thread audioThread;
+    Thread audioThread2;
 
     String score1;
     String score2;
@@ -431,8 +431,40 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
                 {
                     triggerStopRecording();
                 }
+
             }
         }, 300); // 0.3초 지연을 준 후 시작
+
+
+
+        ///음정채정 세팅
+        dispatcher2 =
+                AudioDispatcherFactory.fromDefaultMicrophone(22050,1024,0);
+
+        PitchDetectionHandler pdh = new PitchDetectionHandler() {
+            @Override
+            public void handlePitch(PitchDetectionResult res, AudioEvent e){
+                final float pitchInHz = res.getPitch();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        pitchInHz_tmp=pitchInHz;
+                        //func();
+
+                        processPitch(pitchInHz);
+
+                    }
+                });
+            }
+        };
+        AudioProcessor pitchProcessor3 = new PitchProcessor(PitchProcessor.PitchEstimationAlgorithm.FFT_YIN, 22050, 1024, pdh);
+        dispatcher2.addAudioProcessor(pitchProcessor3);
+
+        audioThread2 = new Thread(dispatcher2, "Audio Thread");
+
+
+        //
+
 
 
         Handler delayHandler2 = new Handler();
@@ -454,30 +486,6 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
                 MyApplication myApp2 = (MyApplication)getApplicationContext();
 
 
-                ///음정채정 세팅
-                dispatcher =
-                        AudioDispatcherFactory.fromDefaultMicrophone(22050,1024,0);
-
-                PitchDetectionHandler pdh = new PitchDetectionHandler() {
-                    @Override
-                    public void handlePitch(PitchDetectionResult res, AudioEvent e){
-                        final float pitchInHz = res.getPitch();
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                pitchInHz_tmp=pitchInHz;
-                                //func();
-
-                                processPitch(pitchInHz);
-
-                            }
-                        });
-                    }
-                };
-                AudioProcessor pitchProcessor = new PitchProcessor(PitchProcessor.PitchEstimationAlgorithm.FFT_YIN, 22050, 1024, pdh);
-                dispatcher.addAudioProcessor(pitchProcessor);
-
-                audioThread = new Thread(dispatcher, "Audio Thread");
 
 
                 if(myApp2.getOrder().equals("1")) //첫번째면
@@ -1039,11 +1047,11 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
 
     public void releaseDispatcher()
     {
-        if(dispatcher != null)
+        if(dispatcher2 != null)
         {
-            if(!dispatcher.isStopped())
-                dispatcher.stop();
-            dispatcher = null;
+            if(!dispatcher2.isStopped())
+                dispatcher2.stop();
+            dispatcher2 = null;
         }
     }
 
@@ -1582,7 +1590,7 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
                     e.printStackTrace();
                 }
 
-                audioThread.start();
+                audioThread2.start();
 
             }
         }, 500);   //나보다 상대는 조금 늦게 노래가끝나기때문에 딜레이를 줌

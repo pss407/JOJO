@@ -1,13 +1,28 @@
 package com.example.jojo.bangguseok.broadcast;
 
 import android.content.Context;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.jojo.bangguseok.R;
+import com.example.jojo.bangguseok.broadcast.viewer.ViewerActivity;
+import com.example.jojo.bangguseok.login.FirebasePost_music;
+import com.example.jojo.bangguseok.login.MyApplication;
+import com.example.jojo.bangguseok.music_lists;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import be.tarsos.dsp.AudioDispatcher;
 import be.tarsos.dsp.AudioEvent;
@@ -21,6 +36,7 @@ public class marking_test extends AppCompatActivity {
 
     //int count=0;
     int score=0;
+    int count=0;
 
 
     String tmp="";
@@ -35,9 +51,10 @@ public class marking_test extends AppCompatActivity {
     //public String correc="11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111bbbbbbbbbbbbbbbbbcccccccccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeeebbbbbbbbcccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeebbbbbbbbcccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeedddddddddddd1111111111111111111bbbbbbbbcccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeeebbbbbbbbcccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeebbbbbbbbcccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeedddddddddddd111111111111111111111bbbbbbbbcccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeeebbbbbbbbcccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeebbbbbbbbcccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeedddddddddddd111111111111111111111bbbbbbbbcccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeeebbbbbbbbcccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeebbbbbbbbcccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeedddddddddddd111111111111111111111bbbbbbbbcccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeeebbbbbbbbcccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeebbbbbbbbcccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeedddddddddddd11111111111111111111111111111111111111";
 
 
-    public String correc="11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111bbbbbbbbbbbbbbbbbcccccccccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeeebbbbbbbbcccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeebbbbbbbbcccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeedddddddddddd1111111111111111111bbbbbbbbcccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeeebbbbbbbbcccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeebbbbbbbbcccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeedddddddddddd111111111111111111111bbbbbbbbcccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeeebbbbbbbbcccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeebbbbbbbbcccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeedddddddddddd111111111111111111111bbbbbbbbcccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeeebbbbbbbbcccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeebbbbbbbbcccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeedddddddddddd111111111111111111111bbbbbbbbcccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeeebbbbbbbbcccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeebbbbbbbbcccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeedddddddddddd11111111111111111111111111111111111111";
+    //public String correc="11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111bbbbbbbbbbbbbbbbbcccccccccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeeebbbbbbbbcccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeebbbbbbbbcccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeedddddddddddd1111111111111111111bbbbbbbbcccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeeebbbbbbbbcccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeebbbbbbbbcccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeedddddddddddd111111111111111111111bbbbbbbbcccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeeebbbbbbbbcccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeebbbbbbbbcccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeedddddddddddd111111111111111111111bbbbbbbbcccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeeebbbbbbbbcccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeebbbbbbbbcccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeedddddddddddd111111111111111111111bbbbbbbbcccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeeebbbbbbbbcccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeebbbbbbbbcccccccceeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeedddddddddddd11111111111111111111111111111111111111";
 
 
+    public String correc="";
 
     int correc_count=-1;// "111111111111111111111111111111111aaaaaaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbbbbbbbeeeee1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111                         cccccccccccccccc bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbcccccccc bbbbbbbbccccccccbbbbbbbbccccccccbbbbbbbbcccccccc                            bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb11111111111111111111                                                  1111111111111111bbbbbbbbbbbbbbbbbbbbb                                           aaaaaaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbbbbcccccccccccccccbbbbbbbbbbbbb111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111bbbbbb                                      1111111111111111111111111111111111111111111111aaaaaaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbbbbcccccccccccccccbbbbbbbbbbbbbbbbbbb1111111aaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbbbdddddddddddddddddddd11111111111111111111aaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbbbcccccccccccccccaaaaaaaaaa                                                                11111111111111111111                                      aaaaaaaaaaaaaaaaaaaaaaaccccccccccccccccccccc       11111111111111111111111111111111111111111111111111111111111111111ccccccccccccccccccccc111111cccccccccccccccccccccccccccccccccccccccccc111111cccccccccccccccccccccccccccccccccccccccccccccccccaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc111aaaacccccccccccccccccccccaaaaaaaaaaaaaaaaaaaa111111111                                 1111111111111111111111111111111111111111                         1111111111111111111111111111111111111111                                1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111                                  1111111111                         1111111111                          1111111111                    1111111111                  1111111111                 11111111111111111111           1111111111
 
@@ -47,6 +64,12 @@ public class marking_test extends AppCompatActivity {
     Thread audioThread;
 
     MediaPlayer mediaplayer;
+
+    String music_url="";
+
+    double total=0;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +81,7 @@ public class marking_test extends AppCompatActivity {
 
         pitchText = (TextView) findViewById(R.id.pitchText);
         textView12 = (TextView) findViewById(R.id.textView12);
+
 
 
 
@@ -86,32 +110,19 @@ public class marking_test extends AppCompatActivity {
         audioThread = new Thread(dispatcher, "Audio Thread");
 
 
-        ///d음악 틀기
+        mediaplayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            public void onCompletion(MediaPlayer mp) {
+                //여기다 완료 후 코드 작성
 
-        try {
-            // music_stop();
-            mediaplayer.setDataSource("https://firebasestorage.googleapis.com/v0/b/chatting-570cd.appspot.com/o/%5BDingaStar%5D%20%ED%95%91%ED%81%AC%ED%90%81(PinkFong)-%EC%83%81%EC%96%B4%EA%B0%80%EC%A1%B1(Baby%20Shark)%20(Karaoke%20App%20No.1%20DingaStar).mp3?alt=media&token=8952a8be-62bc-463b-9ffc-b65ac5d23a8d");
+                String result= "수고하셨습니다. "+(int)((score/total)*100)+"점 입니다.";
 
-            mediaplayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener()
-            {
-                @Override
-                public void onPrepared(MediaPlayer mp){
-
-                    mp.start();
-
-                }
+                Toast toast = Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.CENTER , 0, 0);
+                toast.show();
 
 
-            });
-            mediaplayer.prepare();
-        }catch (Exception e) {
-            e.printStackTrace();
-        }
-
-
-        //시작
-        audioThread.start();
-
+            }
+        });
 
 
         }
@@ -141,20 +152,32 @@ public class marking_test extends AppCompatActivity {
     public void processPitch(float pitchInHz) {
         correc_count++;
 
-        pitchText.setText("" + pitchInHz);
-        textView12.setText(""+score);
+
+
+
+        textView12.setText("카운트 : "+score);
         char pitch='3';
         if(correc.length()-10>correc_count)
         {
             pitch = correc.charAt(correc_count);
         }
-        else
-        {
-            score-=3;
-        }
+
+
+
         tmp+="1";
-        if(pitchInHz >= 125&&pitchInHz < 137) {
+        if(pitchInHz<120)
+        {
+            count++;
+            if(count>3)
+            {
+                count=0;
+                pitchText.setText("음정: " );
+            }
+
+        }
+        else if(pitchInHz >= 125&&pitchInHz < 137) {
             //A
+            pitchText.setText("음정: 1옥 도" );
           if(pitch=='a')
           {
               score++;
@@ -165,24 +188,26 @@ public class marking_test extends AppCompatActivity {
         }
         else if(pitchInHz >= 144&& pitchInHz < 153) {
             //B
+            pitchText.setText("음정: 1옥 레" );
             if(pitch=='b')
             {
                 score++;
-
             }
 
         }
         else if(pitchInHz >= 160 && pitchInHz < 170) {
             //C
+            pitchText.setText("음정: 1옥 미" );
             if(pitch=='c')
             {
                 score++;
-
             }
 
         }
         else if(pitchInHz >= 171 && pitchInHz < 180) {
             //D
+            pitchText.setText("음정: 1옥 파" );
+
             if(pitch=='d')
             {
                 score++;
@@ -192,6 +217,7 @@ public class marking_test extends AppCompatActivity {
         }
         else if(pitchInHz >= 190 && pitchInHz <=203) {
             //E
+            pitchText.setText("음정: 1옥 솔" );
             if(pitch=='e')
             {
                 score++;
@@ -201,52 +227,53 @@ public class marking_test extends AppCompatActivity {
         }
         else if(pitchInHz >= 215 && pitchInHz < 230) {
             //F
+            pitchText.setText("음정: 1옥 라" );
             if(pitch=='f')
             {
                 score++;
-
             }
 
         }
         else if(pitchInHz >= 243 && pitchInHz < 253) {
             //G
+            pitchText.setText("음정: 1옥 시" );
             if(pitch=='g')
             {
                 score++;
-
             }
 
         }
         else if(pitchInHz >= 254 && pitchInHz < 280) {
             //G
+            pitchText.setText("음정: 2옥 도" );
             if(pitch=='A')
             {
                 score++;
-
             }
 
         }
         else if(pitchInHz >= 285 && pitchInHz <308) {
             //G
+            pitchText.setText("음정: 2옥 레" );
             if(pitch=='B')
             {
                 score++;
-
             }
 
         }
         else if(pitchInHz >= 327 && pitchInHz < 340) {
             //G
-
+            pitchText.setText("음정: 2옥 미" );
             if(pitch=='C')
             {
                 score++;
+
 
             }
         }
         else if(pitchInHz >= 343 && pitchInHz < 362) {
             //G
-
+            pitchText.setText("음정: 2옥 파" );
             if(pitch=='D')
             {
                 score++;
@@ -255,31 +282,36 @@ public class marking_test extends AppCompatActivity {
         }
         else if(pitchInHz >= 386 && pitchInHz < 399) {
             //G
-
+            pitchText.setText("음정: 2옥 솔" );
             if(pitch=='E')
             {
                 score++;
+
 
             }
         }
         else if(pitchInHz >= 435 && pitchInHz < 448) {
             //G
-
+            pitchText.setText("음정: 2옥 라" );
             if(pitch=='F')
             {
                 score++;
+
 
             }
         }
         else if(pitchInHz >= 490 ) {
             //G
+            pitchText.setText("음정: 2옥 시" );
             if(pitch=='G')
             {
                 score++;
 
+
             }
 
         }
+
 
 
     }
@@ -311,5 +343,117 @@ public class marking_test extends AppCompatActivity {
         }
     }
 
+
+    public void select_music(View view) {
+        music_stop();
+
+        Intent i = new Intent(this,  music_lists.class);
+        startActivity(i);
+
+
+
+
+
+
+    }
+
+
+
+
+    public void music_start(View view) {
+        ///d음악 틀기
+
+        MyApplication myApp2 = (MyApplication)getApplicationContext();
+        String tmp=myApp2.getMusic_title();
+        if(tmp.equals(""))
+        {
+
+            Toast toast = Toast.makeText(getApplicationContext(), "먼저 노래를 선택하세요", Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.CENTER , 0, 0);
+            toast.show();
+
+
+            return;
+        }
+
+
+
+        ValueEventListener postListener5 = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+
+
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    String key = postSnapshot.getKey();
+                    FirebasePost_music get = postSnapshot.getValue(FirebasePost_music.class);
+                    String[] info = { get.title, get.url, get.lyric,get.sheet};
+
+                    MyApplication myApp = (MyApplication)getApplicationContext();
+                    String tmp=myApp.getMusic_title();
+
+                    if(tmp.equals(info[0]))
+                    {
+                        music_url=info[1];
+                        correc=info[3];
+
+                    }
+
+
+                }
+
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w("getFirebaseDatabase", "loadPost:onCancelled", databaseError.toException());
+
+            }
+        };
+
+
+        // String sort_column_name = "get_url";
+        Query sortbyAge = FirebaseDatabase.getInstance().getReference().child("music");
+        // sortbyAge.addValueEventListener(postListener);
+        sortbyAge.addListenerForSingleValueEvent(postListener5);
+
+        Handler delayHandler6 = new Handler();
+        delayHandler6.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                for(int i=0;i<correc.length();i++)
+                {
+                 if(correc.charAt(i)!='1')total++;
+                }
+
+                try {
+                    // music_stop();
+
+
+                    mediaplayer.setDataSource(music_url);
+
+                    mediaplayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                        @Override
+                        public void onPrepared(MediaPlayer mp) {
+
+                            mp.start();
+
+                        }
+
+
+                    });
+                    mediaplayer.prepare();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                //채점시작
+                audioThread.start();
+
+            }
+        }, 700);
+
+    }
 
 }
