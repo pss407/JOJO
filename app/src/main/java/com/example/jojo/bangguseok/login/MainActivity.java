@@ -1,6 +1,8 @@
 package com.example.jojo.bangguseok.login;
 
+import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -47,6 +49,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        AudioManager am;
+
+        am = (AudioManager)getSystemService(Context.AUDIO_SERVICE);  //마이크
+        am.setMicrophoneMute(false);
 ////
 
 //////

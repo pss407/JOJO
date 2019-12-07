@@ -11,6 +11,7 @@ public class FirebasePost_music {
     public String title;
     public String url;
     public String lyric;
+    public String sheet;
 
 
 
@@ -29,6 +30,7 @@ public class FirebasePost_music {
         result.put("title", title);
         result.put("url",url);
         result.put("lyric",lyric);
+        result.put("sheet",sheet);
 
         return result;
     }
