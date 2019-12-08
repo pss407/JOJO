@@ -89,11 +89,6 @@ public class music_lists extends AppCompatActivity {
             Query sortbyAge = FirebaseDatabase.getInstance().getReference().child("music");
             sortbyAge.addListenerForSingleValueEvent(postListener);
 
-
-
-
-   
-
         Handler delayHandler6 = new Handler();
         delayHandler6.postDelayed(new Runnable() {
             @Override
@@ -101,7 +96,7 @@ public class music_lists extends AppCompatActivity {
 
                 final ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                         music_lists.this, //context(액티비티 인스턴스)
-                        android.R.layout.simple_list_item_1, // 한 줄에 하나의 텍스트 아이템만 보여주는 레이아웃 파일
+                        R.layout.musiclist, // 한 줄에 하나의 텍스트 아이템만 보여주는 레이아웃 파일
                         // 한 줄에 보여지는 아이템 갯수나 구성을 변경하려면 여기에 새로만든 레이아웃을 지정하면 됩니다.
                         list  // 데이터가 저장되어 있는 ArrayList 객체
                 );

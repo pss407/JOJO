@@ -160,8 +160,6 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
 
     String correc="";
 
-
-
     public static final String PREFER_EXTENSION_DECODERS = "prefer_extension_decoders";
 
     private static final DefaultBandwidthMeter BANDWIDTH_METER = new DefaultBandwidthMeter();
@@ -191,8 +189,6 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
     protected String userAgent;
     private EditText videoNameEditText;
     private View videoStartControlLayout;
-
-
 
     private static final String TAG = LiveVideoBroadcasterActivity.class.getSimpleName();
     private ViewGroup mRootView;
@@ -244,14 +240,8 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
     float pitchInHz_tmp;
     String tmp2="";
 
-
-
-
-
     String vote1;
     String vote2;
-
-
 
     /** Defines callbacks for service binding, passed to bindService() */
     private ServiceConnection mConnection = new ServiceConnection() {

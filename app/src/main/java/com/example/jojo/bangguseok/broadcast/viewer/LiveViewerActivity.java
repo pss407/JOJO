@@ -78,8 +78,6 @@ public class LiveViewerActivity extends AppCompatActivity {
     Handler delayHandler7;
     Handler delayHandler9;
 
-
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_live_video_viewer);
@@ -90,24 +88,11 @@ public class LiveViewerActivity extends AppCompatActivity {
         videoView = (VideoView) findViewById(R.id.videoView);
         videoView2 = (VideoView) findViewById(R.id.videoView2);
 
-
-
-
-
-
-
-
         videoView.setVideoURI(Uri.parse(myApp1.getSend_url()));
         videoView2.setVideoURI(Uri.parse(myApp1.getGet_url()));
 
         videoView.start();
         videoView2.start();
-
-
-
-
-
-
 
         lv = findViewById(R.id.chat_list2);
         edt = findViewById(R.id.chat_message2);
@@ -446,10 +431,6 @@ public class LiveViewerActivity extends AppCompatActivity {
         sortby = FirebaseDatabase.getInstance().getReference().child("URL").child(value);
         // sortbyAge.addValueEventListener(postListener);
         sortby.addValueEventListener(postListener1);
-
-
-
-
     }
 
 

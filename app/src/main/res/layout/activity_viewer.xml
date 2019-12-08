@@ -5,20 +5,35 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20dp"
-        android:text="현재 개설된 채팅방"
-        android:fontFamily="@font/bm"
-        android:layout_marginBottom="20dp"
-        android:gravity="center"/>
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="#675B88">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="대결 방 목록"
+                android:textColor="#FFF"
+                android:fontFamily="@font/bmb"
+                android:layout_gravity="center"
+                android:textSize="20dp"/>
+
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <ListView
         android:id="@+id/chat_list"
         android:fontFamily="@font/bm"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </ListView>
+        android:layout_height="match_parent"
+        android:background="@drawable/back"/>
 
 </LinearLayout>

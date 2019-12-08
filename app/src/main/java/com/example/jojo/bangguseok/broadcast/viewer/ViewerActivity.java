@@ -150,10 +150,8 @@ public class ViewerActivity extends AppCompatActivity {
 
     private void showChatList() {
 
-
-
         // 리스트 어댑터 생성 및 세팅
-        final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, android.R.id.text1);
+        final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.musiclist);
         chat_list.setAdapter(adapter);
 
         // 데이터 받아오기 및 어댑터 데이터 추가 및 삭제 등..리스너 관리
