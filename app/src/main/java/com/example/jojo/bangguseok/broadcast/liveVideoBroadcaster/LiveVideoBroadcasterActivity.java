@@ -1562,7 +1562,7 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
                 }
 
                 //audioThread2.start();
-
+//
             }
         }, 500);   //나보다 상대는 조금 늦게 노래가끝나기때문에 딜레이를 줌
 /*
