@@ -15,7 +15,7 @@ public class FirebasePost_url {
     public String music_finish;
     public String vote;
 
-    
+
     public FirebasePost_url(){
         // Default constructor required for calls to DataSnapshot.getValue(FirebasePost.class)
     }
