@@ -452,6 +452,9 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
                 String num= myApp3.getUrl_room();
                 tmp=num;
 
+
+
+                ///
                 MyApplication myApp2 = (MyApplication)getApplicationContext();
 
 

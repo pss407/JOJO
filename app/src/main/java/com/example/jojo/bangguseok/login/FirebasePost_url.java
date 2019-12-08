@@ -14,6 +14,7 @@ public class FirebasePost_url {
     public String num;
     public String music_finish;
     public String vote;
+    public String music_title;
 
 
     public FirebasePost_url(){
@@ -37,6 +38,7 @@ public class FirebasePost_url {
         result.put("num",num);
         result.put("music_finish",music_finish);
         result.put("vote",vote);
+        result.put("music_title",music_title);
 
 
         return result;

@@ -77,8 +77,14 @@ public class SelectMode extends AppCompatActivity {
     public MediaPlayer m;
     public Context c;
 
+    String listener2_stop="false";
+
     private String ismatching="false";
 
+    String tmp;
+
+    String music_title1;
+    String music_title2;
 
     Intent t;
     @Override
@@ -321,59 +327,148 @@ public class SelectMode extends AppCompatActivity {
 
 
 
+                    MyApplication myApp3 = (MyApplication)getApplicationContext();
+                    String num3= myApp3.getUrl_room();
+                    tmp=num3;
+
+                    //노래제목 url db에 넣기
+                    MyApplication myApp9 = (MyApplication)getApplicationContext();
+                    String music_title_tmp=myApp9.getMusic_title();
+
+                    databaseReference.child("URL").child("room" + tmp).child("url_"+myApp9.getOrder()).child("music_title").setValue(music_title_tmp);
 
 
+                    ///
 
-                    postListener2 = new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-
-
-                            int count = 1;
+                    if(myApp9.getOrder().equals("1"))
+                    {
 
 
-                            for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                                String key = postSnapshot.getKey();
-                                FirebasePost_url get = postSnapshot.getValue(FirebasePost_url.class);
-                                String[] info = {get.check};
+                        postListener2 = new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
 
 
-                                if (info[0].equals("true")) {
+                                int count = 1;
 
 
-                                    if (count == 2)
+                                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                                    String key = postSnapshot.getKey();
+                                    FirebasePost_url get = postSnapshot.getValue(FirebasePost_url.class);
+                                    String[] info = {get.check, get.music_title};
+
+                                    if(count==1)
                                     {
+                                        music_title1=info[1];
+                                    }
 
-                                        ismatching="true";
-                                        progressDialog.cancel();
 
-                                        startActivity(t);
-                                        databaseReference.child("chat").child("room" + num).setValue("");
+                                    if (info[0].equals("true")) {
 
+
+                                        if (count == 2&&listener2_stop.equals("false"))
+                                        {
+                                            music_title2=info[1];
+
+                                            ismatching="true";
+                                            progressDialog.cancel();
+                                            listener2_stop="true";
+
+                                            startActivity(t);
+                                           // databaseReference.child("chat").child("room" + num+" "+music_title1+" "+music_title2).setValue("");
+
+
+                                        }
+                                        count++;
 
                                     }
-                                    count++;
 
                                 }
 
                             }
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+                                Log.w("getFirebaseDatabase", "loadPost:onCancelled", databaseError.toException());
 
-                        }
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-                            Log.w("getFirebaseDatabase", "loadPost:onCancelled", databaseError.toException());
-
-                        }
-                    };
+                            }
+                        };
 
 
 
 
-                    String value = "room" + num;
-                    // String sort_column_name = "get_url";
-                    sortby = FirebaseDatabase.getInstance().getReference().child("URL").child(value);
-                    // sortbyAge.addValueEventListener(postListener);
-                    sortby.addValueEventListener(postListener2);
+                        String value = "room" + num;
+                        // String sort_column_name = "get_url";
+                        sortby = FirebaseDatabase.getInstance().getReference().child("URL").child(value);
+                        // sortbyAge.addValueEventListener(postListener);
+                        sortby.addValueEventListener(postListener2);
+
+
+                    }
+                    else
+                    {
+                        postListener2 = new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+
+
+                                int count = 1;
+
+
+                                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                                    String key = postSnapshot.getKey();
+                                    FirebasePost_url get = postSnapshot.getValue(FirebasePost_url.class);
+                                    String[] info = {get.check, get.music_title};
+
+                                    if(count==1)
+                                    {
+                                        music_title1=info[1];
+                                    }
+
+
+                                    if (info[0].equals("true")) {
+
+
+                                        if (count == 2&&listener2_stop.equals("false"))
+                                        {
+                                            music_title2=info[1];
+                                            listener2_stop="true";
+
+                                            ismatching="true";
+                                            progressDialog.cancel();
+
+                                            startActivity(t);
+                                            databaseReference.child("chat").child("room" + num+" "+music_title1+" "+music_title2).setValue("");
+
+
+                                        }
+                                        count++;
+
+                                    }
+
+                                }
+
+                            }
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+                                Log.w("getFirebaseDatabase", "loadPost:onCancelled", databaseError.toException());
+
+                            }
+                        };
+
+
+
+
+                        String value = "room" + num;
+                        // String sort_column_name = "get_url";
+                        sortby = FirebaseDatabase.getInstance().getReference().child("URL").child(value);
+                        // sortbyAge.addValueEventListener(postListener);
+                        sortby.addValueEventListener(postListener2);
+
+
+
+                    }
+
+
 
 
                     Handler delayHandler6 = new Handler();
@@ -444,6 +539,8 @@ public class SelectMode extends AppCompatActivity {
         Intent i = new Intent(this, ViewerActivity.class);
         startActivity(i);
     }
+
+
 
     public void Sample_music(View view) {
 
@@ -553,6 +650,30 @@ public class SelectMode extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        ismatching="false";
+        threading=false;
+
+        start_battle=false;
+        num="";
+        i=0;
+        isUrl_1=true;
+        listener2_stop="false";
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+
+
+
+
+    }
 
     @Override
     protected void onDestroy() {

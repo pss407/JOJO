@@ -468,6 +468,8 @@ public class LiveViewerActivity extends AppCompatActivity {
 
         sortby.removeEventListener(postListener1);
 
+
+
        // delayHandler8.removeCallbacksAndMessages(null);
        // delayHandler7.removeCallbacksAndMessages(null);
       //  delayHandler9.removeCallbacksAndMessages(null);

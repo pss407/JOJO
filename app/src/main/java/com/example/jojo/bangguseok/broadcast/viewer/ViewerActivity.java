@@ -25,6 +25,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.StringTokenizer;
+
 public class ViewerActivity extends AppCompatActivity {
 
     private ListView chat_list;
@@ -32,6 +34,7 @@ public class ViewerActivity extends AppCompatActivity {
     private int channel_count=2;
 
     String strText;
+
 
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference = firebaseDatabase.getReference();
@@ -57,7 +60,17 @@ public class ViewerActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView parent, View v, int position, long id) {
 
-                strText = (String)parent.getItemAtPosition(position);
+                strText="";
+
+                String str_tmp = (String)parent.getItemAtPosition(position);
+
+                //StringTokenizer st1 = new StringTokenizer(str_tmp,"");
+
+               // strText=st1.nextToken();
+                for(int i=0;i<5;i++)
+                {
+                    strText+=str_tmp.charAt(i);
+                }
 
 //////////////////////////////
 
@@ -68,9 +81,6 @@ public class ViewerActivity extends AppCompatActivity {
 
                             int count=1;
 
-
-
-//
 
                             for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                                 String key = postSnapshot.getKey();
