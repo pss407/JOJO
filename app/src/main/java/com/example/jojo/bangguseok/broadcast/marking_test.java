@@ -42,6 +42,7 @@ public class marking_test extends AppCompatActivity {
     String tmp="";
     TextView pitchText;
     TextView textView12;
+    TextView textView;
     TextView noteText;
     TextView textView11;
     float pitchInHz_tmp;
@@ -55,6 +56,7 @@ public class marking_test extends AppCompatActivity {
 
 
     public String correc="";
+    String lyric="";
 
     int correc_count=-1;// "111111111111111111111111111111111aaaaaaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbbbbbbbeeeee1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111                         cccccccccccccccc bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbcccccccc bbbbbbbbccccccccbbbbbbbbccccccccbbbbbbbbcccccccc                            bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb11111111111111111111                                                  1111111111111111bbbbbbbbbbbbbbbbbbbbb                                           aaaaaaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbbbbcccccccccccccccbbbbbbbbbbbbb111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111bbbbbb                                      1111111111111111111111111111111111111111111111aaaaaaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbbbbcccccccccccccccbbbbbbbbbbbbbbbbbbb1111111aaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbbbdddddddddddddddddddd11111111111111111111aaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbbbcccccccccccccccaaaaaaaaaa                                                                11111111111111111111                                      aaaaaaaaaaaaaaaaaaaaaaaccccccccccccccccccccc       11111111111111111111111111111111111111111111111111111111111111111ccccccccccccccccccccc111111cccccccccccccccccccccccccccccccccccccccccc111111cccccccccccccccccccccccccccccccccccccccccccccccccaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc111aaaacccccccccccccccccccccaaaaaaaaaaaaaaaaaaaa111111111                                 1111111111111111111111111111111111111111                         1111111111111111111111111111111111111111                                1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111                                  1111111111                         1111111111                          1111111111                    1111111111                  1111111111                 11111111111111111111           1111111111
 
@@ -83,6 +85,7 @@ public class marking_test extends AppCompatActivity {
 
         pitchText = (TextView) findViewById(R.id.pitchText);
         textView12 = (TextView) findViewById(R.id.textView12);
+        textView = (TextView) findViewById(R.id.textView);
 
 
 
@@ -418,6 +421,7 @@ public class marking_test extends AppCompatActivity {
                     {
                         music_url=info[1];
                         correc=info[3];
+                        lyric=info[2];
 
                     }
 
@@ -443,6 +447,8 @@ public class marking_test extends AppCompatActivity {
         delayHandler6.postDelayed(new Runnable() {
             @Override
             public void run() {
+
+                textView.setText(lyric);
 
                 for(int i=0;i<correc.length();i++)
                 {
