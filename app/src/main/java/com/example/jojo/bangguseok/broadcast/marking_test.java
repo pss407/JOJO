@@ -69,6 +69,8 @@ public class marking_test extends AppCompatActivity {
 
     double total=0;
 
+    boolean music_start_check=false;
+
 
 
     @Override
@@ -119,6 +121,16 @@ public class marking_test extends AppCompatActivity {
                 Toast toast = Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG);
                 toast.setGravity(Gravity.CENTER , 0, 0);
                 toast.show();
+
+                Handler delayHandler6 = new Handler();
+                delayHandler6.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        finish();
+
+                    }
+                }, 3000);
 
 
             }
@@ -363,6 +375,15 @@ public class marking_test extends AppCompatActivity {
     public void music_start(View view) {
         ///d음악 틀기
 
+        if(music_start_check==true)
+        {
+            Toast toast = Toast.makeText(getApplicationContext(), "음악이 진행중입니다.", Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.CENTER , 0, 0);
+            toast.show();
+
+            return;
+        }
+
         MyApplication myApp2 = (MyApplication)getApplicationContext();
         String tmp=myApp2.getMusic_title();
         if(tmp.equals(""))
@@ -377,6 +398,7 @@ public class marking_test extends AppCompatActivity {
         }
 
 
+        music_start_check=true;
 
         ValueEventListener postListener5 = new ValueEventListener() {
             @Override
