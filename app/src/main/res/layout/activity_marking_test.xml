@@ -9,11 +9,11 @@
 
     <Button
         android:id="@+id/button14"
-        android:layout_width="wrap_content"
+        android:layout_width="109dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"
+        android:layout_gravity="center_horizontal"
         android:layout_marginTop="56dp"
-        android:layout_marginRight="35dp"
+        android:layout_marginLeft="200dp"
         android:background="@drawable/button_shape"
         android:fontFamily="@font/bmb"
         android:onClick="music_start"
@@ -24,11 +24,11 @@
 
     <Button
         android:id="@+id/button12"
-        android:layout_width="wrap_content"
+        android:layout_width="109dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="left"
-        android:layout_marginLeft="35dp"
+        android:layout_gravity="center_horizontal"
         android:layout_marginTop="56dp"
+        android:layout_marginRight="200dp"
         android:background="@drawable/button_shape"
         android:fontFamily="@font/bmb"
         android:onClick="select_music"

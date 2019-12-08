@@ -438,8 +438,8 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
 
         Handler delayHandler2 = new Handler();
         delayHandler2.postDelayed(new Runnable() {
-            @Override
-            public void run() {
+                @Override
+                public void run() {
                 //여기에 딜레이 후 시작할 작업들을 입력
                 com.example.jojo.bangguseok.login.MyApplication myApp = (com.example.jojo.bangguseok.login.MyApplication) getApplicationContext();
                 String URL = myApp.getGet_url();//"https://orrkzjbnurrk2465864.cdn.ntruss.com/video/235_360p_s_l.m3u8";//myApp.getGet_url()   //진홍//"https://gkbjsozvwply2376889.cdn.ntruss.com/video/253_270p_s_l.m3u8";
@@ -901,9 +901,6 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
 
         final com.example.jojo.bangguseok.login.MyApplication myApp = (com.example.jojo.bangguseok.login.MyApplication) getApplicationContext();
 
-
-//list.add(new ChatVO(R.drawable.profile3, "찡찡이", "안녕", "오후 4:42"));
-
         final ChatAdapter adapter = new ChatAdapter(getApplicationContext(), R.layout.talklist, list, id);
         ((ListView) findViewById(R.id.listView)).setAdapter(adapter);
 
@@ -923,9 +920,6 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
                             sb.insert(15 * i, "\n");
                         }
                     }
-
-//list.add(new ChatVO(R.drawable.profile1, id, sb.toString(), timeNow.format(today)));
-//adapter.notifyDataSetChanged();
 
                     myRef.child("room"+myApp.getUrl_room()).push().setValue(new ChatVO(R.drawable.profile, id, sb.toString(), timeNow.format(today)));
                     edt.setText("");
@@ -1181,8 +1175,13 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
             stopTimer();
             mLiveVideoBroadcaster.stopBroadcasting();
         }
+//지농
 
-        childUpdates.put("/room1/", postValues);
+        MyApplication myApp5 = (MyApplication)getApplicationContext();
+        String tmp1=myApp5.getMusic_title1();
+        String tmp2=myApp5.getMusic_title2();
+
+        childUpdates.put("/room1 "+tmp1+" "+tmp2+"/", postValues);
         myRef.child("chat").updateChildren(childUpdates);
 
         mIsRecording = false;
@@ -1732,6 +1731,9 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
         }
 
         MyApplication myApp = (MyApplication)getApplicationContext();
+
+
+
 
         databaseReference.child("URL").child("room" + myApp.getUrl_room()).child("url_1").child("check").setValue("false");
         databaseReference.child("URL").child("room" + myApp.getUrl_room()).child("url_2").child("check").setValue("false");

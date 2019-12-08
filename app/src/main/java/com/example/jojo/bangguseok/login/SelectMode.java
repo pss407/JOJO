@@ -326,7 +326,6 @@ public class SelectMode extends AppCompatActivity {
                     myApp.setUrl_room(num);
 
 
-
                     MyApplication myApp3 = (MyApplication)getApplicationContext();
                     String num3= myApp3.getUrl_room();
                     tmp=num3;
@@ -336,7 +335,6 @@ public class SelectMode extends AppCompatActivity {
                     String music_title_tmp=myApp9.getMusic_title();
 
                     databaseReference.child("URL").child("room" + tmp).child("url_"+myApp9.getOrder()).child("music_title").setValue(music_title_tmp);
-
 
                     ///
 
@@ -350,7 +348,6 @@ public class SelectMode extends AppCompatActivity {
 
 
                                 int count = 1;
-
 
                                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                                     String key = postSnapshot.getKey();
@@ -369,6 +366,11 @@ public class SelectMode extends AppCompatActivity {
                                         if (count == 2&&listener2_stop.equals("false"))
                                         {
                                             music_title2=info[1];
+
+                                            MyApplication myApp5 = (MyApplication)getApplicationContext();
+                                            myApp5.setMusic_title1(music_title1);
+                                            myApp5.setMusic_title2(music_title2);
+
 
                                             ismatching="true";
                                             progressDialog.cancel();
@@ -433,6 +435,10 @@ public class SelectMode extends AppCompatActivity {
                                             music_title2=info[1];
                                             listener2_stop="true";
 
+                                            MyApplication myApp5 = (MyApplication)getApplicationContext();
+                                            myApp5.setMusic_title1(music_title1);
+                                            myApp5.setMusic_title2(music_title2);
+
                                             ismatching="true";
                                             progressDialog.cancel();
 
@@ -463,8 +469,6 @@ public class SelectMode extends AppCompatActivity {
                         sortby = FirebaseDatabase.getInstance().getReference().child("URL").child(value);
                         // sortbyAge.addValueEventListener(postListener);
                         sortby.addValueEventListener(postListener2);
-
-
 
                     }
 
