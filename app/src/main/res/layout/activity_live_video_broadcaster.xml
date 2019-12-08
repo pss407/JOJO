@@ -6,7 +6,7 @@
     tools:context="com.example.jojo.bangguseok.broadcast.liveVideoBroadcaster.LiveVideoBroadcasterActivity"
     android:id="@+id/root_layout"
     android:orientation="vertical"
-    android:background="#664EFF">
+    android:background="@drawable/back">
 
     <LinearLayout
         android:id="@+id/controls_root"
@@ -119,32 +119,34 @@
 
         <EditText
             android:id="@+id/chat_message"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_250sdp"
             android:layout_height="43dp"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="10dp"
             android:layout_marginBottom="40dp"
             android:ems="15"
             android:inputType="textPersonName"
-            android:textColor="#fff"
             android:hint="메세지 보내기"
             android:fontFamily="@font/bm"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/bnt_send"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/listView" />
+            app:layout_constraintTop_toBottomOf="@+id/listView"
+            android:backgroundTint="@android:color/white"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/white"/>
 
         <ImageButton
             android:id="@+id/bnt_send"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
             android:layout_marginBottom="40dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/chat_message"
             app:layout_constraintTop_toBottomOf="@+id/listView"
             android:background="@android:color/transparent"
-            android:src="@drawable/send" />
+            app:srcCompat="@drawable/ic_send_24px"
+            android:scaleType="fitXY"/>
 
         <Button
             android:id="@+id/toggle_broadcasting"
@@ -159,7 +161,8 @@
             android:textColor="@android:color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            android:visibility="gone"/>
 
         <ScrollView
             android:layout_width="409dp"
