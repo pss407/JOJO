@@ -35,6 +35,8 @@ public class ViewerActivity extends AppCompatActivity {
 
     String strText;
 
+    String strText2;
+
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     final DatabaseReference myRef = database.getReference();
 
@@ -55,6 +57,7 @@ public class ViewerActivity extends AppCompatActivity {
                 strText="";
 
                 String str_tmp = (String)parent.getItemAtPosition(position);
+                strText2=str_tmp;
 
                 //StringTokenizer st1 = new StringTokenizer(str_tmp,"");
 
@@ -63,6 +66,8 @@ public class ViewerActivity extends AppCompatActivity {
                 {
                     strText+=str_tmp.charAt(i);
                 }
+
+
 
 //////////////////////////////
 
@@ -129,7 +134,7 @@ public class ViewerActivity extends AppCompatActivity {
                     public void run() {
 
                         Intent i = new Intent(ViewerActivity.this, LiveViewerActivity.class);
-                        i.putExtra("room", strText);
+                        i.putExtra("room", strText2);
                         startActivity(i);
 
                     }

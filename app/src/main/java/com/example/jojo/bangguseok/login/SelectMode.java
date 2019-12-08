@@ -443,7 +443,7 @@ public class SelectMode extends AppCompatActivity {
                                             progressDialog.cancel();
 
                                             startActivity(t);
-                                            databaseReference.child("chat").child("room" + num+" "+music_title1+" "+music_title2).setValue("");
+                                            databaseReference.child("chat").child("room" + num+": "+music_title1+" vs "+music_title2).setValue("");
 
 
                                         }

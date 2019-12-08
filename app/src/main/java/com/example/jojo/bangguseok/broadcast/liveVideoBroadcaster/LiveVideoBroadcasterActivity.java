@@ -911,13 +911,16 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
                         }
                     }
 
-                    myRef.child("room"+myApp.getUrl_room()).push().setValue(new ChatVO(R.drawable.profile, id, sb.toString(), timeNow.format(today)));
+                    MyApplication myApp = (MyApplication) getApplicationContext();
+
+
+                    myRef.child("room"+myApp.getUrl_room()+": "+myApp.getMusic_title1()+" vs "+myApp.getMusic_title2()+"/").push().setValue(new ChatVO(R.drawable.profile, id, sb.toString(), timeNow.format(today)));
                     edt.setText("");
                 }
             }
         });
 //
-        myRef.child("room"+myApp.getUrl_room()).addChildEventListener(new ChildEventListener() {
+        myRef.child("room"+myApp.getUrl_room()+": "+myApp.getMusic_title1()+" vs "+myApp.getMusic_title2()+"/").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 ChatVO value = dataSnapshot.getValue(ChatVO.class); // 괄호 안 : 꺼낼 자료 형태
@@ -1171,7 +1174,7 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
         String tmp1=myApp5.getMusic_title1();
         String tmp2=myApp5.getMusic_title2();
 
-        childUpdates.put("/room1 "+tmp1+" "+tmp2+"/", postValues);
+        childUpdates.put("/room"+myApp5.getUrl_room()+": "+tmp1+" vs "+tmp2+"/", postValues);
         myRef.child("chat").updateChildren(childUpdates);
 
         mIsRecording = false;
