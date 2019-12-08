@@ -191,6 +191,16 @@ public class LiveViewerActivity extends AppCompatActivity {
                        {
                            listener1_finish="true";
 
+                           delayHandler8 = new Handler();
+                           delayHandler8.postDelayed(new Runnable() {
+                               @Override
+                               public void run() {
+
+
+
+
+
+
                            builder.setTitle("투표를 해주세요").setMessage("5초 후에 투표가 마감됩니다.");
 
                            builder.setPositiveButton("2번", new DialogInterface.OnClickListener(){
@@ -370,7 +380,7 @@ public class LiveViewerActivity extends AppCompatActivity {
                                                        builder2.setTitle("").setMessage("수고하셨습니다. 무승부 입니다.");
                                                    }
                                                    else {
-                                                       builder2.setTitle("").setMessage("수고하셨습니다. 우승자는 " +winner+" 입니다.  5초후에 방을 나갑니다");
+                                                       builder2.setTitle("").setMessage("수고하셨습니다. 우승자는 " +winner+" 입니다.  3초후에 방을 나갑니다");
                                                    }
 
 
@@ -395,7 +405,7 @@ public class LiveViewerActivity extends AppCompatActivity {
 
 
                                                        }
-                                                   }, 6000);   //이거 나중에 바꾸기
+                                                   }, 4000);   //이거 나중에 바꾸기
 
                                                }
                                            }, 1500);   //이거 나중에 바꾸기
@@ -404,12 +414,14 @@ public class LiveViewerActivity extends AppCompatActivity {
 
 
                                        }
-                                   }, 8000);   //이거 나중에 바꾸기
+                                   }, 5000);   //이거 나중에 바꾸기
 
 
                                }
                            }, 7000);  //dialog가 아직 존재하면(투표를 끝까지안할경우) 다이아로그 취소
 
+                               }
+                           }, 9000);   //둘다 true된후 몇초 후에 투표 띄울건지
                        }
                        count++;
 

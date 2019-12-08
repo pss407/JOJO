@@ -134,6 +134,8 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
 
     MediaPlayer m;
 
+    AlertDialog alertDialog;
+
     //채팅 변수
 
     ArrayList<ChatVO> list = new ArrayList<>();
@@ -349,7 +351,7 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
         //videoStartControlLayout.setVisibility(View.GONE);
         /////////송출
 
-        Toast toast = Toast.makeText(getApplicationContext(), "5초후에 대결이 시작됩니다. 대결을 준비하세요", Toast.LENGTH_LONG);
+        Toast toast = Toast.makeText(getApplicationContext(), "8초후에 대결이 시작됩니다. 대결을 준비하세요", Toast.LENGTH_LONG);
         toast.setGravity(Gravity.CENTER , 0, 0);
         toast.show();
 
@@ -493,7 +495,7 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
 
                                                     databaseReference.child("URL").child("room" + tmp).child("url_1").child("music_finish").setValue("true");
                                                 }
-                                            }, 7000);   //나보다 상대는 조금 늦게 노래가끝나기때문에 딜레이를 줌
+                                            }, 9000);   //나보다 상대는 조금 늦게 노래가끝나기때문에 딜레이를 줌
 
 
                                         }
@@ -616,7 +618,7 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
 
                 }
             }
-        }, 12000);
+        }, 15000);
 
         MyApplication myApp6 = (MyApplication)getApplicationContext();
         numm=myApp6.getUrl_room();
@@ -650,7 +652,7 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
                       {
                           Listener4_finish="true";
 
-                          Toast toast = Toast.makeText(getApplicationContext(), "채점, 투표 마감후 결과가 발표됩니다. 잠시만 기다려주세요", Toast.LENGTH_LONG);
+                          Toast toast = Toast.makeText(getApplicationContext(), "투표 마감후 결과가 발표됩니다. 잠시만 기다려주세요", Toast.LENGTH_LONG);
                           toast.setGravity(Gravity.CENTER , 0, 0);
                           toast.show();
 
@@ -807,8 +809,7 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
 
                                               }
                                           });
-
-                                          AlertDialog alertDialog = builder.create();
+                                              alertDialog = builder.create();
                                           alertDialog.show();
 
 
@@ -817,6 +818,9 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
                                           delayHandler8.postDelayed(new Runnable() {
                                               @Override
                                               public void run() {
+
+                                                  alertDialog.cancel();
+
 
                                                   finish();
 
@@ -828,7 +832,7 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
                                   }, 1500);   //이거 나중에 바꾸기
 
                               }
-                          }, 15000);   //이거 나중에 바꾸기
+                          }, 17000);   //이거 나중에 바꾸기
 
                       }
                       count++;
@@ -1330,6 +1334,8 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
             @Override
             public void run() {
 
+                textView13.setText(lyrics);
+
 
                 try {
                     // music_stop();
@@ -1353,7 +1359,7 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
                 //audioThread2.start();
 //
             }
-        }, 500);   //나보다 상대는 조금 늦게 노래가끝나기때문에 딜레이를 줌
+        }, 1500);   //나보다 상대는 조금 늦게 노래가끝나기때문에 딜레이를 줌
 /*
         Handler delayHandler7 = new Handler();
         delayHandler6.postDelayed(new Runnable() {
