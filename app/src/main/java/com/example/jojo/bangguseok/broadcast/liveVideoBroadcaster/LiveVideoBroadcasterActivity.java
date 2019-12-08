@@ -243,7 +243,7 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
 
     float pitchInHz_tmp;
     String tmp2="";
-    AudioDispatcher dispatcher2;
+
     int score=0;
     int correc_count=-1;
     Thread audioThread2;
@@ -494,7 +494,7 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
                                             am.setMicrophoneMute(true);
 
 
-                                            releaseDispatcher();
+
                                            // databaseReference.child("URL").child("room" + tmp).child("url_1").child("score").setValue(score_tmp);
                                            // databaseReference2.child("URL").child("room" + tmp).child("url_1").child("scores").setValue("");
 
@@ -573,7 +573,7 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
                                                             String num= myApp4.getUrl_room();
 
                                                             textView13.setText("");
-                                                            releaseDispatcher();
+
 
                                                             databaseReference.child("URL").child("room" + tmp).child("url_2").child("scores").setValue(""+score);
                                                             databaseReference.child("URL").child("room" + num).child("url_2").child("music_finish").setValue("true");
@@ -1016,15 +1016,7 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
 
 
 
-    public void releaseDispatcher()
-    {
-        if(dispatcher2 != null)
-        {
-            if(!dispatcher2.isStopped())
-                dispatcher2.stop();
-            dispatcher2 = null;
-        }
-    }
+
 
     public void processPitch(float pitchInHz) {
         correc_count++;
