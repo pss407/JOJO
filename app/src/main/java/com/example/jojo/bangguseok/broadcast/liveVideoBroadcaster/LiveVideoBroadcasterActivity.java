@@ -244,12 +244,10 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
     float pitchInHz_tmp;
     String tmp2="";
 
-    int score=0;
-    int correc_count=-1;
-    Thread audioThread2;
 
-    String score1;
-    String score2;
+
+
+
     String vote1;
     String vote2;
 
@@ -494,19 +492,12 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
                                             am.setMicrophoneMute(true);
 
 
-
-                                           // databaseReference.child("URL").child("room" + tmp).child("url_1").child("score").setValue(score_tmp);
-                                           // databaseReference2.child("URL").child("room" + tmp).child("url_1").child("scores").setValue("");
-
-
-
-
                                             Handler delayHandler6 = new Handler();
                                             delayHandler6.postDelayed(new Runnable() {
                                                 @Override
                                                 public void run() {
 
-                                                    databaseReference.child("URL").child("room" + tmp).child("url_1").child("scores").setValue(""+score);
+
                                                     databaseReference.child("URL").child("room" + tmp).child("url_1").child("music_finish").setValue("true");
                                                 }
                                             }, 7000);   //나보다 상대는 조금 늦게 노래가끝나기때문에 딜레이를 줌
@@ -574,8 +565,6 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
 
                                                             textView13.setText("");
 
-
-                                                            databaseReference.child("URL").child("room" + tmp).child("url_2").child("scores").setValue(""+score);
                                                             databaseReference.child("URL").child("room" + num).child("url_2").child("music_finish").setValue("true");
 
 
@@ -686,37 +675,22 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
                                           for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                                               String key = postSnapshot.getKey();
                                               FirebasePost_url get = postSnapshot.getValue(FirebasePost_url.class);
-                                              String[] info = { get.vote, get.scores};
+                                              String[] info = { get.vote};
                                               if(count==1)
                                               {
-                                                  score1=info[1];
                                                   vote1=info[0];
                                               }
 
                                               if(count==2)
                                               {
-                                                  score2=info[1];
                                                   vote2=info[0];
-                                                  if(vote_tmp>Integer.parseInt(info[0]))
-                                                  {
-                                                     // winner="1";
-                                                  }
-                                                  else if(vote_tmp<Integer.parseInt(info[0]))
-                                                  {
-                                                     // winner="2";
-                                                  }
-
                                               }
 
-                                              vote_tmp=Integer.parseInt(info[0]);
                                               count++;
 
                                           }
 
-
                                       }
-
-
                                       @Override
                                       public void onCancelled(DatabaseError databaseError) {
                                           Log.w("getFirebaseDatabase", "loadPost:onCancelled", databaseError.toException());
@@ -736,56 +710,30 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
                                   delayHandler7.postDelayed(new Runnable() {
                                       @Override
                                       public void run() {
-                                          double score1_int=Integer.parseInt(score1);
-                                          double score2_int=Integer.parseInt(score2);
                                           int vote1_int=Integer.parseInt(vote1);
                                           int vote2_int=Integer.parseInt(vote2);
-
-                                          //점수 계산
-                                          int real_score1=(int)(score1_int/(score1_int+score2_int)*100);
-                                          int real_score2=(int)(score2_int/(score1_int+score2_int)*100);
-
 
 
                                           if(vote1_int==vote2_int) //투표 같을 때
                                           {
-                                              if(score1_int>score2_int)
-                                              {
-                                                  builder.setTitle("").setMessage(" 1번 채점: "+real_score1+ "점 ,  1번 투표: "+vote1+" \n 2번 채점: "+real_score2+"점  , 2번 투표: "+vote2+" \n\n 1번 우승 입니다! 7초 후에 방을 나갑니다.");
-                                                  winner="1";
-                                              }
-                                             else
-                                              {
-                                                  builder.setTitle("").setMessage(" 1번 채점: "+real_score1+ "점 ,  1번 투표: "+vote1+" \n 2번 채점: "+real_score2+"점  , 2번 투표: "+vote2+" \n\n 2번 우승 입니다! 7초 후에 방을 나갑니다.");
-                                                  winner="2";
-                                              }
+
+                                                  builder.setTitle("").setMessage(" 1번 투표: "+vote1+" \n 2번 투표: "+vote2+" \n\n 무승부 입니다! 7초 후에 방을 나갑니다.");
+                                                  winner="";
+
                                           }
                                           else if(vote1_int>vote2_int)  //1번 투표수가더많을때
                                           {
-                                              if(score1_int>score2_int)
-                                              {
-                                                  builder.setTitle("").setMessage(" 1번 채점: "+real_score1+ "점 ,  1번 투표: "+vote1+" \n 2번 채점: "+real_score2+"점  , 2번 투표: "+vote2+" \n\n 1번 우승 입니다! 7초 후에 방을 나갑니다.");
+
+                                                  builder.setTitle("").setMessage(" 1번 투표: "+vote1+" \n 2번 투표: "+vote2+" \n\n 1번 우승 입니다! 7초 후에 방을 나갑니다.");
                                                   winner="1";
-                                              }
-                                              else
-                                              {
-                                                  builder.setTitle("").setMessage(" 1번 채점: "+real_score1+ "점 ,  1번 투표: "+vote1+" \n 2번 채점: "+real_score2+"점  , 2번 투표: "+vote2+" \n\n 무승부 입니다! 7초 후에 방을 나갑니다.");
-                                                  winner="";
-                                              }
 
                                           }
-                                          else if(vote1_int<vote2_int)  //2번 투표수가 더 많을 때
+                                          else   //2번 투표수가 더 많을 때
                                           {
-                                              if(score1_int>score2_int)
-                                              {
-                                                  builder.setTitle("").setMessage(" 1번 채점: "+real_score1+ "점 ,  1번 투표: "+vote1+" \n 2번 채점: "+real_score2+"점  , 2번 투표: "+vote2+" \n\n 무승부 입니다! 7초 후에 방을 나갑니다.");
-                                                  winner="";
-                                              }
-                                              else
-                                              {
-                                                  builder.setTitle("").setMessage(" 1번 채점: "+real_score1+ "점 ,  1번 투표: "+vote1+" \n 2번 채점: "+real_score2+"점  , 2번 투표: "+vote2+" \n\n 무승부 입니다! 7초 후에 방을 나갑니다.");
+
+                                                  builder.setTitle("").setMessage(" 1번 투표: "+vote1+" \n 2번 투표: "+vote2+" \n\n 2번 우승 입니다! 7초 후에 방을 나갑니다.");
                                                   winner="2";
-                                              }
+
                                           }
 
                                             //  builder.setTitle("").setMessage("수고하셨습니다. 우승자는 " +winner+ "번 입니다. 7초 후에 방을 나갑니다.");
@@ -1013,152 +961,6 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
         });
     }
 
-
-
-
-
-
-    public void processPitch(float pitchInHz) {
-        correc_count++;
-
-        //pitchText.setText("" + pitchInHz);
-        char pitch='3';
-        if(correc.length()-10>correc_count)
-        {
-            pitch = correc.charAt(correc_count);
-        }
-
-        tmp2+="1";
-        if(pitchInHz >= 125&&pitchInHz < 137) {
-            //A
-            if(pitch=='a')
-            {
-                score++;
-
-            }
-
-
-        }
-        else if(pitchInHz >= 144&& pitchInHz < 153) {
-            //B
-            if(pitch=='b')
-            {
-                score++;
-
-            }
-
-        }
-        else if(pitchInHz >= 160 && pitchInHz < 170) {
-            //C
-            if(pitch=='c')
-            {
-                score++;
-
-            }
-
-        }
-        else if(pitchInHz >= 171 && pitchInHz < 180) {
-            //D
-            if(pitch=='d')
-            {
-                score++;
-
-            }
-
-        }
-        else if(pitchInHz >= 190 && pitchInHz <=203) {
-            //E
-            if(pitch=='e')
-            {
-                score++;
-
-            }
-
-        }
-        else if(pitchInHz >= 215 && pitchInHz < 230) {
-            //F
-            if(pitch=='f')
-            {
-                score++;
-
-            }
-
-        }
-        else if(pitchInHz >= 243 && pitchInHz < 253) {
-            //G
-            if(pitch=='g')
-            {
-                score++;
-
-            }
-
-        }
-        else if(pitchInHz >= 254 && pitchInHz < 280) {
-            //G
-            if(pitch=='A')
-            {
-                score++;
-
-            }
-
-        }
-        else if(pitchInHz >= 285 && pitchInHz <308) {
-            //G
-            if(pitch=='B')
-            {
-                score++;
-
-            }
-
-        }
-        else if(pitchInHz >= 327 && pitchInHz < 340) {
-            //G
-
-            if(pitch=='C')
-            {
-                score++;
-
-            }
-        }
-        else if(pitchInHz >= 343 && pitchInHz < 362) {
-            //G
-
-            if(pitch=='D')
-            {
-                score++;
-
-            }
-        }
-        else if(pitchInHz >= 386 && pitchInHz < 399) {
-            //G
-
-            if(pitch=='E')
-            {
-                score++;
-
-            }
-        }
-        else if(pitchInHz >= 435 && pitchInHz < 448) {
-            //G
-
-            if(pitch=='F')
-            {
-                score++;
-
-            }
-        }
-        else if(pitchInHz >= 490 ) {
-            //G
-            if(pitch=='G')
-            {
-                score++;
-
-            }
-
-        }
-
-
-    }
 
     public void changeCamera(View v) {
         if (mLiveVideoBroadcaster != null) {
