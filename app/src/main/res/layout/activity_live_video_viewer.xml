@@ -150,7 +150,7 @@
             android:onClick="room_exit"
             android:text="방나가기"
             android:textAppearance="?android:textAppearanceMedium"
-            android:textColor="@android:color/white"
+            android:textColor="@android:color/transparent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

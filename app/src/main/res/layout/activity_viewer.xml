@@ -30,7 +30,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <ListView
-        android:id="@+id/chat_list"
+        android:id="@+id/room_list"
         android:fontFamily="@font/bm"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

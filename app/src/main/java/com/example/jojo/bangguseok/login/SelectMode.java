@@ -396,8 +396,6 @@ public class SelectMode extends AppCompatActivity {
                         };
 
 
-
-
                         String value = "room" + num;
                         // String sort_column_name = "get_url";
                         sortby = FirebaseDatabase.getInstance().getReference().child("URL").child(value);
@@ -587,10 +585,6 @@ public class SelectMode extends AppCompatActivity {
 
             }
         }, 3000);
-
-
-
-
     }
 
     public void music_play(){

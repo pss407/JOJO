@@ -29,7 +29,7 @@ import java.util.StringTokenizer;
 
 public class ViewerActivity extends AppCompatActivity {
 
-    private ListView chat_list;
+    private ListView room_list;
 
     private int channel_count=2;
 
@@ -46,11 +46,11 @@ public class ViewerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_viewer);
 
 
-        chat_list = (ListView) findViewById(R.id.chat_list);
+        room_list = (ListView) findViewById(R.id.room_list);
 
         showChatList();
 
-        chat_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        room_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView parent, View v, int position, long id) {
 
@@ -84,8 +84,6 @@ public class ViewerActivity extends AppCompatActivity {
                                 FirebasePost_url get = postSnapshot.getValue(FirebasePost_url.class);
                                 String[] info = {get.check, get.send_url, get.get_url, get.num};
 
-
-
                                 com.example.jojo.bangguseok.login.MyApplication myApp = (com.example.jojo.bangguseok.login.MyApplication) getApplicationContext();
 
                                 if (strText.equals("room"+info[3])) {
@@ -98,16 +96,10 @@ public class ViewerActivity extends AppCompatActivity {
                                     {
                                         myApp.setGet_url(info[2]);
                                     }
-
                                     count++;
-
                                 }
-
                             }
-
-
                         }
-
 
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
@@ -122,8 +114,6 @@ public class ViewerActivity extends AppCompatActivity {
                     Query sortbyAge = FirebaseDatabase.getInstance().getReference().child("URL").child(value);
                     // sortbyAge.addValueEventListener(postListener);
                     sortbyAge.addListenerForSingleValueEvent(postListener);
-
-
                 }
 
 ////////////////////////////////////
@@ -149,7 +139,7 @@ public class ViewerActivity extends AppCompatActivity {
 
         // 리스트 어댑터 생성 및 세팅
         final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.musiclist);
-        chat_list.setAdapter(adapter);
+        room_list.setAdapter(adapter);
 
         // 데이터 받아오기 및 어댑터 데이터 추가 및 삭제 등..리스너 관리
         myRef.child("chat").addChildEventListener(new ChildEventListener() {
