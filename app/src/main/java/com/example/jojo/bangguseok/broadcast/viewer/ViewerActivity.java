@@ -35,16 +35,8 @@ public class ViewerActivity extends AppCompatActivity {
 
     String strText;
 
-
-    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-    private DatabaseReference databaseReference = firebaseDatabase.getReference();
-
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     final DatabaseReference myRef = database.getReference();
-
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
