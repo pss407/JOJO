@@ -26,8 +26,7 @@
         <activity android:name=".broadcast.marking_test"></activity>
         <activity android:name=".broadcast.marking" />
         <activity android:name=".music_lists" />
-        <activity android:name=".login.MainActivity"
-            android:windowSoftInputMode="stateVisible|adjustPan">
+        <activity android:name=".login.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
