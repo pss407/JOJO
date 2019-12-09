@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -548,43 +547,16 @@ public class SelectMode extends AppCompatActivity {
 
         music_play();
 
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-        builder.setTitle("투표를 해주세요").setMessage("");
-
-        builder.setPositiveButton("2번", new DialogInterface.OnClickListener(){
-            @Override
-            public void onClick(DialogInterface dialog, int id)
-            {
-                Toast.makeText(getApplicationContext(), "2번", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        builder.setNeutralButton("1번", new DialogInterface.OnClickListener(){
-            @Override
-            public void onClick(DialogInterface dialog, int id)
-            {
-                Toast.makeText(getApplicationContext(), "1번", Toast.LENGTH_SHORT).show();
-            }
-        });
-        alertDialog = builder.create();
-
-        alertDialog.show();
-
         Handler delayHandler6 = new Handler();
         delayHandler6.postDelayed(new Runnable() {
             @Override
             public void run() {
 
-                alertDialog.cancel();
-
-                Toast toast = Toast.makeText(getApplicationContext(), "투표가 마감되었습니다.", Toast.LENGTH_LONG);
-                toast.setGravity(Gravity.CENTER , 0, 0);
-                toast.show();
+           music_stop();
 
             }
-        }, 3000);
+        }, 20000);   //이거 나중에 바꾸기
+
     }
 
     public void music_play(){

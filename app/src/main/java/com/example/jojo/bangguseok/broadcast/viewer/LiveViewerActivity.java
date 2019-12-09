@@ -2,19 +2,14 @@ package com.example.jojo.bangguseok.broadcast.viewer;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.media.Image;
-import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -475,6 +470,7 @@ public class LiveViewerActivity extends AppCompatActivity {
 
         View stream_view2 = (View)this.findViewById(R.id.stream_view2);
         int a=stream_view2.getWidth();
+        int b=stream_view2.getHeight();
 
         RelativeLayout.LayoutParams videoviewlp = new RelativeLayout.LayoutParams(a/2, 500);
         videoviewlp.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE);
