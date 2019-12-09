@@ -97,14 +97,14 @@
         <ListView
             android:id="@+id/chat_list2"
             android:layout_width="wrap_content"
-            android:layout_height="150dp"
-            android:layout_marginTop="50dp"
+            android:layout_height="180dp"
+            android:layout_marginTop="72dp"
             android:transcriptMode="alwaysScroll"
-            app:layout_constraintVertical_weight="50"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_weight="50"/>
 
         <EditText
             android:id="@+id/chat_message2"
@@ -119,7 +119,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/bnt_send2"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/listView"
+            app:layout_constraintTop_toBottomOf="@+id/chat_list2"
             android:backgroundTint="@android:color/white"
             android:textColor="@android:color/white"
             android:textColorHint="@android:color/white"/>
@@ -128,18 +128,17 @@
             android:id="@+id/bnt_send2"
             android:layout_width="@dimen/_25sdp"
             android:layout_height="@dimen/_25sdp"
-            android:layout_marginBottom="52dp"
+            android:layout_marginBottom="40dp"
             android:background="@android:color/transparent"
             android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/chat_message2"
-            app:layout_constraintTop_toBottomOf="@+id/listView"
+            app:layout_constraintTop_toBottomOf="@+id/chat_list2"
             app:srcCompat="@drawable/ic_send_24px" />
 
         <Button
-            android:id="@+id/toggle_broadcasting"
-            style="@style/Base.Widget.AppCompat.Button.Colored"
+            android:id="@+id/toggle_broadcasting2"
             android:layout_width="wrap_content"
             android:layout_height="44dp"
             android:layout_gravity="center_horizontal"
