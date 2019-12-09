@@ -305,6 +305,20 @@ public class SelectMode extends AppCompatActivity {
                 progressDialog.show();
 
 
+                com.example.jojo.bangguseok.login.MyApplication myApp = (com.example.jojo.bangguseok.login.MyApplication) getApplicationContext();
+                myApp.setSend_url(send_url);
+                myApp.setGet_url(get_url);
+                myApp.setUrl_room(num);
+
+                MyApplication myApp3 = (MyApplication)getApplicationContext();
+                String num3= myApp3.getUrl_room();
+                tmp=num3;
+
+                //노래제목 url db에 넣기
+                MyApplication myApp9 = (MyApplication)getApplicationContext();
+                String music_title_tmp=myApp9.getMusic_title();
+
+                databaseReference.child("URL").child("room" + tmp).child("url_"+myApp9.getOrder()).child("music_title").setValue(music_title_tmp);
 
 
                 if(!num.equals(""))
@@ -319,21 +333,9 @@ public class SelectMode extends AppCompatActivity {
 
                 if(send_url.length()>3)  //url잘 받아왔으면 그다음 진행
                 {
-                    com.example.jojo.bangguseok.login.MyApplication myApp = (com.example.jojo.bangguseok.login.MyApplication) getApplicationContext();
-                    myApp.setSend_url(send_url);
-                    myApp.setGet_url(get_url);
-                    myApp.setUrl_room(num);
 
 
-                    MyApplication myApp3 = (MyApplication)getApplicationContext();
-                    String num3= myApp3.getUrl_room();
-                    tmp=num3;
 
-                    //노래제목 url db에 넣기
-                    MyApplication myApp9 = (MyApplication)getApplicationContext();
-                    String music_title_tmp=myApp9.getMusic_title();
-
-                    databaseReference.child("URL").child("room" + tmp).child("url_"+myApp9.getOrder()).child("music_title").setValue(music_title_tmp);
 
                     ///
 

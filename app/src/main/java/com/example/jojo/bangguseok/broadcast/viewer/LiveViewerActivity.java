@@ -472,7 +472,7 @@ public class LiveViewerActivity extends AppCompatActivity {
         int a=stream_view2.getWidth();
         int b=stream_view2.getHeight();
 
-        RelativeLayout.LayoutParams videoviewlp = new RelativeLayout.LayoutParams(a/2, 500);
+        RelativeLayout.LayoutParams videoviewlp = new RelativeLayout.LayoutParams(a/2, b);
         videoviewlp.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE);
         // videoviewlp.alignWithParent=true;
         //videoviewlp.addRule(RelativeLayout.CENTER_VERTICAL, RelativeLayout.TRUE);
@@ -480,7 +480,7 @@ public class LiveViewerActivity extends AppCompatActivity {
         videoView.invalidate();
 
 
-        RelativeLayout.LayoutParams videoviewlp2 = new RelativeLayout.LayoutParams(a/2, 500);
+        RelativeLayout.LayoutParams videoviewlp2 = new RelativeLayout.LayoutParams(a/2, b);
         videoviewlp2.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE);
         // videoviewlp2.addRule(RelativeLayout.CENTER_VERTICAL, RelativeLayout.TRUE);
 
