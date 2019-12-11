@@ -162,6 +162,8 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
 
     String correc="";
 
+    boolean postListener2_finish=false;
+
     public static final String PREFER_EXTENSION_DECODERS = "prefer_extension_decoders";
 
     private static final DefaultBandwidthMeter BANDWIDTH_METER = new DefaultBandwidthMeter();
@@ -532,8 +534,9 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
 
 
 
-                                if(count==1&&info[0].equals("true"))
+                                if(count==1&&info[0].equals("true")&&postListener2_finish==false)
                                 {
+                                    postListener2_finish=true;
                                     Toast toast4 = Toast.makeText(getApplicationContext(), "상대방의 노래가 끝났습니다. 5초뒤에 자신의 노래가 시작됩니다.", Toast.LENGTH_LONG);
                                     toast4.setGravity(Gravity.CENTER , 0, 0);
                                     toast4.show();
@@ -1711,6 +1714,8 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
         videoStartControlLayout.setVisibility(View.GONE);
     }
 
+
+
     @Override
     protected void onDestroy() {
 
@@ -1750,4 +1755,10 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
         super.onDestroy();
 
     }
+
+
+    @Override public void onBackPressed() { } //뒤로가기 막음
+    
+
+
 }

@@ -64,6 +64,7 @@ public class SelectMode extends AppCompatActivity {
     ValueEventListener postListener;
     ValueEventListener postListener2;
     ValueEventListener postListener3;
+    ValueEventListener   postListener7;
 
     Query sortbyAge;
 
@@ -89,6 +90,9 @@ public class SelectMode extends AppCompatActivity {
     TextView Id;
     TextView Exp;
 
+    boolean postListener2_using=false;
+
+    String lock1="false";
     Intent t;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,8 +132,59 @@ public class SelectMode extends AppCompatActivity {
         Tier.setText("티어:"+tier);
         Id.setText("아이디:"+name);
         Exp.setText("경험치:"+ exper+"%");
+
+
+
+
+
+
+
+                postListener7 = new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+
+                        int count = 1;
+
+
+                        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                            String key = postSnapshot.getKey();
+                            FirebasePost_lock get = postSnapshot.getValue(FirebasePost_lock.class);
+                            String[] info = {get.lock1};
+                            lock1=info[0];
+
+                        }
+
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.w("getFirebaseDatabase", "loadPost:onCancelled", databaseError.toException());
+
+                    }
+                };
+
+
+                //채널 늘리면 room에 숫자 증가시키며 더하면됨
+                // String sort_column_name = "get_url";
+                sortbyAge = FirebaseDatabase.getInstance().getReference().child("lock");
+                // sortbyAge.addValueEventListener(postListener);
+                sortbyAge.addValueEventListener(postListener7);
+
+
+
+
+
+
+
+
+
+
+
+
     }
 //
+
+
     public void onButton5Clicked(View view)
     {
 
@@ -152,6 +207,14 @@ public class SelectMode extends AppCompatActivity {
         isUrl_1=false;
 
         //마치 listener가 쓰레드식으로 여러개가 실행됨
+
+
+        while(lock1.equals(true))
+        {
+           int count=0;
+        }
+
+        databaseReference.child("lock").child("lock1").child("lock1").setValue("true");
 
 
         //이미 대기하고있는 방채널 있으면 합류하기
@@ -192,17 +255,12 @@ public class SelectMode extends AppCompatActivity {
                                     isUrl_1=false;
                                     MyApplication myApp = (MyApplication)getApplicationContext(); //노래 순서 두번째 할당
                                     myApp.setOrder("2");
-
-
-
+                                    databaseReference.child("lock").child("lock1").child("lock1").setValue("false");
                                 }
                             }
 
                         }
-
-
                     }
-
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
@@ -266,6 +324,7 @@ public class SelectMode extends AppCompatActivity {
                                         MyApplication myApp = (MyApplication)getApplicationContext();
                                         myApp.setOrder("1");
 
+                                        databaseReference.child("lock").child("lock1").child("lock1").setValue("false");
 
                                             break;
                                     }
@@ -301,6 +360,7 @@ public class SelectMode extends AppCompatActivity {
         delayHandler4.postDelayed(new Runnable() {
             @Override
             public void run() {
+
 
 
                 final ProgressDialog progressDialog = new ProgressDialog(SelectMode.this);
@@ -359,6 +419,8 @@ public class SelectMode extends AppCompatActivity {
                                     FirebasePost_url get = postSnapshot.getValue(FirebasePost_url.class);
                                     String[] info = {get.check, get.music_title};
 
+                                    postListener2_using=true;
+
                                     if(count==1)
                                     {
                                         music_title1=info[1];
@@ -408,6 +470,7 @@ public class SelectMode extends AppCompatActivity {
                         sortby.addValueEventListener(postListener2);
 
 
+
                     }
                     else
                     {
@@ -423,6 +486,8 @@ public class SelectMode extends AppCompatActivity {
                                     String key = postSnapshot.getKey();
                                     FirebasePost_url get = postSnapshot.getValue(FirebasePost_url.class);
                                     String[] info = {get.check, get.music_title};
+
+                                    postListener2_using=true;
 
                                     if(count==1)
                                     {
@@ -456,6 +521,7 @@ public class SelectMode extends AppCompatActivity {
 
                                 }
 
+
                             }
                             @Override
                             public void onCancelled(DatabaseError databaseError) {
@@ -473,6 +539,7 @@ public class SelectMode extends AppCompatActivity {
                         // sortbyAge.addValueEventListener(postListener);
                         sortby.addValueEventListener(postListener2);
 
+
                     }
 
 
@@ -482,6 +549,8 @@ public class SelectMode extends AppCompatActivity {
                     delayHandler6.postDelayed(new Runnable() {
                         @Override
                         public void run() {
+
+                            postListener2_using=false;
 
                             sortby.removeEventListener(postListener2);   //리스너 그만 대기하고 정지시키기
 
@@ -533,6 +602,10 @@ public class SelectMode extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
 
     public void  music_choice(View view) {
 
@@ -735,6 +808,8 @@ public class SelectMode extends AppCompatActivity {
             databaseReference.child("id_list").child(myApp.getname()).child("using").setValue("false");
 
         }
+
+        sortbyAge.removeEventListener(postListener7);
 
          music_stop();
 
