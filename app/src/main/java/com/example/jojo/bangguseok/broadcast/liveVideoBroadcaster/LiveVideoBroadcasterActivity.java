@@ -1758,7 +1758,7 @@ public class LiveVideoBroadcasterActivity extends AppCompatActivity implements V
 
 
     @Override public void onBackPressed() { } //뒤로가기 막음
-    
+
 
 
 }

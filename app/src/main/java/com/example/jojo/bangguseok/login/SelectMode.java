@@ -24,12 +24,15 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.example.jojo.bangguseok.R;
 import com.example.jojo.bangguseok.broadcast.liveVideoBroadcaster.LiveVideoBroadcasterActivity;
 import com.example.jojo.bangguseok.broadcast.viewer.ViewerActivity;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+
+import org.w3c.dom.Comment;
 
 //import com.bumptech.glide.Glide;
 ////
@@ -67,6 +70,7 @@ public class SelectMode extends AppCompatActivity {
     ValueEventListener   postListener7;
 
     Query sortbyAge;
+    Query sortbyAge2;
 
     AlertDialog alertDialog;
 
@@ -139,9 +143,11 @@ public class SelectMode extends AppCompatActivity {
 
 
 
+
                 postListener7 = new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
+
 
 
                         int count = 1;
@@ -152,30 +158,25 @@ public class SelectMode extends AppCompatActivity {
                             FirebasePost_lock get = postSnapshot.getValue(FirebasePost_lock.class);
                             String[] info = {get.lock1};
                             lock1=info[0];
-
                         }
 
+
+                        // ...
                     }
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
                         Log.w("getFirebaseDatabase", "loadPost:onCancelled", databaseError.toException());
 
                     }
+
                 };
 
 
                 //채널 늘리면 room에 숫자 증가시키며 더하면됨
                 // String sort_column_name = "get_url";
-                sortbyAge = FirebaseDatabase.getInstance().getReference().child("lock");
+                sortbyAge2 = FirebaseDatabase.getInstance().getReference().child("lock");
                 // sortbyAge.addValueEventListener(postListener);
-                sortbyAge.addValueEventListener(postListener7);
-
-
-
-
-
-
-
+                sortbyAge2.addValueEventListener(postListener7);
 
 
 
@@ -206,14 +207,33 @@ public class SelectMode extends AppCompatActivity {
 
         isUrl_1=false;
 
-        //마치 listener가 쓰레드식으로 여러개가 실행됨
 
 
-        while(lock1.equals(true))
+
+        if(lock1.equals("true"))
         {
-           int count=0;
+
+            Handler delayHandler6 = new Handler();
+            delayHandler6.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+
+                    func();
+
+                }
+            }, 1500);   //이거 나중에 바꾸기
+        }
+        else
+        {
+            func();
         }
 
+
+
+    }
+
+    public void func()
+    {
         databaseReference.child("lock").child("lock1").child("lock1").setValue("true");
 
 
@@ -224,59 +244,59 @@ public class SelectMode extends AppCompatActivity {
 
             if(!send_url.equals(""))  //이건 유저가 많을 때 효과있는듯 함 (for문 도는동안 여러 listener가 거의 동시에 실행됨)
             {
-               break;
+                break;
             }
 
 
-                postListener = new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
+            postListener = new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
 
 
-                        int count = 1;
+                    int count = 1;
 
 
-                        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                            String key = postSnapshot.getKey();
-                            FirebasePost_url get = postSnapshot.getValue(FirebasePost_url.class);
-                            String[] info = {get.check, get.send_url, get.get_url,get.num};
+                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                        String key = postSnapshot.getKey();
+                        FirebasePost_url get = postSnapshot.getValue(FirebasePost_url.class);
+                        String[] info = {get.check, get.send_url, get.get_url,get.num};
 
 
-                            if (info[0].equals("true")) {
-                                count++;
+                        if (info[0].equals("true")) {
+                            count++;
 
-                            } else {
-                                if (count == 2) //첫번째 url이 true이고 두번째 url이 false인 경우 할당하기
-                                {
+                        } else {
+                            if (count == 2) //첫번째 url이 true이고 두번째 url이 false인 경우 할당하기
+                            {
 
-                                    send_url = info[1];
-                                    get_url = info[2];
-                                    num = info[3];
-                                    isUrl_1=false;
-                                    MyApplication myApp = (MyApplication)getApplicationContext(); //노래 순서 두번째 할당
-                                    myApp.setOrder("2");
-                                    databaseReference.child("lock").child("lock1").child("lock1").setValue("false");
-                                }
+                                send_url = info[1];
+                                get_url = info[2];
+                                num = info[3];
+                                isUrl_1=false;
+                                MyApplication myApp = (MyApplication)getApplicationContext(); //노래 순서 두번째 할당
+                                myApp.setOrder("2");
+                                databaseReference.child("lock").child("lock1").child("lock1").setValue("false");
                             }
-
                         }
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        Log.w("getFirebaseDatabase", "loadPost:onCancelled", databaseError.toException());
 
                     }
-                };
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Log.w("getFirebaseDatabase", "loadPost:onCancelled", databaseError.toException());
+
+                }
+            };
 
 
 
-                    //채널 늘리면 room에 숫자 증가시키며 더하면됨
-                String value = "room" + i; //room번호 증가시키며 탐색
-                // String sort_column_name = "get_url";
-                sortbyAge = FirebaseDatabase.getInstance().getReference().child("URL").child(value);
-                // sortbyAge.addValueEventListener(postListener);
-                sortbyAge.addListenerForSingleValueEvent(postListener);
+            //채널 늘리면 room에 숫자 증가시키며 더하면됨
+            String value = "room" + i; //room번호 증가시키며 탐색
+            // String sort_column_name = "get_url";
+            sortbyAge = FirebaseDatabase.getInstance().getReference().child("URL").child(value);
+            // sortbyAge.addValueEventListener(postListener);
+            sortbyAge.addListenerForSingleValueEvent(postListener);
 
 
 
@@ -284,7 +304,7 @@ public class SelectMode extends AppCompatActivity {
         }
 
 
-  //대기방 있는 지 탐색후에 0.8초후에 방 만들기
+        //대기방 있는 지 탐색후에 0.8초후에 방 만들기
 
         Handler delayHandler3 = new Handler();
         delayHandler3.postDelayed(new Runnable() {
@@ -317,16 +337,16 @@ public class SelectMode extends AppCompatActivity {
 
                                     if (info[0].equals("false")) {
 
-                                            send_url = info[1];
-                                            get_url = info[2];
-                                            num = info[3];
-                                            isUrl_1=true;
+                                        send_url = info[1];
+                                        get_url = info[2];
+                                        num = info[3];
+                                        isUrl_1=true;
                                         MyApplication myApp = (MyApplication)getApplicationContext();
                                         myApp.setOrder("1");
 
                                         databaseReference.child("lock").child("lock1").child("lock1").setValue("false");
 
-                                            break;
+                                        break;
                                     }
 
                                 }
@@ -355,7 +375,7 @@ public class SelectMode extends AppCompatActivity {
         }, 800);
 
 
-          //채널을 할당받았음.
+        //채널을 할당받았음.
         Handler delayHandler4 = new Handler();
         delayHandler4.postDelayed(new Runnable() {
             @Override
@@ -444,7 +464,7 @@ public class SelectMode extends AppCompatActivity {
                                             listener2_stop="true";
 
                                             startActivity(t);
-                                           // databaseReference.child("chat").child("room" + num+" "+music_title1+" "+music_title2).setValue("");
+                                            // databaseReference.child("chat").child("room" + num+" "+music_title1+" "+music_title2).setValue("");
 
 
                                         }
@@ -599,6 +619,7 @@ public class SelectMode extends AppCompatActivity {
         startActivity(i);
 
  */
+
 
     }
 
@@ -809,7 +830,7 @@ public class SelectMode extends AppCompatActivity {
 
         }
 
-        sortbyAge.removeEventListener(postListener7);
+        sortbyAge2.removeEventListener(postListener7);
 
          music_stop();
 
