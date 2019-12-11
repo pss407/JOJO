@@ -85,6 +85,10 @@ public class SelectMode extends AppCompatActivity {
     String music_title1;
     String music_title2;
 
+    TextView Tier;
+    TextView Id;
+    TextView Exp;
+
     Intent t;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,9 +110,9 @@ public class SelectMode extends AppCompatActivity {
         t.putExtra("id", myApp2.getname());
 
 
-        TextView Tier = (TextView)findViewById(R.id.Tier);
-        TextView Id = (TextView)findViewById(R.id.Id);
-        TextView Exp = (TextView)findViewById(R.id.Exp);
+        Tier = (TextView)findViewById(R.id.Tier);
+        Id = (TextView)findViewById(R.id.Id);
+        Exp = (TextView)findViewById(R.id.Exp);
 
 
         int exper = Integer.parseInt(myApp2.getExperience());
@@ -634,6 +638,76 @@ public class SelectMode extends AppCompatActivity {
         i=0;
         isUrl_1=true;
         listener2_stop="false";
+
+
+
+        ValueEventListener postListener4 = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+
+                int count = 1;
+
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    String key = postSnapshot.getKey();
+                    FirebasePost get = postSnapshot.getValue(FirebasePost.class);
+                    String[] info = {get.id,get.experience};
+
+                    MyApplication myApp10 = (MyApplication)getApplicationContext();
+                    if(myApp10.getname().equals(info[0]))
+                    {
+                     myApp10.setExperience(info[1]);
+
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w("getFirebaseDatabase", "loadPost:onCancelled", databaseError.toException());
+
+            }
+        };
+
+        String sort_column_name = "id";
+        Query sortbyAge = FirebaseDatabase.getInstance().getReference().child("id_list").orderByChild(sort_column_name);
+        // sortbyAge.addValueEventListener(postListener);
+        sortbyAge.addListenerForSingleValueEvent(postListener4);
+
+
+
+        Handler delayHandler6 = new Handler();
+        delayHandler6.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                MyApplication myApp5 = (MyApplication)getApplicationContext();
+                int exper = Integer.parseInt(myApp5.getExperience());
+                int exper_tier= exper/100;
+                exper = exper%100;
+
+                if(exper_tier==0)tier="Bronze";
+                else if(exper_tier==1)tier="Silver";
+                else if(exper_tier==2)tier="Gold";
+                else if(exper_tier==3)tier="Platinum";
+                else tier="Master";
+
+                Tier.setText("티어:"+tier);
+                Exp.setText("경험치:"+ exper+"%");
+
+            }
+        }, 1500);   //이거 나중에 바꾸기
+
+
+
+
+
+
+
+
+
+
 
     }
 

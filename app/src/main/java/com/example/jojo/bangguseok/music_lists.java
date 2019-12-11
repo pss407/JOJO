@@ -125,17 +125,12 @@ public class music_lists extends AppCompatActivity {
 
 
             }
-        }, 1000);   //이거 나중에 바꾸기
-
-
-
-
-
+        }, 1500);   //이거 나중에 바꾸기
 
 
     }
 
-
+/*
     public void music_play(){
 
         MediaPlayer mediaplayer = new MediaPlayer();
@@ -190,5 +185,5 @@ public class music_lists extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-
+*/
 }
