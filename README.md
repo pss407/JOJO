@@ -35,3 +35,7 @@
 > 메인에서 노래선택 버튼 클릭 후 노래목록 화면
 
 <img src="https://user-images.githubusercontent.com/44769544/75880580-e6c89d80-5e60-11ea-952a-9cfc87943448.jpg" width="350" height="700">
+
+> 대결 및 채팅 화면
+
+<img src="https://user-images.githubusercontent.com/44769544/83383355-e4ee8600-a41f-11ea-99fa-bd650f4ac2e2.png" width="350" height="700">
