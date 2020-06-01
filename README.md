@@ -8,6 +8,14 @@
 
 ![개발동기](https://user-images.githubusercontent.com/44769544/83380119-18c5ad80-a418-11ea-8be9-79072c53a9de.jpg)
 
+> 주요 기술
+
+![주요기술](https://user-images.githubusercontent.com/44769544/83380286-8b368d80-a418-11ea-8b81-f9f385515e4c.png)
+
+> 개발 내용
+
+![개발 내용](https://user-images.githubusercontent.com/44769544/83380364-b91bd200-a418-11ea-82a2-2c90a0a1a078.png)
+
 # 앱 실행 화면
 
 > 로그인 화면
